@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "event_id": "xdu-2026-fall",
-  "grand_prix_rounds": 5,
+  "grand_prix_rounds": 7,
   "tracks_per_gp": 6,
   "ai_enabled": false,
   "identity_mode": "offline_trusted_private",

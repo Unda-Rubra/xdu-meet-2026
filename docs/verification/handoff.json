@@ -14,7 +14,15 @@
   "implementation_scope": "Six tracks per Grand Prix, five Grand Prix, zero AI, fixed UUID groups, host controls, immutable capture and read-only archives",
   "local_regression_tests": 8,
   "rehearsal_scope": "Six real 26.2 offline clients with controlled native finish injection and real lifecycle/proxy/regrouping; not human-driven lap completion",
+  "owner_reported_pc_test": {
+    "functional_result": "passed",
+    "evidence_source": "deployment owner report",
+    "report": "I ran the test on a PC, and everything seems OK to proceed with.",
+    "hardware_details": null,
+    "participant_count": null,
+    "full_load_metrics_provided": false
+  },
   "full_event_release_approved": false,
-  "blocking_gate": "Target M4 Mac mini unavailable; fifty-player capacity and target-host operational acceptance unverified",
+  "blocking_gate": "Fifty-player capacity on the final event host remains unverified; the successful owner-reported PC test did not specify participant count or full-load measurements",
   "goal_complete": false
 }

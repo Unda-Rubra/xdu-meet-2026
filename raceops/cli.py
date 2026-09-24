@@ -1,4 +1,4 @@
-"""One-shot host control for three independently acknowledged race servers."""
+"""One-shot host control for two or three independently acknowledged race servers."""
 from __future__ import annotations
 
 import argparse
@@ -15,6 +15,7 @@ import uuid
 
 from .assets import ROOT
 from .exporter import export, verify_receipt
+from .event import MAX_ROUNDS, load_event, pinned_groups, pin_groups, race_services
 from .identity import validate_roster
 from .model import canonical_hash, identifier, make_plan
 from .transport import Backend
@@ -91,6 +92,26 @@ def require_same_attempt(states):
         raise ValueError("Servers disagree on event, round, attempt, preset, settings or roster")
 
 
+def select_backends(args):
+    if args.compat:
+        return [Backend("race", ROOT / "compat.compose.yaml", "xdu-compatibility")]
+    groups = pinned_groups()
+    if args.groups is not None:
+        if args.command not in {"status", "export"}:
+            raise ValueError("--groups only selects read-only status/export; use the round roster for racing")
+        groups = list("ABC"[:args.groups])
+    elif args.command == "preset":
+        roster_path = args.roster or ROOT / f"config/rosters/round-{args.round}.json"
+        roster = validate_roster(json.loads(roster_path.read_text()), load_event(), args.round)
+        configured = list(roster["groups"])
+        if configured != groups:
+            previous, errors = statuses([Backend(service) for service in race_services(sorted(set(groups + configured)))])
+            if errors or any(state["state"] != "IDLE" for state in previous.values()):
+                raise ValueError("Changing groups requires all previous and next backends reachable and IDLE; archive/reset first")
+            groups = configured
+    return [Backend(service) for service in race_services(groups)]
+
+
 def execute(args, backends):
     if args.command == "export":
         destination, manifest = export(backends, args.round, args.attempt)
@@ -110,11 +131,12 @@ def execute(args, backends):
     if args.command == "preset":
         if any(s["state"] != "IDLE" for s in states.values()):
             raise ValueError("preset requires every selected server IDLE; archive and explicitly reset first")
-        event = json.loads((ROOT / "config/event.yaml").read_text())
+        event = load_event()
         roster_path = args.roster or ROOT / f"config/rosters/round-{args.round}.json"
-        roster = validate_roster(json.loads(roster_path.read_text()), event["event_id"], args.round)
+        roster = validate_roster(json.loads(roster_path.read_text()), event, args.round)
         template = json.loads((ROOT / "template-world/xdu-template.json").read_text())
         attempt = identifier(args.attempt or f"gp{args.round}_{uuid.uuid4().hex}")
+        plans = []
         for backend in backends:
             group = args.group if args.compat else backend.service[-1].upper()
             plan = make_plan(event, roster, group, args.id, attempt, template)
@@ -122,6 +144,10 @@ def execute(args, backends):
             plan["settings_hash"] = canonical_hash(plan["settings_summary"])
             if not args.compat:
                 plan["provenance"] = backend.read("instance", "xdu_race:config")
+            plans.append((backend, plan))
+        if not args.compat:
+            pin_groups(list(roster["groups"]))
+        for backend, plan in plans:
             states[backend.service] = send(backend, "preset", states[backend.service], {"plan": plan})
     elif args.command == "start":
         require_same_attempt(states)
@@ -179,11 +205,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--compat", action="store_true", help="Use only the isolated compatibility race backend")
     parser.add_argument("--group", choices=("A", "B", "C"), default="A", help="Roster group for --compat")
+    parser.add_argument("--groups", type=int, choices=(2, 3), help="Read-only status/export group selection, including historical attempts")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("status")
     preset = sub.add_parser("preset")
     preset.add_argument("id")
-    preset.add_argument("--round", type=int, choices=range(1, 6), required=True)
+    preset.add_argument("--round", type=int, choices=range(1, MAX_ROUNDS + 1), required=True)
     preset.add_argument("--roster", type=Path)
     preset.add_argument("--attempt")
     sub.add_parser("start")
@@ -195,12 +222,12 @@ def main():
     reset.add_argument("--archive", type=Path, required=True)
     reset.add_argument("--reason", required=True)
     exp = sub.add_parser("export")
-    exp.add_argument("--round", type=int, choices=range(1, 6))
+    exp.add_argument("--round", type=int, choices=range(1, MAX_ROUNDS + 1))
     exp.add_argument("--attempt")
     args = parser.parse_args()
-    backends = [Backend("race", ROOT / "compat.compose.yaml", "xdu-compatibility")] if args.compat else [Backend("race-" + g) for g in "abc"]
     try:
         with exclusive():
+            backends = select_backends(args)
             if args.command not in {"status", "export"}:
                 audit({"command": args.command, "phase": "begin", "reason": getattr(args, "reason", None)})
             execute(args, backends)

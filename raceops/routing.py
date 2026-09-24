@@ -11,6 +11,7 @@ import time
 from .assets import ROOT
 from .cli import audit, exclusive, statuses, require_same_attempt
 from .exporter import verify_receipt
+from .event import MAX_ROUNDS, load_event, pinned_groups, race_services
 from .identity import NAME, validate_roster
 from .model import canonical_hash
 from .transport import Backend
@@ -28,15 +29,19 @@ def proxy_command(command: str):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--round", type=int, choices=range(1, 6), required=True)
+    parser.add_argument("--round", type=int, choices=range(1, MAX_ROUNDS + 1), required=True)
     parser.add_argument("--lobby", action="store_true", help="Return completed groups to lobby; requires --archive")
     parser.add_argument("--archive", type=Path)
     args = parser.parse_args()
     try:
         with exclusive():
-            event = json.loads((ROOT / "config/event.yaml").read_text())
-            roster = validate_roster(json.loads((ROOT / f"config/rosters/round-{args.round}.json").read_text()), event["event_id"], args.round)
-            backends = [Backend("race-" + g.lower()) for g in "ABC"]
+            event = load_event()
+            groups = pinned_groups()
+            roster_event = {**event, "grand_prix_rounds": MAX_ROUNDS if args.lobby else event["grand_prix_rounds"]}
+            roster = validate_roster(json.loads((ROOT / f"config/rosters/round-{args.round}.json").read_text()), roster_event, args.round)
+            if list(roster["groups"]) != groups:
+                raise ValueError("Roster groups differ from the loaded attempt; no player was routed")
+            backends = [Backend(service) for service in race_services(groups)]
             states, errors = statuses(backends)
             if errors:
                 raise RuntimeError("Cannot route while any race backend is unavailable")
@@ -49,7 +54,7 @@ def main():
                 verify_receipt(args.archive, states)
             elif any(s["state"] != "PRESET_LOADED" or s.get("grand_prix_round") != args.round for s in states.values()):
                 raise ValueError("Group routing requires the selected round loaded on every server")
-            for group in "ABC":
+            for group in groups:
                 target = "lobby" if args.lobby else "race-" + group.lower()
                 for player in roster["groups"][group]:
                     if not NAME.fullmatch(player["name"]):
@@ -59,7 +64,7 @@ def main():
             deadline = time.monotonic() + 30
             while True:
                 missing = []
-                for group in "ABC":
+                for group in groups:
                     target = "lobby" if args.lobby else "race-" + group.lower()
                     online = Backend(target).command("list uuids")
                     missing.extend(p["name"] for p in roster["groups"][group] if p["uuid"] not in online)

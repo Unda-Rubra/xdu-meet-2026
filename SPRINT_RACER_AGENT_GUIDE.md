@@ -3,6 +3,8 @@
 > 目标：BungeeCord 大厅 + 三个独立 Sprint Racer 后端；Docker 一键启动；从同一模板世界生成 A/B/C；管理员独占设置和比赛控制；一条主机指令向三实例装载一套六赛道大奖赛预设、统一开赛/退出；全程零 AI；随时导出只读比赛快照用于留档与人工录入飞书。
 >
 > 本文面向接手开发的 Agent。先按“核对与决策”取证，再实施。不要把本文出现的函数名当作跨版本稳定 API。源码观察基于官方仓库 `jarrodmmoore/Sprint-Racer-Dev` 的 commit `049f3821dede74e22b4484265dfe907cc2d34453`（2026-09-23，`sr_code/pack.mcmeta` 要求格式 121），仅供定位。选定世界发行版为 2026-07-13 的 Sprint Racer 1.6.13，CurseForge file ID `8422262`，对应 Minecraft 26.2（数据包格式 107.1）。两者不匹配，必须对发行 ZIP 重新取证、计算 hash，并以发行包为补丁真值；禁止直接复制开发仓库的数据包到 26.2。
+>
+> 后续用户决策：保留三世界架构，赛事支持1–7轮GP，每轮仍六图；每轮名册的 groups 含 A/B 或 A/B/C，决定该轮使用两服还是三服。以下固定五轮/三活动组的描述属于初始基线，当前配置、切组安全规则与验证范围以 `docs/SETUP.md`、`docs/OPERATIONS.md` 和 `docs/verification/configuration.json` 为准。
 
 ## 1. 交付定义与硬约束
 

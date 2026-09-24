@@ -13,6 +13,8 @@
     "gp2": {"tracks": ["highlight_stadium", "sakura_city", "seaside_village", "laeto_forest", "petra_mountains", "river_valley"]},
     "gp3": {"tracks": ["sakura_city", "seaside_village", "laeto_forest", "petra_mountains", "river_valley", "highlight_stadium"]},
     "gp4": {"tracks": ["seaside_village", "laeto_forest", "petra_mountains", "river_valley", "highlight_stadium", "sakura_city"]},
-    "gp5": {"tracks": ["laeto_forest", "petra_mountains", "river_valley", "highlight_stadium", "sakura_city", "seaside_village"]}
+    "gp5": {"tracks": ["laeto_forest", "petra_mountains", "river_valley", "highlight_stadium", "sakura_city", "seaside_village"]},
+    "gp6": {"tracks": ["petra_mountains", "river_valley", "highlight_stadium", "sakura_city", "seaside_village", "laeto_forest"]},
+    "gp7": {"tracks": ["petra_mountains", "laeto_forest", "seaside_village", "sakura_city", "highlight_stadium", "river_valley"]}
   }
 }

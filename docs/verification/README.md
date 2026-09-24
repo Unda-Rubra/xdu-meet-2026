@@ -18,7 +18,12 @@ Real 26.2 clients use isolated directories under ignored `downloads/real-clients
 | `faults.json` | Actual unavailable backend, mixed start, restart ERROR, stable halt, receipt protection and native RCON concurrency reproduction/fix |
 | `deployment.json` | Current five services, healthy command probes, distinct worlds, private ingress and no container CPU/RAM ceilings |
 | `capacity.json` | Blocked: target M4 Mac mini unavailable; no fifty-player certification |
+| `handoff.json` | Local runnable handoff and subsequent owner-reported successful PC functional test; no full-load metrics supplied |
+| `configuration.json` | Round-seven two-world preset/start/routing/stop/reset with four real clients; C unavailable/unchanged and safe return to three groups |
+| `waiting-room.json` | Full native lobby copy, visual/prop/boundary checks, session-only operator settings, blocked game launch and unchanged race state |
 
 After the five-GP run, reviewed fixes were applied to stopped code datapacks without deleting historical storage. Targeted final-state tests exercised stable force-stop, pending Save State refusal, mixed-start recovery, interrupted-server restart, current archive receipt verification and export of all five pre-existing rounds. The evidence does not claim a second human-driven five-GP race on the final source.
 
-Final local check: eight Python behavior regressions pass; all modules compile; Compose configuration validates; real race backends report IDLE. Raw original assets, captures, operation journals, and full result snapshots remain in ignored local directories. Public evidence files do not grant a redistribution license.
+Latest local check: eleven Python behavior regressions pass; all modules compile; Compose configuration validates; real race backends report IDLE. Raw original assets, captures, operation journals, and full result snapshots remain in ignored local directories. Public evidence files do not grant a redistribution license.
+
+The owner subsequently reported: “I ran the test on a PC, and everything seems OK to proceed with.” This is accepted as successful owner-reported functional testing, not a new agent-executed test. The report does not specify the PC hardware, participant count or full-load measurements, so it does not establish the separate fifty-player capacity gate.

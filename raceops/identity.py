@@ -6,7 +6,7 @@ import re
 import uuid
 
 NAME = re.compile(r"[A-Za-z0-9_]{1,16}\Z")
-GROUPS = ("A", "B", "C")
+from .event import GROUP_OPTIONS, validate_event
 
 
 def offline_uuid(name: str) -> str:
@@ -15,18 +15,20 @@ def offline_uuid(name: str) -> str:
     return str(uuid.UUID(bytes=hashlib.md5(("OfflinePlayer:" + name).encode("utf-8")).digest(), version=3))
 
 
-def validate_roster(data: dict, event_id: str, round_number: int) -> dict:
+def validate_roster(data: dict, event: dict, round_number: int) -> dict:
+    validate_event(event)
+    event_id = event["event_id"]
     if data.get("schema_version") != 1 or data.get("event_id") != event_id:
         raise ValueError("Roster schema/event mismatch")
-    if data.get("grand_prix_round") != round_number or type(round_number) is not int or not 1 <= round_number <= 5:
-        raise ValueError("Roster round must match the requested Grand Prix (1–5)")
+    if type(data.get("grand_prix_round")) is not int or data.get("grand_prix_round") != round_number or type(round_number) is not int or not 1 <= round_number <= event["grand_prix_rounds"]:
+        raise ValueError("Roster round must match the requested configured Grand Prix (maximum 7)")
     groups = data.get("groups")
-    if not isinstance(groups, dict) or set(groups) != set(GROUPS):
-        raise ValueError("Roster must specify exactly groups A, B, C")
+    if not isinstance(groups, dict) or tuple(sorted(groups)) not in GROUP_OPTIONS:
+        raise ValueError("Roster must specify groups A/B or A/B/C; omit unused C")
     seen_names: set[str] = set()
     seen_uuids: set[str] = set()
     result: dict[str, list[dict]] = {}
-    for group in GROUPS:
+    for group in sorted(groups):
         players = groups[group]
         if not isinstance(players, list) or not 1 <= len(players) <= 17:
             raise ValueError(f"Group {group} must contain 1–17 entrants")

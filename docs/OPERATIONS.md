@@ -2,7 +2,7 @@
 
 ## Before admitting players
 
-1. Confirm the deployed world/adapter receipt matches the intended release and all three backend health checks pass. Run `./scripts/racectl status`.
+1. Confirm the deployed world/adapter receipt matches the intended release and the active backend health checks pass. Run `./scripts/racectl status`; use `./scripts/racectl --groups 3 status` to inspect all three provisioned worlds.
 2. Confirm event-network firewall, offline-identity policy, empty OP/proxy administrator lists, organizer attendance roster and cached required resource pack.
 3. Validate round-N roster: no duplicate or case-ambiguous names; group membership and offline UUIDs agree. Keep the same players throughout all six tracks.
 4. Review the six real tracks in the selected preset. AI and automatic fill remain disabled. Do not use native Save State or global settings menus to configure an active event.
@@ -22,7 +22,7 @@ Players may use `/server` to navigate, but joining the wrong race server does no
 
 ## Natural completion, archive and regroup
 
-Wait for **all three** to report `GP_FINISHED`, track6. Native `gpRound=7` can be the ceremony sentinel; the adapter must remain at track6 and closed to further starts.
+Wait for **all active groups** to report `GP_FINISHED`, track6. An omitted C world is not part of this GP. Native `gpRound=7` can be the ceremony sentinel; the adapter must remain at track6 and closed to further starts. This native sentinel is unrelated to the event's seventh GP.
 
 ```sh
 ./scripts/racectl export --round 1 --attempt ATTEMPT_ID
@@ -33,7 +33,7 @@ Wait for **all three** to report `GP_FINISHED`, track6. Native `gpRound=7` can b
 ./scripts/racectl start
 ```
 
-Use the actual attempt and export directory printed by the CLI. Random grouping is organizer-controlled between GPs; update the next round's roster before loading it. There is no central grouping service. Five GPs × six maps means 30 races per group, 90 map-race instances overall, and at most five external score awards per player.
+Use the actual attempt and export directory printed by the CLI. Grouping is organizer-controlled between GPs; put A/B or A/B/C in the next round's roster before loading it. There is no central grouping service. Configure 1–7 GPs, each with six maps (up to 42 races per participating player); each player receives at most one external score award per GP. Archive and reset the previous groups before changing active worlds; the controller also checks newly included worlds are IDLE.
 
 ## Read-only snapshots
 

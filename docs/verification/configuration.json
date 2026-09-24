@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "scope": "Real local Minecraft 26.2 runtime; four isolated native clients; roster-driven group selection and round-seven lifecycle, not seven complete GPs or capacity certification",
+  "checks": [
+    "Round 7 gp7 loaded six native track slots on A/B only",
+    "C snapshot unchanged during two-group preset/start/stop/reset",
+    "Status, archival stop and reset succeeded while C container was paused",
+    "Four clients routed to A/B and both worlds entered RUNNING in round 7",
+    "Changing from A/B to A/B/C while attempt loaded/running was refused",
+    "Forced stop archived the interrupted attempt, lobby return and reset succeeded",
+    "After reset a three-group roster loaded A/B/C; stop/archive/reset succeeded"
+  ],
+  "archives": [
+    "exports/20260924T094437-aeec0b27666640178e58ccdf092915c0",
+    "exports/20260924T095128-4eb7029c44804e55910ef8ac3502484f",
+    "exports/20260924T095226-7e906f2a40c7477fa765418bb5300256"
+  ],
+  "regression_tests_passed_at_check": 11,
+  "deployment_architecture_changed": false
+}

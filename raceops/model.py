@@ -47,6 +47,7 @@ def make_plan(event: dict, roster: dict, group: str, preset_id: str, attempt_id:
                        "players": records})
     return {"schema_version": 1, "adapter_version": "1.0.0", "identity_mode": "offline_trusted_private",
             "admin_policy": "host_only", "event_id": event["event_id"], "group": group,
+            "active_groups": list(roster["groups"]), "configured_rounds": event["grand_prix_rounds"],
             "server": "race-" + group.lower(), "grand_prix_round": roster["grand_prix_round"],
             "attempt_id": attempt_id, "preset_id": preset_id, "preset_hash": canonical_hash([
                 {"track_id": t["track_id"], "native_id": t["native_id"], "mode": "Race"} for t in tracks]),

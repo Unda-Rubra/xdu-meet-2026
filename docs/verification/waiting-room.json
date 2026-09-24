@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "scope": "Local native Minecraft 26.2 waiting-room copy and isolated real-client checks; not load certification",
+  "map": "Full verified Sprint Racer template; no rooms or props removed",
+  "settings_policy": "Host-granted xdu_lobby_operator session tag, no Minecraft OP",
+  "checks": [
+    "Native lobby rendered in real client; no ready countdown bossbar",
+    "Native boundary returned visitor from x1900 to spawn x1556.5 y88 z406.5",
+    "Native jump prop at x1610 y97 z356 applied jump_boost amplifier10",
+    "Ordinary visitor default-time change refused; host-tagged operator change accepted",
+    "Operator privilege cleared on proxy departure and rejoin",
+    "Ready, race, GP, practice and editor launch entrypoints tested; gameState remained0",
+    "AI admission option refused even for tagged operator; optRAInever retained",
+    "Race-world adapter snapshots unchanged by waiting-room tests",
+    "prepare-lobby refused running lobby; stopped installation preserved old world and started successfully"
+  ],
+  "visual_capture": "downloads/real-clients/XduTestA/screenshots/2026-09-24_20.01.36.png",
+  "previous_lobby_backups": [
+    "volumes/event/lobby/world-before-native-waiting",
+    "volumes/event/lobby/world-before-waiting-20260924T121441-0f9bd9d3"
+  ],
+  "race_world_architecture_changed": false
+}

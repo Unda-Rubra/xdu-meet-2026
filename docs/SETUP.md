@@ -2,7 +2,7 @@
 
 ## Scope and trust
 
-This is a private-event system for Minecraft Java **26.2**, Sprint Racer **1.6.13**, BungeeCord **2096** and pinned Temurin Java **25**. Backends use the official vanilla JAR. Paper128 is retained only as a comparison artifact. The owner approved offline clients: names/offline UUIDs are organizer-supervised record keys, **not authentication**. No player has OP, tournament admin or proxy administrator permissions. Administration is host-only.
+This is a private-event system for Minecraft Java **26.2**, Sprint Racer **1.6.13**, BungeeCord **2096** and pinned Temurin Java **25**. Backends use the official vanilla JAR. Paper128 is retained only as a comparison artifact. Offline names/UUIDs are organizer-supervised record keys, **not authentication**. No player has Minecraft OP or proxy administrator permissions. Race-world administration is host-only; the separate waiting room permits host-granted session operators to change lobby settings, never launch games.
 
 Default ingress is `127.0.0.1:25565`. Do not expose an offline network to the public Internet. On the event LAN, explicitly set `EVENT_BIND` to the event interface and configure the host firewall to admit only the trusted event network. Backends and RCON have no published ports. Docker and host access are trusted administrator capabilities.
 
@@ -30,9 +30,13 @@ The default JVM heaps are conservative functional-test values. Copy `.env.exampl
 
 ## Roster and presets
 
-`config/event.yaml` and `config/presets.yaml` intentionally use JSON-compatible YAML; no third-party parser is required. The included five presets rotate six real stock Race tracks. Organizers can replace them with release-verified IDs, but must retain six explicit slots and revalidate the resulting tracks.
+`config/event.yaml` and `config/presets.yaml` contain JSON (despite their `.yaml` suffixes); no third-party parser is required. Set `grand_prix_rounds` to an integer from 1 through 7. The supplied `gp1`–`gp7` presets each contain six stock Race tracks in an explicit order. Organizers can replace their sequences with release-verified IDs, but must retain six slots.
 
-Copy `config/roster.example.json` into `config/rosters/round-1.json` through `round-5.json`. Each group A/B/C contains 1–17 entries of `{ "name": "FixedName", "uuid": "offline-uuid" }`. Generate the UUID from the exact case-sensitive name with `raceops.identity.offline_uuid`; the CLI rejects mismatches, duplicate UUIDs and case-ambiguous names. Names are fixed for the event and verified against the organizer's attendance list. A sample with empty groups is deliberately not startable.
+Create `config/rosters/round-N.json` for each scheduled GP. Its `groups` object selects that GP's active worlds: include A/B for two groups, or A/B/C for three. **Omit unused C; do not supply an empty C array.** Each included group contains 1–17 entries of `{ "name": "FixedName", "uuid": "offline-uuid" }`. Generate UUIDs from exact case-sensitive names with `raceops.identity.offline_uuid`; duplicates, case-ambiguous names and UUID mismatches are rejected. Two groups accommodate at most 34 players; 50 need 17/17/16 across three groups.
+
+The existing proxy, lobby and three race-world architecture remains unchanged. Group selection comes from the round roster, not attendance polling or `event.yaml.groups`. `preset` pins the selected groups in `volumes/control/groups.json` before sending requests; start, routing, stop, reset and default exports use that membership until another preset is loaded. Keep that control file with the deployment data. Changing from two groups to three or back requires all previous and next worlds reachable and IDLE after archive/reset. An omitted world's state and results are untouched. Editing a roster after loading it does not change the attempt; routing rejects a changed roster.
+
+For read-only inspection or historical export of a different group count, use `./scripts/racectl --groups 3 status` or `./scripts/racectl --groups 3 export --round N --attempt ID` (substitute 2 when appropriate). This does not change the pinned active groups.
 
 Unresolved DNF/DNS, disconnection, incomplete GP and ties remain judge-review cases. Export preserves facts without inventing a final rank or external points. Read `docs/RULES.md` before the formal rehearsal.
 
@@ -48,6 +52,30 @@ Unresolved DNF/DNS, disconnection, incomplete GP and ties remain judge-review ca
 ```
 
 See `OPERATIONS.md` for safe stop, archive, reset, regrouping and recovery.
+
+## Native shared waiting room
+
+New event installations copy the verified Sprint Racer template into a separate lobby world, preserving the full map, rooms, native boundary, item containers, villagers and movement props. Race, practice, GP and editor entrypoints are disabled only in this waiting-world copy. All three race worlds and the original template are unchanged.
+
+To replace an existing flat lobby, first move visitors to safe race-world lobbies or disconnect them, then run:
+
+```sh
+docker compose -p xdu-event stop --timeout 60 lobby
+./scripts/prepare-lobby
+docker compose -p xdu-event start lobby
+```
+
+The installer refuses a running lobby or mounted template, verifies the source template hash, and preserves the previous world as `volumes/event/lobby/world-before-waiting-*`. Do not delete that backup until the new waiting room is accepted. New installations use `init-worlds`; no separate upgrade step is required.
+
+Ordinary visitors can use props but cannot change shared settings. After verifying the connected person's identity, the host may run:
+
+```sh
+./scripts/lobby-operator grant ExactPlayerName
+./scripts/lobby-operator revoke ExactPlayerName
+```
+
+This grants only the `xdu_lobby_operator` session tag, not OP. It is cleared on every native join (including proxy return) and server reload/restart. Access-policy changes, AI admission, saved-settings restoration and all game launch remain blocked even for these operators. Other lobby settings affect only the waiting world, never race settings. Offline identity supervision remains essential.
+
 
 ## Compatibility harness
 

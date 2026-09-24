@@ -80,9 +80,13 @@ def prepare(accepted: bool, destination: Path = DATA, races: tuple[str, ...] = (
                 "motd": f"XDU private event {service}",
             }
             if service == "lobby":
-                properties.update({"level-type": "minecraft:flat", "generate-structures": "false", "gamemode": "adventure", "difficulty": "0",
-                                   "generator-settings": json.dumps({"biome": "minecraft:plains", "layers": [{"block": "minecraft:bedrock", "height": 1}, {"block": "minecraft:dirt", "height": 2}, {"block": "minecraft:grass_block", "height": 1}]}, separators=(",", ":"))})
-                shutil.copytree(ROOT / "config/lobby-datapack", directory / "world/datapacks/xdu_lobby")
+                properties.update({"gamemode": "adventure", "difficulty": "2"})
+                if template is not None:
+                    from .lobby import prepare_lobby
+                    prepare_lobby(template, directory / "world")
+                else:
+                    # The isolated compatibility harness retains a plain vanilla lobby.
+                    properties.update({"level-type": "minecraft:flat", "generate-structures": "false"})
             prop_path = directory / "server.properties"
             prop_path.write_text("".join(f"{k}={v}\n" for k, v in properties.items()))
             prop_path.chmod(0o600)

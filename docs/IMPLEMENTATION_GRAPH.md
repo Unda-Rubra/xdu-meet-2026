@@ -4,8 +4,8 @@
 
 ## 1. 已定决策
 
-- 每 GP **6 张确定 Race 赛道**，计划 **5 个 GP**。每组选手最多跑 30 场地图赛；A/B/C 共 90 次地图赛实例。不是原生固定六场，也不是五场截断；复用原生可配置序列及轮内自动推进。
-- A/B/C 同轮同一序列；GP 内分组固定，完成六图、冻结、三服留档后才允许重新随机分组。允许跨 GP 重复赛道，不要求 30 张互异地图。
+- 每 GP **6 张确定 Race 赛道**，赛事支持 **1–7 个 GP**，最多每人42场地图赛。复用原生六图序列及轮内自动推进；原生 `gpRound=7` 的颁奖哨兵不等于赛事第7轮。
+- 保留 A/B/C 三个独立世界架构。每轮名册只含 A/B 时使用两服，含 A/B/C 时使用三服；同轮同一序列、成员固定。所有本轮活动组完成、冻结、留档并reset后，才允许切换下一轮分组。既有三组五轮彩排证据仍只证明原来实测范围；新配置证据见 `docs/verification/configuration.json`。
 - **AI 禁用、实际 AI 参赛数量恒为 0**，包括人数不足、掉线、重连、换图和重启路径；不开发 AI 名次补偿逻辑，不广泛清除玩法实体。
 - 保留原生赛车、道具和结算呈现；赛事 datapack 只控制公共设置、生命周期、名单和结果记录。
 - Python 一次性 `racectl`；通过 Docker exec 调用容器本地 RCON；无常驻控制台、Web 后台、中心数据库或消息队列。
@@ -110,7 +110,7 @@ flowchart TD
 | Source | Artifacts | `docs/SOURCE_MAP.md`、`patches/manifest.json` 的上游输入映射 | 发行包逐入口列出权限、ready/skip、六槽写入、每图真正起跑、finish/award/settlement、GP结束/loop/退出及 AI 补位路径；记录文件 hash/行号/调用者/未知项；每个未知项分配验证场景 |
 | Compatibility | Artifacts | `images/`、`compat.compose.yaml`、`scripts/compat`、`docs/verification/compatibility.json` | 固定Java/原版26.2/Bungee正常加载；离线登录与重连/换服UUID一致；明确UUID不认证人；后端端口不发布；客户端无OP/admin/代理管理组；资源包、运动和道具实际验证 |
 | Contracts | Source, Compatibility | `config/contract.json`、`raceops/model.py`、`patches/xdu_race/` | 请求、状态、六图成绩与离线身份合同共用，版本不一致拒绝控制 |
-| Template | Contracts | `scripts/prepare-template`、本地 `template-world/`、模板 manifest、`config/presets.yaml`、真实赛道目录 | 管理模式开启、AI与补位关闭、GP循环关闭、固定其他设置；五个预设均有六个真实且唯一解析的已安装 Race 槽位；无临时比赛记录混入；停服后按定义的不可变内容生成模板 hash |
+| Template | Contracts | `scripts/prepare-template`、本地 `template-world/`、模板 manifest、`config/presets.yaml`、真实赛道目录 | 管理模式开启、AI与补位关闭、GP循环关闭、固定其他设置；七个预设均有六个真实且唯一解析的已安装 Race 槽位；无临时比赛记录混入；停服后按定义的不可变内容生成模板 hash |
 | Access | Template | `patches/xdu_race/function/access/`、公共变更入口补丁、离线UUID参赛名册 | 仅宿主机可管理；冒用任何名字也不能获OP/admin；普通选手不能改设置/选图/ready/取消，道具可用；错误组/迟到者不得加入本GP；一人/离线也不补AI；重启/换图仍零AI |
 | Presets | Template | `patches/xdu_race/function/preset/`、原生六槽写入补丁 | 仅通过已验证的游戏内入口写六槽和顺序；原生长度6、loop关闭、每槽恰一赛道、无 Save State 附带变更；读回与预设一致；不存在/禁用/歧义赛道报错且不随机替补；非赛道设置摘要不变 |
 | Lifecycle | Contracts | `patches/xdu_race/function/control/`、实际 launch/end/cancel 补丁 | 首图只接受受信 gate，第2–6图原生自动推进，第7图拒绝；prepare不产生比赛；同attempt重复start不重启；结算完成才freeze；stop阶段受控，reset无运行中/未归档通道；使用 Capture/Access/Presets 合同，集成由 SingleGP 验证 |
