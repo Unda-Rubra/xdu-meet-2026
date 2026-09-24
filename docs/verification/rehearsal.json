@@ -1,0 +1,187 @@
+{
+  "method": "six actual vanilla26.2 clients; native six-track progression; native finish events injected by trusted console after actual GO; not human-driven lap completion",
+  "rounds": [
+    {
+      "round": 1,
+      "archive": "exports/20260924T003226-9c2052ffadb14c0095ea931a7d45ce8d",
+      "injected_finish_events": 10,
+      "states": [
+        {
+          "server": "race-a",
+          "state": "GP_FINISHED",
+          "track_index": 6,
+          "revision": 41,
+          "ai_count": 0,
+          "preset_hash": "d7dcd1fed51ef57d256e0e733f3777b5c7bc8ce63e374a5a15a6940b95e2b9b0",
+          "settings_hash": "39bd6ceebb6fe792c01bb4a73ba0a570034cc8bcfc4c3fca4b32c4b09176bf25"
+        },
+        {
+          "server": "race-b",
+          "state": "GP_FINISHED",
+          "track_index": 6,
+          "revision": 43,
+          "ai_count": 0,
+          "preset_hash": "d7dcd1fed51ef57d256e0e733f3777b5c7bc8ce63e374a5a15a6940b95e2b9b0",
+          "settings_hash": "39bd6ceebb6fe792c01bb4a73ba0a570034cc8bcfc4c3fca4b32c4b09176bf25"
+        },
+        {
+          "server": "race-c",
+          "state": "GP_FINISHED",
+          "track_index": 6,
+          "revision": 43,
+          "ai_count": 0,
+          "preset_hash": "d7dcd1fed51ef57d256e0e733f3777b5c7bc8ce63e374a5a15a6940b95e2b9b0",
+          "settings_hash": "39bd6ceebb6fe792c01bb4a73ba0a570034cc8bcfc4c3fca4b32c4b09176bf25"
+        }
+      ],
+      "manifest_sha256": "73b11697be2aa2e2dc18cfa1de3b46442f0982f620cbc3b5a51f81c5e91bd495"
+    },
+    {
+      "round": 2,
+      "archive": "exports/20260924T003642-da307f4827274136a897293e430e9694",
+      "injected_finish_events": 36,
+      "states": [
+        {
+          "server": "race-a",
+          "state": "GP_FINISHED",
+          "track_index": 6,
+          "revision": 87,
+          "ai_count": 0,
+          "preset_hash": "17991a4849eb46945078b29c64882609856dc0aa8bdcb8e16575ec98ca2170b6",
+          "settings_hash": "39bd6ceebb6fe792c01bb4a73ba0a570034cc8bcfc4c3fca4b32c4b09176bf25"
+        },
+        {
+          "server": "race-b",
+          "state": "GP_FINISHED",
+          "track_index": 6,
+          "revision": 89,
+          "ai_count": 0,
+          "preset_hash": "17991a4849eb46945078b29c64882609856dc0aa8bdcb8e16575ec98ca2170b6",
+          "settings_hash": "39bd6ceebb6fe792c01bb4a73ba0a570034cc8bcfc4c3fca4b32c4b09176bf25"
+        },
+        {
+          "server": "race-c",
+          "state": "GP_FINISHED",
+          "track_index": 6,
+          "revision": 89,
+          "ai_count": 0,
+          "preset_hash": "17991a4849eb46945078b29c64882609856dc0aa8bdcb8e16575ec98ca2170b6",
+          "settings_hash": "39bd6ceebb6fe792c01bb4a73ba0a570034cc8bcfc4c3fca4b32c4b09176bf25"
+        }
+      ],
+      "manifest_sha256": "19b805e05f32c6f9326db264e5424ade0aedce49950ee0fce9520952e103770b"
+    },
+    {
+      "round": 3,
+      "archive": "exports/20260924T004038-796e44a798804f01a0820bbadb9751af",
+      "injected_finish_events": 36,
+      "states": [
+        {
+          "server": "race-a",
+          "state": "GP_FINISHED",
+          "track_index": 6,
+          "revision": 133,
+          "ai_count": 0,
+          "preset_hash": "69b0f960217e218500d389877978635314694d3a4833cf4d36796cf02dbb8bc4",
+          "settings_hash": "39bd6ceebb6fe792c01bb4a73ba0a570034cc8bcfc4c3fca4b32c4b09176bf25"
+        },
+        {
+          "server": "race-b",
+          "state": "GP_FINISHED",
+          "track_index": 6,
+          "revision": 135,
+          "ai_count": 0,
+          "preset_hash": "69b0f960217e218500d389877978635314694d3a4833cf4d36796cf02dbb8bc4",
+          "settings_hash": "39bd6ceebb6fe792c01bb4a73ba0a570034cc8bcfc4c3fca4b32c4b09176bf25"
+        },
+        {
+          "server": "race-c",
+          "state": "GP_FINISHED",
+          "track_index": 6,
+          "revision": 135,
+          "ai_count": 0,
+          "preset_hash": "69b0f960217e218500d389877978635314694d3a4833cf4d36796cf02dbb8bc4",
+          "settings_hash": "39bd6ceebb6fe792c01bb4a73ba0a570034cc8bcfc4c3fca4b32c4b09176bf25"
+        }
+      ],
+      "manifest_sha256": "61589e4ae779f8a7ea68fc3b256075ec42b4b841cf1f1cb6d475d30331059428"
+    },
+    {
+      "round": 4,
+      "archive": "exports/20260924T005408-d91a0c6aa05d4312ae31ab5f02386698",
+      "injected_finish_events": 6,
+      "states": [
+        {
+          "server": "race-a",
+          "state": "GP_FINISHED",
+          "track_index": 6,
+          "revision": 175,
+          "ai_count": 0,
+          "preset_hash": "3f301d3d728a14f0cd2fbd8942cb96d45899c98c019fcf2fdc0c29a98969086e",
+          "settings_hash": "39bd6ceebb6fe792c01bb4a73ba0a570034cc8bcfc4c3fca4b32c4b09176bf25"
+        },
+        {
+          "server": "race-b",
+          "state": "GP_FINISHED",
+          "track_index": 6,
+          "revision": 177,
+          "ai_count": 0,
+          "preset_hash": "3f301d3d728a14f0cd2fbd8942cb96d45899c98c019fcf2fdc0c29a98969086e",
+          "settings_hash": "39bd6ceebb6fe792c01bb4a73ba0a570034cc8bcfc4c3fca4b32c4b09176bf25"
+        },
+        {
+          "server": "race-c",
+          "state": "GP_FINISHED",
+          "track_index": 6,
+          "revision": 177,
+          "ai_count": 0,
+          "preset_hash": "3f301d3d728a14f0cd2fbd8942cb96d45899c98c019fcf2fdc0c29a98969086e",
+          "settings_hash": "39bd6ceebb6fe792c01bb4a73ba0a570034cc8bcfc4c3fca4b32c4b09176bf25"
+        }
+      ],
+      "manifest_sha256": "c472e1dbe263bf20ec27bea688ca213e8e2e0c642b056ec91234fa2a227d582b"
+    },
+    {
+      "round": 5,
+      "archive": "exports/20260924T005748-ed13e9933a824e389dde21b18606eebd",
+      "injected_finish_events": 36,
+      "states": [
+        {
+          "server": "race-a",
+          "state": "GP_FINISHED",
+          "track_index": 6,
+          "revision": 221,
+          "ai_count": 0,
+          "preset_hash": "3699b0f010fe8bf19304777fef296ce6d1cb117a226afe3d548e0f2454e1c312",
+          "settings_hash": "39bd6ceebb6fe792c01bb4a73ba0a570034cc8bcfc4c3fca4b32c4b09176bf25"
+        },
+        {
+          "server": "race-b",
+          "state": "GP_FINISHED",
+          "track_index": 6,
+          "revision": 223,
+          "ai_count": 0,
+          "preset_hash": "3699b0f010fe8bf19304777fef296ce6d1cb117a226afe3d548e0f2454e1c312",
+          "settings_hash": "39bd6ceebb6fe792c01bb4a73ba0a570034cc8bcfc4c3fca4b32c4b09176bf25"
+        },
+        {
+          "server": "race-c",
+          "state": "GP_FINISHED",
+          "track_index": 6,
+          "revision": 223,
+          "ai_count": 0,
+          "preset_hash": "3699b0f010fe8bf19304777fef296ce6d1cb117a226afe3d548e0f2454e1c312",
+          "settings_hash": "39bd6ceebb6fe792c01bb4a73ba0a570034cc8bcfc4c3fca4b32c4b09176bf25"
+        }
+      ],
+      "manifest_sha256": "7079eec6ff44e9dd9d35e749ad52825b4c662d4e36661d9b679cd97c9de2c97c"
+    }
+  ],
+  "completed": true,
+  "resumed_after_transport_fix": true,
+  "verification_scope": "Controlled native-event integration; not human-driven lap completion or 50-player certification",
+  "backend": "Minecraft vanilla 26.2",
+  "proxy": "BungeeCord 2096",
+  "roster_clients": 6,
+  "map_race_instances": 90
+}

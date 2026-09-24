@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "event_id": "xdu-2026-fall",
+  "grand_prix_rounds": 5,
+  "tracks_per_gp": 6,
+  "ai_enabled": false,
+  "identity_mode": "offline_trusted_private",
+  "admin_policy": "host_only",
+  "impersonation_risk_accepted": true,
+  "rules_status": "pending_adjudication",
+  "unresolved_results": "preserve_raw_and_require_judge",
+  "require_full_roster_at_start": true,
+  "groups": ["A", "B", "C"]
+}

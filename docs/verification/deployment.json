@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "scope": "current final running local deployment",
+  "services": [
+    {
+      "name": "xdu-event-proxy-1",
+      "running": true,
+      "health": null,
+      "user": "501:20",
+      "ports": {
+        "25565/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "25565"
+          }
+        ]
+      },
+      "limits": {
+        "Memory": 0,
+        "NanoCpus": 0
+      }
+    },
+    {
+      "name": "xdu-event-lobby-1",
+      "running": true,
+      "health": "healthy",
+      "user": "501:20",
+      "ports": {},
+      "limits": {
+        "Memory": 0,
+        "NanoCpus": 0
+      }
+    },
+    {
+      "name": "xdu-event-race-a-1",
+      "running": true,
+      "health": "healthy",
+      "user": "501:20",
+      "ports": {},
+      "limits": {
+        "Memory": 0,
+        "NanoCpus": 0
+      }
+    },
+    {
+      "name": "xdu-event-race-b-1",
+      "running": true,
+      "health": "healthy",
+      "user": "501:20",
+      "ports": {},
+      "limits": {
+        "Memory": 0,
+        "NanoCpus": 0
+      }
+    },
+    {
+      "name": "xdu-event-race-c-1",
+      "running": true,
+      "health": "healthy",
+      "user": "501:20",
+      "ports": {},
+      "limits": {
+        "Memory": 0,
+        "NanoCpus": 0
+      }
+    }
+  ],
+  "capacity_certified": false,
+  "target_capacity_host": "M4 Mac mini; not available",
+  "container_hard_resource_limits": false,
+  "independent_world_mounts": true,
+  "template_hash": "b6a00687e1826244b8c1103503054d6b054b46dd6a317527f116f5bec83a97ae",
+  "adapter_tree_hash": "74089eb6600f199a0f761736f148f4906ce5c44ecb519064dd22c45f917fd06b",
+  "backend_states": {
+    "race-a": "IDLE",
+    "race-b": "IDLE",
+    "race-c": "IDLE"
+  }
+}

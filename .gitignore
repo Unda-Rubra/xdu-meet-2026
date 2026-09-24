@@ -1,0 +1,20 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+/secrets/
+/config/admin-uuids.txt
+/config/rosters/
+
+# Licensed upstream assets and runtime data
+/template-world/
+/volumes/
+/exports/
+/downloads/
+
+# Local tooling
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/

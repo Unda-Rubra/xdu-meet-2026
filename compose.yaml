@@ -1,0 +1,70 @@
+name: xdu-event
+x-server: &server
+  build:
+    context: .
+    dockerfile: images/server/Dockerfile
+  image: xdu-race-runtime:local
+  user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+  working_dir: /data
+  entrypoint: [java]
+  networks: [backend]
+  stop_grace_period: 60s
+  security_opt: [no-new-privileges:true]
+  cap_drop: [ALL]
+  restart: "no"
+x-race: &race
+  <<: *server
+  command: [-Xms256M, "-Xmx${RACE_HEAP:-1024M}", -jar, /server.jar, --nogui]
+  healthcheck:
+    test: [CMD, python3, -m, raceops.health]
+    start_period: 60s
+    interval: 20s
+    timeout: 10s
+    retries: 5
+services:
+  race-a:
+    <<: *race
+    volumes:
+      - ./volumes/event/race-a:/data
+      - ./downloads/mojang_26.2.jar:/server.jar:ro
+      - ./volumes/event/secrets/race-a:/run/secrets/rcon:ro
+  race-b:
+    <<: *race
+    volumes:
+      - ./volumes/event/race-b:/data
+      - ./downloads/mojang_26.2.jar:/server.jar:ro
+      - ./volumes/event/secrets/race-b:/run/secrets/rcon:ro
+  race-c:
+    <<: *race
+    volumes:
+      - ./volumes/event/race-c:/data
+      - ./downloads/mojang_26.2.jar:/server.jar:ro
+      - ./volumes/event/secrets/race-c:/run/secrets/rcon:ro
+  lobby:
+    <<: *server
+    command: [-Xms128M, "-Xmx${LOBBY_HEAP:-512M}", -jar, /server.jar, --nogui]
+    volumes:
+      - ./volumes/event/lobby:/data
+      - ./downloads/mojang_26.2.jar:/server.jar:ro
+      - ./volumes/event/secrets/lobby:/run/secrets/rcon:ro
+    healthcheck:
+      test: [CMD, python3, -m, raceops.health, --lobby]
+      start_period: 60s
+      interval: 20s
+      timeout: 10s
+      retries: 5
+  proxy:
+    <<: *server
+    command: [-Xms128M, "-Xmx${PROXY_HEAP:-256M}", -jar, /server.jar]
+    stdin_open: true
+    ports: ["${EVENT_BIND:-127.0.0.1}:25565:25565"]
+    volumes:
+      - ./volumes/event/proxy:/data
+      - ./downloads/BungeeCord-2096.jar:/server.jar:ro
+    depends_on:
+      race-a: {condition: service_healthy}
+      race-b: {condition: service_healthy}
+      race-c: {condition: service_healthy}
+      lobby: {condition: service_healthy}
+networks:
+  backend: {}

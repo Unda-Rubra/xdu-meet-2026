@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "state": "GP_FINISHED",
+  "tracks": 6,
+  "clients": 2,
+  "ai_count": 0,
+  "archive": "exports/20260923T152547-43d4bd6026f74a53b8af21c0567f8481",
+  "manifest_sha256": "1393441fd42955b7e3812a27c698eeadce57cb902e219876a70ee7c00f496933",
+  "scope": "Real clients and native timer/progression; controlled native finish calls test capture; not human lap completion",
+  "checks": [
+    "preset readback six slots",
+    "actual GO records",
+    "duplicate start no-op",
+    "ready/cancel mutators rejected without trusted gate",
+    "captured finish survived disconnect before native settlement",
+    "all-offline frozen export retained two UUIDs",
+    "sixth track frozen before cleanup; no seventh start"
+  ]
+}

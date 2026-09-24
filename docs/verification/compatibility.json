@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "backend": "vanilla26.2",
+  "proxy": "BungeeCord2096",
+  "java": "Temurin25.0.4+7",
+  "identity": "offline_trusted_private",
+  "clients": {
+    "software": "real vanilla26.2 client from checksum-verified existing launcher cache",
+    "count": 2,
+    "credentials_read": false
+  },
+  "observed": [
+    "both clients joined lobby and switched to race server with deterministic offline UUID unchanged",
+    "required resource pack loaded and real rendered UI captured",
+    "client movement changed real entity position",
+    "native controls book opened through client use-item input",
+    "native charity boost consumed through client input",
+    "three vanilla backends and lobby RCON health probes passed; only proxy port published"
+  ],
+  "known_limitations": [
+    "offline names can be impersonated; organizer accepts risk; host-only administration",
+    "native release ItemFrame invalid-position warnings occur on vanilla as well as Paper",
+    "Paper comparison uses truncated default RCON presentation; not deployed"
+  ],
+  "capacity_certified": false
+}

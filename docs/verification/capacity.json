@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "blocked",
+  "target": "M4 Mac mini",
+  "target_available": false,
+  "user_decision": "Target is not available yet. Do not impose hard container resource limits.",
+  "required_load": {"players": 50, "groups": [17, 17, 16]},
+  "capacity_certified": false,
+  "container_memory_limit": null,
+  "container_cpu_limit": null,
+  "jvm_heaps": "operator-configurable",
+  "remaining_evidence": [
+    "Actual target CPU, memory, Docker VM allocation and storage/network configuration",
+    "50 real or legitimate controlled 26.2 clients participating with items and track changes",
+    "Measured TPS/MSPT, GC, CPU, memory, disk and network under load",
+    "Concurrent result export and resource-pack distribution under event load",
+    "Pre-approved performance and start-skew acceptance thresholds"
+  ],
+  "not_substitutes": ["Six local clients", "Idle connections", "Container health", "Synthetic finish events"]
+}

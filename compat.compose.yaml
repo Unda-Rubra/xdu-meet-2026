@@ -1,0 +1,53 @@
+name: xdu-compatibility
+x-runtime: &runtime
+  image: xdu-race-runtime:local
+  user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+  working_dir: /data
+  networks: [backend]
+  stop_grace_period: 60s
+  security_opt: [no-new-privileges:true]
+  cap_drop: [ALL]
+  entrypoint: [java]
+services:
+  race:
+    <<: *runtime
+    command: [-Xms256M, -Xmx2G, -jar, /server.jar, --nogui]
+    mem_limit: 3g
+    volumes:
+      - ./volumes/compatibility/race:/data
+      - ./downloads/mojang_26.2.jar:/server.jar:ro
+      - ./volumes/compatibility/secrets/race:/run/secrets/rcon:ro
+    healthcheck:
+      test: [CMD-SHELL, "printf 'list' | python3 -m raceops.rcon --timeout 5"]
+      start_period: 90s
+      interval: 20s
+      timeout: 10s
+      retries: 5
+  lobby:
+    <<: *runtime
+    command: [-Xms256M, -Xmx768M, -jar, /server.jar, --nogui]
+    mem_limit: 1536m
+    volumes:
+      - ./volumes/compatibility/lobby:/data
+      - ./downloads/mojang_26.2.jar:/server.jar:ro
+      - ./volumes/compatibility/secrets/lobby:/run/secrets/rcon:ro
+    healthcheck:
+      test: [CMD-SHELL, "printf 'list' | python3 -m raceops.rcon --timeout 5"]
+      start_period: 90s
+      interval: 20s
+      timeout: 10s
+      retries: 5
+  proxy:
+    <<: *runtime
+    command: [-Xms128M, -Xmx256M, -jar, /server.jar]
+    mem_limit: 512m
+    stdin_open: true
+    ports: ["127.0.0.1:25565:25565"]
+    volumes:
+      - ./volumes/compatibility/proxy:/data
+      - ./downloads/BungeeCord-2096.jar:/server.jar:ro
+    depends_on:
+      race: {condition: service_healthy}
+      lobby: {condition: service_healthy}
+networks:
+  backend: {}

@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "scope": "actual vanilla26.2/Bungee2096 containers; host CLI; synthetic offline client identities",
+  "checks": [
+    {
+      "name": "unavailable_backend_preflight",
+      "result": "passed",
+      "details": "Paused race-b; start returned nonzero with a/c states plus b UNKNOWN; zero mutations on any backend; unpaused in finally"
+    },
+    {
+      "name": "restart_historical_exports",
+      "result": "passed",
+      "details": "After code rollout and full server restart, all five frozen GP attempts exported across three backends; data retained"
+    },
+    {
+      "name": "halt_stable_native_tick_barrier",
+      "result": "passed",
+      "details": {
+        "revision": 228,
+        "game_time_before": "w has 3577 [gameTime]",
+        "game_time_after": "w has 3577 [gameTime]",
+        "consecutive_reads": 40
+      }
+    },
+    {
+      "name": "force_stop_archive_then_cancel",
+      "result": "passed",
+      "archive": "exports/20260924T011408-232a3e2dd1f54eab94570132ac33578e",
+      "details": "All three actual running races halted, immutable pre/post snapshots written, native safe cancellation confirmed STOPPED then archive-gated IDLE"
+    },
+    {
+      "name": "partial_reset_receipt_retry",
+      "result": "passed",
+      "details": "Already-reset states accepted only exact recorded receipt, actual archived snapshot hashes verified"
+    },
+    {
+      "name": "pending_save_state_rejected_before_preset_mutation",
+      "result": "passed",
+      "details": "Injected pending temporarySave; real CLI preset rejected, current state/revision unchanged; restored test flag afterward"
+    },
+    {
+      "name": "partial_start_not_replayed",
+      "result": "passed",
+      "details": "Prepared A/B/C, started only A; repeated global start refused mixed state, B/C remained ARMED; existing A attempt not reset"
+    },
+    {
+      "name": "actual_partial_start_recovery",
+      "result": "passed",
+      "archive": "exports/20260924T012231-accdc9d3286a491c95b17e9d9f2c8a6f"
+    },
+    {
+      "name": "interrupted_backend_restart",
+      "result": "passed",
+      "details": "Started race-c with real clients; restarted only race-c. It entered ERROR, not resumed racing. Explicit reviewed stop archived A/B preset and C interrupted state, then all reset.",
+      "archive": "exports/20260924T012905-0369cea75c974989a9cfece43c69f7c9"
+    },
+    {
+      "name": "concurrent_native_rcon",
+      "result": "passed",
+      "details": "Pre-fix concurrent native RCON reproduction failed unexpected response identity/type; complete exchanges serialized per container; same 3-reader x400-command reproduction passed"
+    },
+    {
+      "name": "large_native_rcon_plan",
+      "result": "passed",
+      "details": "24,221-byte structured request with17 players x6 records staged in <=1200-byte commands and round-tripped exactly"
+    },
+    {
+      "name": "existing_world_overwrite_refusal",
+      "result": "passed",
+      "details": "init-worlds on existing event refused nonzero and retained data"
+    }
+  ]
+}

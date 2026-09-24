@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "runnable_implementation": true,
+  "current_endpoint": "127.0.0.1:25565",
+  "client_version": "Minecraft Java 26.2",
+  "identity_policy": "offline_trusted_private",
+  "administration": "host_only",
+  "runtime_services": ["proxy", "lobby", "race-a", "race-b", "race-c"],
+  "backend_final_state": "IDLE",
+  "setup_document": "docs/SETUP.md",
+  "operator_document": "docs/OPERATIONS.md",
+  "start_command": "./scripts/up",
+  "status_command": "./scripts/racectl status",
+  "implementation_scope": "Six tracks per Grand Prix, five Grand Prix, zero AI, fixed UUID groups, host controls, immutable capture and read-only archives",
+  "local_regression_tests": 8,
+  "rehearsal_scope": "Six real 26.2 offline clients with controlled native finish injection and real lifecycle/proxy/regrouping; not human-driven lap completion",
+  "full_event_release_approved": false,
+  "blocking_gate": "Target M4 Mac mini unavailable; fifty-player capacity and target-host operational acceptance unverified",
+  "goal_complete": false
+}

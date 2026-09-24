@@ -1,0 +1,662 @@
+{
+  "schema_version": 1,
+  "upstream": "Sprint Racer 1.6.13",
+  "archive_sha256": "2c3b11aca192d5f1ff02e6f703c1eb93c39af7ebf5434d541fabfb1ad0fd416a",
+  "files": [
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/speedometer.mcfunction",
+      "sha256": "6787749654299e4d0371221d82a0375ed288c1d0762286f9efd4ab72676410e7",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/item_balancing.mcfunction",
+      "sha256": "ac2a09cab975ade34496bd0942815ac0708947aa7ff21e21bf3078994f8e13c6",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/kart_yellow.mcfunction",
+      "sha256": "95e9ba88ab315bd5c95e811ba9a0256b071526d9ff986edbc8f63019d25dc7c0",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/defaults.mcfunction",
+      "sha256": "0dcd3d43d1371a3e014f778649d7ed0b776a34271108d64458afa246e9346313",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/reset_timer.mcfunction",
+      "sha256": "c6c035159e2ad38e1621a5bf1ea934eef8dcac79ef9bfe76d806e879a722bdd4",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_save.mcfunction",
+      "sha256": "5ccbac2700fdc7ac05e97c4cf732b1c1094dc2cf72c896753246b1200577c30e",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_delete.mcfunction",
+      "sha256": "7a30722e792ac58271e38e8d3a98fce381d5d379b29584594d87f2d5578cccce",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/nearby_boots.mcfunction",
+      "sha256": "1b12663ef73379aab71e119b24f860a7994ae451b720fe5e6a6d14b0444fbcd5",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/kart_green.mcfunction",
+      "sha256": "95fabfbe0fce015fdb7cd14fae37f03313bf2722f2e8f75e0fcad9108fd77df7",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_rubberbanding.mcfunction",
+      "sha256": "13ee9933f24493774214d59ada9f1f4d48cbaea977da83f918810f8eefc8e839",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/default_item_presets.mcfunction",
+      "sha256": "cd2ccf156b71fab2378034abda84d7e48dc98191f545ab3f4f370c3abdf51eef",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_load_specific.mcfunction",
+      "sha256": "adfb24bb117d54a529129123516f69f3fb3d01903c6a2f61f6b8331be60a76ad",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/grand_prix_loop.mcfunction",
+      "sha256": "506fce4495742cba87a752da8e0c4dfecc7430019c6d02963f2f6b9acf7dbaab",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/items.mcfunction",
+      "sha256": "4e84739e61f223792e489588c37dcf97c609fc31d9ef6823b4269ab5ccdad71a",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_finish.mcfunction",
+      "sha256": "0062b1df4f4de849b89918f552f54fe2fa5dc435a14cac9954953a96259b2c7d",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/def_time_add.mcfunction",
+      "sha256": "dae79238634717a1c22f470a2e567fef1ddf66f33868bea072d8d194ba42f8ba",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_save_specific.mcfunction",
+      "sha256": "500d9fd1744ef3c88287c287aac51ed88b41edfe0add3af9ebf55078d4c81058",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/teams.mcfunction",
+      "sha256": "80488af49c03da4fa316b94d0411e8e5a9b66c8924ed9cd06928e49544c6cf2b",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/add_20s.mcfunction",
+      "sha256": "2a319ee2e69f07f8b05a8f09486701c8c8e78d9d2af4a4904a08e89bbe607ebb",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/difficulty_ramp.mcfunction",
+      "sha256": "eeb3a538fa7a22b6c605e1f2e36413a573ec32b5030eedfd68f21aa437cd065e",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_mannequins.mcfunction",
+      "sha256": "d8e65f95b8b8b170c4abdc74198015d0a267e1547a483a91b73d978c07cb46fb",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/grand_prix_crowd_sfx.mcfunction",
+      "sha256": "e77bb0faf1b0a7db0e264bc1013a0d26434131bbd8f89dd20840cb2b126397c9",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/subtrack_20s.mcfunction",
+      "sha256": "57f217f0f59be50a1c5f5b7f3af137e1291f548d61f5b31791e9134520d95d0c",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/set_5s.mcfunction",
+      "sha256": "3a18a8669021a4aa74f62def5c2b0f1fa50e6f708c7a6d574f4c67b5e4a2e011",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/game_type_battle.mcfunction",
+      "sha256": "787dd3d97129776ba79e834d6045cf7183ff381e3d33bf29a627b5791c63f110",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/kart_purple.mcfunction",
+      "sha256": "d4e59cdff77158e89fae39adffa0fc979ac66cba0fde0b50a1cffb028e217e65",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_difficulty_battle.mcfunction",
+      "sha256": "bc076f2e504c5ba347eaa87e7036aef87fa23a30af8cbe9b189ba59f5a408080",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/endless_mode.mcfunction",
+      "sha256": "fcff00e6a85f2362ffe6e5e5ab4d930739d2ca4c45885191bcfea85ae43f3a2c",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_count_battle.mcfunction",
+      "sha256": "020400b9d6029cacdaa9e19d7c80dabc5a26b71d83be5d92123355da5037d0d1",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/kart_blue.mcfunction",
+      "sha256": "c1481faa1f4723fa75a13f4d06e6af7b768e013c553e2285f479f6bb5fa8c6c9",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/game_type_race.mcfunction",
+      "sha256": "6e08eae33f410a0143243cbbde35b0dc914c25b36204a249b25a482edecf646e",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/auto_balance.mcfunction",
+      "sha256": "2e216ee6827635ee6d0608d42cd1d695b90425a9649359f18e20a3715ce1ac6a",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/custom_laps.mcfunction",
+      "sha256": "c469e4ebb9736d676298b397cd9f9426ea1489a97206b3c4130131f71cf48044",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/absorption_race_start.mcfunction",
+      "sha256": "479ea139eb442bafd416285e07c91f69a0269b77f32e9db23331dd92109a46b0",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_difficulty_race.mcfunction",
+      "sha256": "d9fbe9ccafda6ed53f388f1ff8f46dc0f2ad99026b796d31e784a74cb8a3e879",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/disable_all_cheats.mcfunction",
+      "sha256": "127e41fbb8e25984a3abcbf31685e859c28eaa57d7b7cde2ef1d24676fc7a8e0",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/reset_music.mcfunction",
+      "sha256": "b68c4771b353904a49ce66ca070c36e2e8be2192fd98875aaa897de101e92604",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_previous.mcfunction",
+      "sha256": "1d6440e52eab86b9bf67c70fb289f7efea412d48ce5a72f887cf273eaa9f132b",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/speedometer_enable.mcfunction",
+      "sha256": "e1c444679f69ea75542dad4c3095f07e8cb2574d903deec832a5b0fa97275473",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/locator_bar.mcfunction",
+      "sha256": "d9ba75d31f7cdbfe7a6b54459f5a4296a8142060122602bfda88e2dd58993a22",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_rival.mcfunction",
+      "sha256": "9d35871979d642faf845376edb7ea4bcbaad7a133867e4d975db62728619c9d5",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/in_game_hud.mcfunction",
+      "sha256": "83cc1f8b16003ebb43a91f6b767914795db691b794ad413005313e7a18a48894",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/def_time.mcfunction",
+      "sha256": "530aea014d0227669683d542f9a398460444de4ca1453050e73f579ef5082300",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/performance.mcfunction",
+      "sha256": "e886471ea89958427676ebb2a871a9aae320c536a080c3402391c0c3ffaf16bf",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_context_battle.mcfunction",
+      "sha256": "46bf273af79d65ab2511337cd260b4b1a8c086212d31cc75c4b103187ac26c98",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/extra_chests.mcfunction",
+      "sha256": "f6e436186fa0e1d0ca53ee2d81f17be9ab4cf06bf4f3f31f402dae178a8431cc",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/custom_slot_limit.mcfunction",
+      "sha256": "9e0391afede3ca8f72715b40452144415c58c45687cab4cbb625a931ed272f0d",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/reset_all_ta_data.mcfunction",
+      "sha256": "dfa438582a8585208ce01511a264165e751717923ab0fcf71d6b6759b8c23b8d",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/kart_red.mcfunction",
+      "sha256": "0b00322303f39bf9934b213735b7ed7eff3b6e1fd77e27a2dbfc7e83809c97f5",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/gamemodes.mcfunction",
+      "sha256": "d22853d92bd1db8e04c69791371cb99290c69e2290112a184188ad07cf2bc485",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/admin_mode.mcfunction",
+      "sha256": "11e471a169efece2508bf4626be295d8d6f35cb6488f521fd04e33009d35d929",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_load.mcfunction",
+      "sha256": "38f6f17378304eb8d774a392007d883ea231975f1c1d8ef16e7f580f6d58b8c0",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/tracks.mcfunction",
+      "sha256": "4979b30794c76a99474a56efb76a59b84a240fcff78cf9e2f0211e14ba59b56d",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_count_race.mcfunction",
+      "sha256": "11b18ab7f1c466385bca7de125ae1a6a61b498f235aad89c29bd5e666162ce03",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_loading.mcfunction",
+      "sha256": "0b585d6990f75d5ef21512e4bd2e611374ba796cba80b403d9059d5eda53173e",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_next.mcfunction",
+      "sha256": "07a6aa68ea9ae047a271b76b43d4dd26c92d2ba8fbb81d32e77ed9891b31f43b",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_defaults.mcfunction",
+      "sha256": "c61cbd3abec0efa07bc992b292ac21b2d6b84e9eae4d1af27ec8210bb7f651e9",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/def_time_remove.mcfunction",
+      "sha256": "1f88a93c3d6a327eabb9a65cd2bd76f6fb441113360776433a05cc0213819973",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_add_type_battle.mcfunction",
+      "sha256": "43385a6de1d6da392b836d3cb214578d33ba6cd812013d4b406574f2811785a8",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_icon.mcfunction",
+      "sha256": "1af773f446080abe193f1cdc6775c121323e210ef396095eafeb5025412f8fa2",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/custom_ai.mcfunction",
+      "sha256": "5087d73a7d7559b86f878b76d9c78bd989f1f34fac0ba7ba6f2353b0e20d8374",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_add_type_race.mcfunction",
+      "sha256": "dd983b9ffc17b4c3e638f380131b2e3113a01176c59265777a192c9d68fb50c7",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_context_race.mcfunction",
+      "sha256": "6dfaa1a50a7a883933a7727c32274fcd89dc4aaf91d74ac1b38f28c5b1f2b7e2",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/triggers/gp_menu_2.mcfunction",
+      "sha256": "07310f4b495a9426ee2469089e1e21cba86133e6c8e7d30c13a13c79edcd930d",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/triggers/gp_menu_1.mcfunction",
+      "sha256": "d6e6aac279825407066a98206384ba5af91161f2dce31ea754fcd01c92f98387",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/triggers/gp_menu_4.mcfunction",
+      "sha256": "fa2d54b1a0b3790791756aa7acf1e8032eb30ed6be4d39d6d1de34aa30767e37",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/triggers/gp_menu_3.mcfunction",
+      "sha256": "f357e1a64cfc198b18af512e5565fbb77b819c62619a59ff00d43eb02d977e12",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/boq/trigger_editor.mcfunction",
+      "sha256": "d7c627a48f2ca8cc39a8e763cd2c08a925de17001c711f437bcdac255e73027e",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/boq/trigger_track_editor.mcfunction",
+      "sha256": "732a2b0ba3e27aa47e68809f172859961589bfbdec52e65d51ea8f9c41ae015a",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/worldmap_choose.mcfunction",
+      "sha256": "fb6005851ba7ae7c1ee12787483881db4743168ed0e2f057c652a3cc0316653c",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/worldmap_choose_custom.mcfunction",
+      "sha256": "5ecc1475e0f53fdd91c3c79a1c31b568aa44a138a409973ef509e1ac87ef3e4d",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/_return_to_lobby.mcfunction",
+      "sha256": "4cf977cd3250c0ea7f70a0db5293d4eab89cb8d80b70c331319daef3d1fa1da5",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/set_mode_ready.mcfunction",
+      "sha256": "37aa45faf4d2eebb465efba35afbe1643d3f25c6d12fa50dfa64fa0b804457f2",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/set_mode_not_ready.mcfunction",
+      "sha256": "7269ab98df2b4413d1f14909d103878e8e02efe2ebb186ec22e595efb49604b2",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/save_state/load_block_state.mcfunction",
+      "sha256": "0aa7b9366c0a53ca6cfc0ce2b67d67b8d4fbf08aa5c4afefdbdd451dd1a08406",
+      "prefix": "execute if data storage xdu_race:state current run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/save_state/handle_state_request.mcfunction",
+      "sha256": "5cb8b3763b2d44dc2461187bde030e670bb1d41f06e29f4baa5adce0bda3eb23",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/round_sequence/handle_button_press.mcfunction",
+      "sha256": "084f4ff2acad202e2daca54f987095a706070c744dfe2099f46afc8a75c90cce",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/_initialize.mcfunction",
+      "sha256": "cf3c7ec25be8e080eba48c31705a8ae220c6be08b05394f1134180e6b285a787",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/choose_track.mcfunction",
+      "sha256": "5904e04ff1b757f2bc394e04fd335a93c47777d1ff582231d73c53c346046f7a",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/add_track.mcfunction",
+      "sha256": "de271d3174896af883dee01572f004274a234e9f5385d0e2e168d0619ade9752",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/remove_track.mcfunction",
+      "sha256": "53ee426d090b40f7ad0e5db30f7296653566d44de1c5435237ffd06ddcc6e88f",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/click_map.mcfunction",
+      "sha256": "d78084937a074c130837b3f85551d8ce8ef33b5bb03dc79408e51805744cb643",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/back_to_menu.mcfunction",
+      "sha256": "488611a5b3e0e322269c6e0afa24a7b7a06fdc2b6ed6c1ad43a5d8a41e511467",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/exit.mcfunction",
+      "sha256": "2b83cf4ac5c0c5bf1d61a1b8b4e351b2bfaeba3907ce486cc8209c6fa6a4b190",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/start_grand_prix.mcfunction",
+      "sha256": "e0961a839a6df08a6249bc3631ece367dbef3979f7292d5aa1e46465ddcad6fe",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/cancel_grand_prix.mcfunction",
+      "sha256": "59f3743f1b9316e4990ec75bd0dbaf6f19343bdbdd89460cd424e5624aefb640",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/buttons/green.mcfunction",
+      "sha256": "cc278641f54f361204a3fef0d1c2cb443d9fe06696310e9e145aa5426719dd35",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/buttons/red.mcfunction",
+      "sha256": "2a2495c8b051c0ffca5ccd7af08d3666fae3afe1ae81ae7f1f61abde001cb8eb",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/buttons/yellow.mcfunction",
+      "sha256": "132e36332aa30826b08732d1a258a88dc229d8a83839749a245cd709426cdca2",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/inventory_check/inventory_controls/admin_menu.mcfunction",
+      "sha256": "c6cef9c60b0e9c9be4c7e0c57ac75e3b14be1d3dd29bc30207a1171737f249ed",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/admin_enter_editor.mcfunction",
+      "sha256": "e4d092ae269782670d27d6f3bcdb471028b9be4c2e82f37e2582e025c157bd6c",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/5/end_fr.mcfunction",
+      "sha256": "a48495f4ee466e762ec8c8219df20aa21f5536612b0a76d0815e01e327f13952",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/self_ready.mcfunction",
+      "sha256": "e62b1c26067524363b43526434353bde0743cf586ded0c1feb1915d936b79dc4",
+      "prefix": "execute if data storage xdu_race:state current run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/self_not_ready.mcfunction",
+      "sha256": "2aced056053e04622bd75b823d9ee4cd7dae7ffec87f8d26853052a7ce820b9e",
+      "prefix": "execute if data storage xdu_race:state current run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/mid_game_vote/vote_in.mcfunction",
+      "sha256": "0d948e8999ffa7cffb4a21526ed58cd42cae8f33e54f5a68396cf6723e5a0172",
+      "prefix": "execute if data storage xdu_race:state current run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/1/check_for_lone_player.mcfunction",
+      "sha256": "01470c9ee7e90df8e78a32c54ee3743f227a70cfe1d142e2bfd27b3921edd6dd",
+      "prefix": "execute if data storage xdu_race:state current run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/join_solo.mcfunction",
+      "sha256": "a4faaf5eebfbc7484ca47e9df817fb5ea9e3c71ec7f504f0eb68e7ea0b2c1c9e",
+      "prefix": "execute if data storage xdu_race:state current run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/join_logic/in_game_no_players.mcfunction",
+      "sha256": "c88270d842148931f7431c180650758f15174279064e9107743a148ad31a2c30",
+      "prefix": "execute if data storage xdu_race:state current run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/join_logic/mid_game_spec/join_attempt.mcfunction",
+      "sha256": "958b3af39598f7d050eef34f0301e15e6db81e2abf8c2ae60bb8e1e27fbd194d",
+      "prefix": "execute if data storage xdu_race:state current run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/join_logic/mid_game_spec/join_success.mcfunction",
+      "sha256": "32394d7d68425843e381ab6a45bcb530dda0c7de460d95c0ef2b088e861ca324",
+      "prefix": "execute if data storage xdu_race:state current run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/inventory_check/inventory_controls/become_player.mcfunction",
+      "sha256": "e91fa1364aa7add5b2ea1c98a709600a31eda3b050182490d33fe774ae49db43",
+      "prefix": "execute if data storage xdu_race:state current run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/3/_initialize.mcfunction",
+      "sha256": "adbcffeaf73bfbddf88d4d6269097d34c824343ab3d774b995c4f3b7861a1360",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/5/_initialize.mcfunction",
+      "sha256": "2ea073111658075e01e91e70ad6a06e164313a5a72b35b7cfc680888062f9ddb",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/6/_initialize.mcfunction",
+      "sha256": "c3dfcbaa980e9f32afe3c835f014a396b649d8e9254b7694873ffb66ce4877d0",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/7/_initialize.mcfunction",
+      "sha256": "cacb18c2fb546417715c944e7232a5d37f023a6bbf35385bb02d07029387d39e",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/8/_initialize.mcfunction",
+      "sha256": "0f50cb0a45dd385e3a0affad7dc5e4e5e599624eb0c40bd32c62c52ec67013c8",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/9/_initialize.mcfunction",
+      "sha256": "cd4c3d616dae2ee5975bcb2c10d536d46c2a831d84ad80d874e8c5bda4729841",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/10/_initialize.mcfunction",
+      "sha256": "62b5dc2cb2e0aa41d3a36ba24b5c8f327685ef227a4b921e7d46b014d0ec38d8",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/12/_initialize.mcfunction",
+      "sha256": "bb56bac8ec0da373b7afe4da04ec3d1ab2ecb617685bbafaf9ef00965f77623d",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/1/ai_initialize.mcfunction",
+      "sha256": "0b3b0a15b428ba426e3620b6fc7cfe4c73ac25c4624f8b24e76c2ada0bc66580",
+      "prefix": "execute if data storage xdu_race:state current run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/3/ai_initialize.mcfunction",
+      "sha256": "0f21aed85446094c87e3410b87bfb4b1d8ea88248c74be763b1604523451b01e",
+      "prefix": "execute if data storage xdu_race:state current run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/12/ai_initialize.mcfunction",
+      "sha256": "296f8f53b2862aeb13999a3eb1f09fde376aa33fa5f85e874e8240f463885e2a",
+      "prefix": "execute if data storage xdu_race:state current run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/ai/general/respawn/_index_entity_spawn.mcfunction",
+      "sha256": "df1bfd1dd892dfcb7d273f4dd4aae1c5afbd26f0f28c35d9c5544d875d3fa4ad",
+      "prefix": "execute if data storage xdu_race:state current run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/join.mcfunction",
+      "sha256": "e218acbeac624a6b1d7f78d47ee143864cf022bbfcbd2184b21c7d7c8d6c7a3f",
+      "suffix": "\nfunction xdu_race:access/join\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/grand_prix_round_start.mcfunction",
+      "sha256": "03e64357abd4fca97edee205607746b6d64b45ea59b5aeccca9c55daddb5870d",
+      "prefix": "function xdu_race:launch_guard\nexecute unless score #launch_ok xdu matches 1 run return 0\n",
+      "suffix": "\nscoreboard players set #racepermit xdu 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/1/_initialize.mcfunction",
+      "sha256": "909c1e2372c72045dac0eee29011fe04021d5b17cde9e9728ced54831dcdb40f",
+      "prefix": "execute unless score #racepermit xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/1/start_countdown.mcfunction",
+      "sha256": "f0206f4786909145c01f1b238570d0eb03d7a1aba234ede2db8ea84de995ac21",
+      "suffix": "\nexecute if score @s gameTime matches 160 run function xdu_race:results/start\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/1/player_finish.mcfunction",
+      "sha256": "3a2c8297f694017c484f50538a3506166f9e7843c26682f457d524f1598d792e",
+      "changes": [
+        {
+          "anchor": "scoreboard players remove @e[tag=w,x=1560,y=150,z=406,distance=..1,type=armor_stand] addPoints 1",
+          "replacement": "scoreboard players remove @e[tag=w,x=1560,y=150,z=406,distance=..1,type=armor_stand] addPoints 1\nfunction xdu_race:results/finish"
+        }
+      ]
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/1/end_sequence.mcfunction",
+      "sha256": "e119f782f13e1c737c3cbbbb1e822cf813b9b6f3ead09f47abb72995e564958e",
+      "changes": [
+        {
+          "anchor": "scoreboard players set @s[scores={gameTime=..99999}] gameTime 100000",
+          "replacement": "scoreboard players set @s[scores={gameTime=..99999}] gameTime 100000\nexecute if score @s gameTime matches 100000 run function xdu_race:results/close"
+        },
+        {
+          "anchor": "execute if entity @s[tag=!teamplay,scores={gameTime=100120}] run function sprint_racer:load_saved_points",
+          "replacement": "execute if entity @s[tag=!teamplay,scores={gameTime=100120}] run function sprint_racer:load_saved_points\nexecute if score @s gameTime matches 100120 run function xdu_race:results/commit"
+        },
+        {
+          "anchor": "execute if entity @s[scores={gameTime=100260..}] run function sprint_racer:game_logic/0/_initialize",
+          "replacement": "execute if entity @s[scores={gameTime=100260..}] run function xdu_race:results/handoff\nexecute if data storage xdu_race:state current{state:\"ERROR\"} run return 0\nexecute if entity @s[scores={gameTime=100260..}] run function sprint_racer:game_logic/0/_initialize"
+        }
+      ]
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/4/_initialize.mcfunction",
+      "sha256": "99d0ae2031ec64708c59c83822137d370526cdf2869461fa0fe33a245d9aa3c0",
+      "prefix": "execute unless data storage xdu_race:state current{state:\"GP_FINISHED\",frozen:1b} run return 0\n"
+    }
+,
+    {
+      "path": "data/sprint_racer/function/boq/trigger_option.mcfunction",
+      "sha256": "b40d4df0342f1e6e095872675d568053848ca84e903631b081f801f3cf352abf",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/misc_lobby_happenings/cheat_menu/ca_trigger.mcfunction",
+      "sha256": "8b4942eea6743eef8000f23007afe45bce7cf9bf53b6dfbc9da5ee66abec045a",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/0/misc_lobby_happenings/cheat_menu/cl_trigger.mcfunction",
+      "sha256": "357715478fd09d338d03e3f0e0f901018d1b6a507f679c5e20eb60c8fff1e907",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/buttons/left_success.mcfunction",
+      "sha256": "2280b4272fb4a8a89b019579e2decb8647a08e8e91c6205315d2326143e2ba23",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/game_logic/11/buttons/right_success.mcfunction",
+      "sha256": "e44bd643cfc38af4b8852fcdb5e1c827bc8096d94311a61ea6c58a916325e473",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/_timescale.mcfunction",
+      "sha256": "ab1e3f665075fca81c4dc6171686983d2bb20b7677f24f9f26f9bcb151cb5a9d",
+      "prefix": "execute if data storage xdu_race:state current{halted:1b} run return 0\n"
+    },
+    {
+      "path": "data/sprint_racer/function/mid_game_vote/listen_for_votes.mcfunction",
+      "sha256": "92b13ac73df98d8171f638108aad7db26f5e00b34f945745ee46c62abac78336",
+      "prefix": "execute unless score #native xdu matches 1 run return 0\n"
+    }
+  ]
+}

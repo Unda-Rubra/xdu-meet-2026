@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "adapter_version": "1.0.0",
+  "identity_mode": "offline_trusted_private",
+  "administration": "host_only",
+  "namespace": "xdu_race",
+  "state_storage": "xdu_race:state",
+  "request_storage": "xdu_race:request",
+  "result_storage": "xdu_race:results",
+  "current_path": "current",
+  "history_path": "attempts",
+  "states": ["IDLE", "PRESET_LOADED", "ARMED", "RUNNING", "BETWEEN_TRACKS", "GP_FINISHED", "STOPPED", "ERROR"],
+  "grand_prix_rounds": 5,
+  "tracks_per_gp": 6,
+  "max_group_players": 17,
+  "ai_count": 0,
+  "request_fields": ["operation_id", "payload_hash", "expected_revision", "expected_boot_id", "expected_state", "attempt_id"],
+  "record_key": ["event_id", "grand_prix_round", "attempt_id", "group", "track_index", "uuid"],
+  "commands": ["preset", "prepare", "start", "halt", "stop", "reset"],
+  "export_mutates_world": false,
+  "rank_policy": "pending_adjudication"
+}
