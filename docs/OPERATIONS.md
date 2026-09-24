@@ -33,7 +33,7 @@ Wait for **all active groups** to report `GP_FINISHED`, track6. An omitted C wor
 ./scripts/racectl start
 ```
 
-Use the actual attempt and export directory printed by the CLI. Grouping is organizer-controlled between GPs; put A/B or A/B/C in the next round's roster before loading it. There is no central grouping service. Configure 1–7 GPs, each with six maps (up to 42 races per participating player); each player receives at most one external score award per GP. Archive and reset the previous groups before changing active worlds; the controller also checks newly included worlds are IDLE.
+Use actual attempt/archive identifiers from the CLI. `scripts/group-participants` preassigns seven rounds; rerunning only fills new users or missing rounds and never changes established memberships. Existing `racectl`/routing remain the game-control boundary. Set the Feishu `比赛控制／当前轮次` before upload; the source game's preset/round number does not choose the displayed score round. Do not change the Feishu round until the expected upload receipt is visible. Identity remains organizer-supervised.
 
 ## Read-only snapshots
 
@@ -44,9 +44,11 @@ Use the actual attempt and export directory printed by the CLI. Grouping is orga
 - `grand_prix.csv`: one row per participant/GP attempt, all six track states, raw observed native totals and captured award sums. Native totals and captured sums are distinct evidence, not interchangeable official scores.
 - A manifest with server states, revisions, hashes, errors, warnings and completeness/coherence flags.
 
-`complete` means all selected backends were read successfully. `coherent_attempt` means they describe the same GP attempt/preset; a recovery snapshot may be complete but incoherent. Neither flag means sporting results are adjudicated. No external event points are computed.
+`complete` means every selected backend was read; `coherent_attempt` means their attempt/preset agrees. Automatic upload additionally waits for every enabled group to be frozen `GP_FINISHED`. Exported raw evidence may retain legacy `pending_adjudication` provenance flags; these are not a manual-score entry path. The service sends raw totals/statuses and frozen group sizes only; Feishu formulas compute competition ranks and event points. `轮次上传记录` reports data exceptions; incomplete/invalid evidence cannot replace the last published ranking.
 
 Every export gets a new directory. Logical result identity excludes export ID, so repeated snapshots do not represent additional scores. Multiple attempts for one round require explicit `--attempt`; do not sum replays. Archive receipts must contain hashed snapshots and CSVs, and must match the current final revision before reset.
+
+The service exports completed attempts and binds each one durably to the Feishu current round before its first remote write. It verifies archive checksums and full uploaded payloads, then commits the round's published-batch pointer. Restart/retry never moves an old attempt into the new current round. Existing historical rehearsals remain in local archives and are not rebound automatically. Multiple unseen completed attempts after downtime require explicit `upload-attempt --attempt EVENT/ATTEMPT --round N`. No service-side point calculation or manual-score fallback exists. Inspect authenticated `/status` for transport failures and upload bindings.
 
 ## Safe stop
 

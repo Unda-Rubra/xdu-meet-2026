@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+"""Use the repository virtual environment, never the user's CLI token cache."""
+import os
+from pathlib import Path
+import sys
+
+root = Path(__file__).resolve().parents[1]
+python = root / '.venv/bin/python'
+if Path(sys.prefix).resolve() != (root / '.venv').resolve():
+    if not python.exists():
+        raise SystemExit('Create .venv and install requirements.txt before running meet-service')
+    os.execv(str(python), [str(python), str(Path(__file__).resolve()), *sys.argv[1:]])
+sys.path.insert(0, str(root))
+from raceops.meet_server import main
+raise SystemExit(main())

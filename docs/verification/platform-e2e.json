@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "scope": "Three real isolated vanilla Minecraft 26.2 clients, three complete GP cycles through production signup/grouping/proxy/game capture/automatic Feishu upload and formula rankings. Controlled teleports cross native checkpoints and finish lines; no fabricated score payloads or direct finish-function injection. Not human-driven lap or large-event capacity certification.",
+  "signup": {
+    "form": "shrcnDsHZjhEY1GIHiyzOiK2s9b",
+    "browser_submissions": 1,
+    "official_form_submissions": 2,
+    "unique_game_accounts": [
+      "XduFlowA",
+      "XduFlowB",
+      "XduFlowC"
+    ],
+    "required_field_validation_observed": true
+  },
+  "grouping": {
+    "participants": 3,
+    "active_groups": [
+      "A",
+      "B"
+    ],
+    "group_sizes": [
+      2,
+      1
+    ],
+    "round_assignments_per_user": 7,
+    "rosters_verified_before_route": true
+  },
+  "rounds": [
+    {
+      "round": 1,
+      "attempt": "acceptance20260925_scored1",
+      "archive": "exports/20260924T191441-fea1ea4b985345569c91188dd8bb9171",
+      "native_finished_backends": [
+        "race-a",
+        "race-b"
+      ],
+      "raw_rows": 18,
+      "score_rows": 3,
+      "automatic_receipt_state": "完整",
+      "idempotent_reimport": true
+    },
+    {
+      "round": 2,
+      "attempt": "acceptance20260925_scored2",
+      "archive": "exports/20260924T192051-086a214b575b467a8ee414889bbc87c7",
+      "native_finished_backends": [
+        "race-a",
+        "race-b"
+      ],
+      "raw_rows": 18,
+      "score_rows": 3,
+      "automatic_receipt_state": "完整",
+      "idempotent_reimport": true
+    },
+    {
+      "round": 3,
+      "attempt": "acceptance20260925_scored3",
+      "archive": "exports/20260924T192644-aa19c714fa334be19e689e666f752c0d",
+      "native_finished_backends": [
+        "race-a",
+        "race-b"
+      ],
+      "raw_rows": 18,
+      "score_rows": 3,
+      "automatic_receipt_state": "完整",
+      "idempotent_reimport": true
+    }
+  ],
+  "scored_participant_track_finishes": 54,
+  "scored_gp_rows": 9,
+  "ranking": [
+    {
+      "name": "XduFlowA",
+      "roundScores": [
+        100,
+        11,
+        120
+      ],
+      "cumulative": 231,
+      "minimum": 11,
+      "final": 220,
+      "rank": 2
+    },
+    {
+      "name": "XduFlowB",
+      "roundScores": [
+        100,
+        110,
+        12
+      ],
+      "cumulative": 222,
+      "minimum": 12,
+      "final": 210,
+      "rank": 3
+    },
+    {
+      "name": "XduFlowC",
+      "roundScores": [
+        10,
+        110,
+        120
+      ],
+      "cumulative": 240,
+      "minimum": 10,
+      "final": 230,
+      "rank": 1
+    }
+  ],
+  "negative_checks": {
+    "first_pilot_native_timeout_rejected_without_points": true,
+    "unused_C_paused_reproduced_export_dependency": true,
+    "unused_C_paused_after_fix_completed_AB_uploads": true,
+    "repeat_imports_create_no_duplicate_scores": true
+  },
+  "repairs": [
+    "Completion monitor only contacts pinned active backends",
+    "Separate drop-lowest final ranking formula and view",
+    "During racing, upload status no longer displays previous success message",
+    "UNFINISHED and DISCONNECTED observations retain their real status rather than being labeled DNF"
+  ],
+  "recovery": {
+    "restored_users": 17,
+    "preserved_original_memberships": true,
+    "removed_acceptance_rows": {
+      "tblhehAzkHmmNSrz": 72,
+      "tbl6qBLUZA4FuGg3": 12,
+      "tblTVSawya9N13Up": 4
+    },
+    "removed_signup_users": 3,
+    "native_attempt_history_retained": true,
+    "ignored_replay_keys": [
+      "xdu-2026-fall/acceptance20260925_r1",
+      "xdu-2026-fall/acceptance20260925_scored1",
+      "xdu-2026-fall/acceptance20260925_scored2",
+      "xdu-2026-fall/acceptance20260925_scored3"
+    ],
+    "unused_C_watchdog_after_unpause": "Restarted with original idle attempt and revision 249; no world replacement"
+  },
+  "regressions": {
+    "command": ".venv/bin/python -m unittest discover -s tests -v",
+    "passed": 23
+  },
+  "final_source_revalidation": {
+    "captured_player_gp_results_checked": 9,
+    "participant_track_finishes_checked": 54,
+    "actual_timeout_snapshot_remains_UNFINISHED": true,
+    "raw_evidence": "volumes/control/platform-acceptance/final-source-revalidation.json"
+  },
+  "participation_and_field_audit": {
+    "scope": "Temporary synthetic result snapshots exercised the live Base and grouping service; this is not another native-client GP run.",
+    "authoritative_field": "能够参与小游戏（最终结果）",
+    "input_cases": ["线下+游戏名+未排除", "线上", "缺少游戏名", "主动退出"],
+    "eligibility_results": [true, false, false, false],
+    "ineligible_results_excluded_from_scores": true,
+    "only_eligible_fixture_received_seven_groups": true,
+    "existing_memberships_unchanged": true,
+    "removed_fields": {
+      "分组准备名单": ["纳入首批", "已保存", "用户序号"],
+      "SprintRacer计分表": ["参赛人数"]
+    },
+    "retained_dashboard_round_number": true,
+    "user_owned_participation_lookup_preserved": true,
+    "description_mismatches_after_readback": 0,
+    "repeated_migration_field_updates": 0,
+    "repeated_migration_all_field_definitions_unchanged": true,
+    "numeric_percentage_format_preserved_during_real_update": "0.00%",
+    "ui_only_palette_updates_rejected_before_openapi_write": true,
+    "nonexistent_preparation_test_checkbox_write_removed": true,
+    "restored_record_counts": {
+      "users": 17, "preparation": 17, "control": 1, "groups": 21,
+      "scores": 0, "multipliers": 7, "raw": 0, "batch": 0
+    },
+    "temporary_fields_removed": true,
+    "active_operation_after_cleanup": null,
+    "private_metadata_snapshots": "volumes/control/field-audit-*.json"
+  },
+  "local_private_evidence": "volumes/control/platform-acceptance/",
+  "visual_evidence": [
+    "signup-success.png",
+    "native-first-track.png",
+    "native-third-gp.png",
+    "operator-live-round.png",
+    "final-ranking.png"
+  ],
+  "limitations": [
+    "Offline names/UUIDs do not authenticate humans; approved organizer-supervised event mode",
+    "Three clients are not a 50-player capacity test",
+    "Formula/canvas refresh is asynchronous; wait for settled rendered values",
+    "9 of the 17 restored original attendees still have missing or invalid Minecraft names; they must be corrected before loading the full real event roster"
+  ]
+}

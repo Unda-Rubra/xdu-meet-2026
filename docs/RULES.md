@@ -1,18 +1,20 @@
-# Event rules and pending adjudication
+# Event rules and automatic result publication
 
-The deployment owner explicitly accepted the Minecraft EULA for local deployment and runtime verification, and chose to leave unresolved sporting decisions pending judge review.
+The owner accepted the Minecraft EULA and approved service-only results. SprintRacer executes the selected six-track preset; the local service forwards complete attempts; Feishu owns the displayed round and all rank/point formulas. There is no manual score-entry or manual override path.
 
 The owner subsequently selected **private trusted event** admission for offline clients. Proxy online authentication is disabled; the deployment remains restricted to the private event network (localhost by default). Names and offline UUIDs can be impersonated. Organizer supervision is the explicitly accepted identity control, not cryptographic authentication. Export provenance must state `offline_trusted_private`.
 
 All administration is host/console/RCON-only. Never grant OP, native admin, tournament_admin or proxy admin permissions from an offline name or UUID. Player rosters constrain participation, but do not authenticate the human. A public unauthenticated deployment is outside this approved trust policy.
 
-- Five Grand Prix per group; six explicit Race tracks per GP; three groups; no AI participants or automatic fill.
+- Seven rounds by default, six tracks per GP, no AI. Run `scripts/group-participants` before the minigame: 2–20 initial participants use A/B; 21–51 use A/B/C, maximum 17 per group. Reruns preserve every existing membership and group count, assigning only new users/missing rounds to the least populated enabled group. If the fixed count is full, refuse rather than silently rebalance or enable C.
+- Eligibility comes exclusively from the user-maintained `能够参与小游戏（最终结果）` formula. The service does not duplicate its attendance/name/opt-out logic. The old `不参与比赛` checkbox remains only one input to that formula; game-name syntax, UUID consistency and duplicate identity checks remain separate admission checks.
 - Fixed offline UUID membership within a GP. Each UUID must match the proxy's deterministic OfflinePlayer:name mapping, and organizers must verify the human/name assignment. Names must remain fixed throughout the event.
 - Native points are raw game evidence, not external event points.
 - Preserve DNS, DNF, disconnected, incomplete, conflicting and unknown observations separately. A disconnect alone is not an adjudicated DNF.
-- Equal totals, missing or disputed results, partial GP attempts and restarts remain `pending_adjudication`; never invent a final rank or award external points.
-- Replays have distinct attempt IDs. No attempt is silently discarded or cumulatively counted with its replay.
-- Final judge policies and the allowed start-time deviation still require explicit approval before the formal event rehearsal. The user's pending-review choice permits honest raw exports, not a claim that sporting adjudication is complete.
+- The Feishu `比赛控制` singleton's `当前轮次` determines the upload destination, not the game's `grand_prix_round`. The first upload persists the binding locally; retries and restarts cannot move that attempt to another round. The operator changes the current round only after confirming the last uploaded round/attempt. The service never auto-increments it.
+- All enabled groups must be frozen `GP_FINISHED` before automatic export/upload. Complete coherent six-track evidence, observed commits, matching award sums, unique identities and no AI are required for publishing a ranking. Equal totals use competition ranking (1, 1, 3) and equal points; explicit DNS/DNF receives zero. Missing, disconnected or inconsistent data is uploaded as evidence but marked `数据异常`, not guessed as a result.
+- Feishu computes `(10 + 90 × percentile^1.5) × round multiplier`, with percentile `(participants-rank)/(participants-1)` (a one-player group uses 1). Source totals rank finishers; they are not themselves event points. Current-round and cumulative leaderboards use only the round's committed service batch. `最终总得分` retains the existing drop-lowest-round formula as a separate final score; the live cumulative leaderboard uses the undropped cumulative total.
+- A new complete valid replay bound to the same Feishu round replaces that round's published-batch pointer only after full payload readback. In-progress/invalid replays leave the previous published ranking intact. Historical rehearsal archives are retained locally but quarantined from automatic binding to today's round. Multiple unseen completed attempts require explicit per-attempt round binding instead of assigning them all to the current round.
 
 `config/event.yaml` uses JSON syntax, a YAML subset. Copy `config/roster.example.json` to local `config/rosters/round-N.json`, and replace empty arrays with organizer-approved participants shaped `{"uuid":"offline-uuid","name":"fixed-game-name"}`. Validate names and their deterministic offline UUIDs, unique across all groups. Empty groups fail admission. Real rosters are Git-ignored; there is no in-game administrator whitelist in this deployment mode.
 

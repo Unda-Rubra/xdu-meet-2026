@@ -45,7 +45,7 @@
 
 ## 3. 完整依赖 DAG
 
-实线为实施及最终验收依赖。已实现节点不再标为PLANNED；受控客户端已完成5个GP×6图×3组的生命周期/留档/换组验证。用户选择未决体育规则保留人工裁定，不伪造最终排名。Capacity因目标M4主机未提供而阻塞；SETUP/OPERATIONS可用于本地运行，但不等于全量赛事发布验收。
+实线为实施及最终验收依赖。受控客户端已完成5个GP×6图×3组的生命周期/留档/换组验证。后续迁移已取消人工录分：本地脚本分组、完整GP结束后转发，飞书控制绑定轮次并计算积分与排名，详见 RULES/SETUP。Capacity因目标M4主机未提供而阻塞；本地服务验收不等于目标主机的全量容量验收。
 
 ```mermaid
 flowchart TD
@@ -106,7 +106,7 @@ flowchart TD
 | 节点 | 直接前置 | 交付目标/主要文件 | 可观察退出条件 |
 | --- | --- | --- | --- |
 | Artifacts | — | `config/versions.lock.json`、`scripts/fetch-assets`、固定镜像输入和本地 `downloads/` | 正式 URL/build/commit/hash 可复现；错误/缺失 hash 拒绝；许可范围与资源包分发明确；需要启动前由部署者接受 EULA；不提交原版世界或资源 |
-| Rules | — | `config/event.yaml`、裁判规则及名单导入约定 | 固定 5 GP × 6 图、0 AI；确认超时、DNS/DNF、掉线/重连、未完成 GP、平分、重赛有效 attempt、开赛偏差阈值和人工裁定方式；未确认则 export 标待裁定，不造规则 |
+| Rules | — | `config/event.yaml`、`docs/RULES.md` | 1–7轮×6图、0AI；飞书锁定上传轮次；并列同名次同分，明确DNS/DNF为0，缺失/断线/不一致不猜分；新有效重赛整轮替换，不累计多次尝试 |
 | Source | Artifacts | `docs/SOURCE_MAP.md`、`patches/manifest.json` 的上游输入映射 | 发行包逐入口列出权限、ready/skip、六槽写入、每图真正起跑、finish/award/settlement、GP结束/loop/退出及 AI 补位路径；记录文件 hash/行号/调用者/未知项；每个未知项分配验证场景 |
 | Compatibility | Artifacts | `images/`、`compat.compose.yaml`、`scripts/compat`、`docs/verification/compatibility.json` | 固定Java/原版26.2/Bungee正常加载；离线登录与重连/换服UUID一致；明确UUID不认证人；后端端口不发布；客户端无OP/admin/代理管理组；资源包、运动和道具实际验证 |
 | Contracts | Source, Compatibility | `config/contract.json`、`raceops/model.py`、`patches/xdu_race/` | 请求、状态、六图成绩与离线身份合同共用，版本不一致拒绝控制 |
@@ -120,7 +120,7 @@ flowchart TD
 | SingleGP | Access, Presets, Lifecycle, Export | `docs/verification/single-gp.json`、仅本地原始归档 | 两个账户完整跑六图且零AI；误触ready无效；测试途中断线与完赛后结算前离开；对照HUD；全员离线重复导出一致的逻辑成绩；结束/stop/reset安全，第7图不开始。失败回到所属实现分支，不继续扩容 |
 | Deploy | SingleGP | `compose.yaml`、`scripts/init-worlds`、proxy/lobby配置、secrets约定 | 仅proxy公开；容器非root且世界不共享；从停止模板创建A/B/C，仅不存在目标可复制；运行中/非空目标拒绝；启动实际探针通过；固定资源/版本/模板hash一致；既有server.properties和历史数据不覆盖 |
 | Coordinator | Deploy | `raceops/cli.py`、主机锁、`volumes/control/operations.jsonl` | 三服prepare/start/回读；真实部分开赛与不可达场景拒绝误重启；审计与归档先行，不自动回滚已有成绩 |
-| Regroup | Deploy | `config/rosters/round-N.json`约定、管理者分流操作卡、proxy命令模块配置 | 每轮名册UUID唯一且跨组互斥；比赛途中普通玩家换服不改变参赛名单；管理员可送回大厅；仅在三服完成留档后重新随机分组、导入下一轮名册并验证；资源包切换无重复提示。先用人工随机分组和受控命令，不开发菜单/分组服务 |
+| Regroup | Deploy | `scripts/group-participants`、`raceops/meet.py`、`config/rosters/round-N.json` | 首次一次性生成七轮分组；重复执行只补新用户/缺失轮次，不改已有成员或组数。所有后端IDLE才允许脚本修改；身份绑定和已发布成员回读一致后方可装载名册 |
 | Faults | Coordinator, Regroup | `docs/verification/faults.json`、必要的行为回归测试 | 实际注入一服不可达/命令超时/部分start/控制器中断/服重启；覆盖错误预设、重复start、并发CLI、无归档reset、混合阶段stop；保留历史且没有双重记分或未知状态自动重开；读取期间换图可检出不一致 |
 | Rehearsal | Faults, Rules | `docs/verification/rehearsal.json`、五轮对应三组manifest | 至少6个真实或合法受控账户、每服2人；完整5个GP×6图，中间重新分组；全程0AI、没有第7图；五轮均可按round/attempt查回并对照名册/HUD/裁判规则；有效attempt不重复累计 |
 | Capacity | Rehearsal | 目标主机规格、资源配额、`docs/verification/capacity.json` | 50个真人或合法受控客户端按17/17/16实际参加/使用道具；观测TPS/MSPT、GC、内存、CPU、磁盘、资源包下载和网络；满载进行导出/换图。验收阈值事先固定、无OOM/watchdog/持续积压；不把空闲连接或本地笔记本冒充生产容量 |
@@ -146,7 +146,7 @@ flowchart TD
 - Capture记录原始finish_pos、获授award、起跑/完赛事实、server tick、结算标记与原生累计分数。Export不在读取时补写这些信息，不因离线抹掉记录。
 - freeze仅发生在第6图结束且所需结算完成后；原生points存在不代表settled。stop产生的中断快照和自然完赛冻结快照必须可区分。
 - `tracks.csv`每人每图一行；`grand_prix.csv`每人每GP attempt一行，含六图状态。正常完赛人可给真人名次；未完成/数据异常/未裁定不能冒充正常末名。外部积分不在导出中计算。
-- 冻结结果不可变；人工裁定以带来源/版本的附加记录体现，不改写原始事实。若只在飞书裁定，导出继续标待裁定，不能声称已裁定。
+- 冻结原始结果不可变；服务仅转发证据，飞书以已发布批次作为唯一计分来源。没有人工补分或覆盖入口；旧快照中的待裁定字段不参与新的公式规则。数据异常保留证据，不发布猜测的名次。
 - Export分块读取前后检查boot/attempt/revision，有限重试；失败不修改游戏。manifest带每服状态/时间/revision、所有版本/hash、记录数量、文件hash、警告/错误、是否完整及是否待裁定。
 - 存储路径按event/round/attempt/export-id隔离；临时目录写完并校验后原子发布。完整回执仅在三服均成功且文件hash校验通过后成立；partial归档不能授权全局reset。
 - 当前attempt的归档须匹配最终冻结revision，不可拿较早的中途快照授权reset；已STOPPED/ERROR需要明确裁定/恢复路径，不能借reset绕过不确定状态。

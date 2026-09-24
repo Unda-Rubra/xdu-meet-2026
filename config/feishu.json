@@ -1,0 +1,17 @@
+{
+  "base_token": "ET0Kb89MhaS8aHsWgq5cSZmnnBd",
+  "credentials_file": "secrets/feishu-app.json",
+  "admin_token_file": "secrets/meet-service-token",
+  "database": "volumes/control/meet.sqlite3",
+  "listen": "127.0.0.1",
+  "port": 8765,
+  "results_interval": 30,
+  "tables": {
+    "users": "tblNXdxT2jqPczfh",
+    "preparation": "tblGgi72x4L0RbH4",
+    "control": "tblK7CRxiI83hZTW",
+    "groups": "tbl0Ph3qCz8c1ath",
+    "scores": "tbl6qBLUZA4FuGg3",
+    "multipliers": "tblaQk25WRDVU5jo"
+  }
+}

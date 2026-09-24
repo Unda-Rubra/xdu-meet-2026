@@ -7,8 +7,8 @@
   "identity_mode": "offline_trusted_private",
   "admin_policy": "host_only",
   "impersonation_risk_accepted": true,
-  "rules_status": "pending_adjudication",
-  "unresolved_results": "preserve_raw_and_require_judge",
+  "rules_status": "feishu_round_formula_scoring",
+  "unresolved_results": "preserve_evidence_do_not_publish_ranking",
   "require_full_roster_at_start": true,
   "groups": ["A", "B", "C"]
 }
