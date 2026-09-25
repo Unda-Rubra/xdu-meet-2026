@@ -1,5 +1,7 @@
 # Sprint Racer 1.6.13 release source map
 
+Historical source investigation only. Preset writer, fixed round references and UUID-based privileges below describe a **retired proposal**, not the deployed manual-token event. Current behavior and operator commands are in `docs/RULES.md` and `docs/OPERATIONS.md`; use this file solely for the cited native function locations.
+
 Source: official CurseForge file 8422262, downloaded ZIP SHA-256 `ff661fabd6214fa10986866f05c57d30365552d8653739e264ffd04d1a7ba81f`. Actual sr_code pack range is exactly 107 (not development HEAD 121). Files extracted locally under ignored downloads/. This is source evidence, not multiplayer acceptance.
 
 ## Controls, sequence and termination

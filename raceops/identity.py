@@ -1,49 +1,12 @@
-"""Offline UUIDs are stable keys, never authentication or administrator proof."""
-from __future__ import annotations
-
+"""Offline UUIDs identify a connection, not a person or an administrator."""
 import hashlib
 import re
 import uuid
 
-NAME = re.compile(r"[A-Za-z0-9_]{1,16}\Z")
-from .event import GROUP_OPTIONS, validate_event
+NAME = re.compile(r'[A-Za-z0-9_]{1,16}\Z')
 
 
-def offline_uuid(name: str) -> str:
+def offline_uuid(name):
     if not isinstance(name, str) or not NAME.fullmatch(name):
-        raise ValueError("Player names must contain 1–16 ASCII letters, digits or underscores")
-    return str(uuid.UUID(bytes=hashlib.md5(("OfflinePlayer:" + name).encode("utf-8")).digest(), version=3))
-
-
-def validate_roster(data: dict, event: dict, round_number: int) -> dict:
-    validate_event(event)
-    event_id = event["event_id"]
-    if data.get("schema_version") != 1 or data.get("event_id") != event_id:
-        raise ValueError("Roster schema/event mismatch")
-    if type(data.get("grand_prix_round")) is not int or data.get("grand_prix_round") != round_number or type(round_number) is not int or not 1 <= round_number <= event["grand_prix_rounds"]:
-        raise ValueError("Roster round must match the requested configured Grand Prix (maximum 7)")
-    groups = data.get("groups")
-    if not isinstance(groups, dict) or tuple(sorted(groups)) not in GROUP_OPTIONS:
-        raise ValueError("Roster must specify groups A/B or A/B/C; omit unused C")
-    seen_names: set[str] = set()
-    seen_uuids: set[str] = set()
-    result: dict[str, list[dict]] = {}
-    for group in sorted(groups):
-        players = groups[group]
-        if not isinstance(players, list) or not 1 <= len(players) <= 17:
-            raise ValueError(f"Group {group} must contain 1–17 entrants")
-        result[group] = []
-        for player in players:
-            if not isinstance(player, dict) or set(player) != {"name", "uuid"}:
-                raise ValueError("Every roster entrant must contain only name and uuid")
-            name = player["name"]
-            expected = offline_uuid(name)
-            if player["uuid"] != expected:
-                raise ValueError(f"Offline UUID does not match the exact fixed name: {name}")
-            if name.casefold() in seen_names or expected in seen_uuids:
-                raise ValueError(f"Duplicate or case-ambiguous entrant: {name}")
-            seen_names.add(name.casefold())
-            seen_uuids.add(expected)
-            result[group].append({"uuid": expected, "name": name})
-    return {"schema_version": 1, "event_id": event_id, "grand_prix_round": round_number,
-            "identity_mode": "offline_trusted_private", "groups": result}
+        raise ValueError('Player names must contain 1–16 ASCII letters, digits or underscores')
+    return str(uuid.UUID(bytes=hashlib.md5(('OfflinePlayer:' + name).encode('utf-8')).digest(), version=3))

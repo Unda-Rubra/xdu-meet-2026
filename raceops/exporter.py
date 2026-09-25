@@ -33,56 +33,26 @@ def consistent_snapshot(backend, round_number=None, attempt_id=None):
         after = backend.read()
         if (before.get("boot_id"), before.get("attempt_id"), before.get("revision")) == (
                 after.get("boot_id"), after.get("attempt_id"), after.get("revision")):
-            if "tracks" in snapshot and len(snapshot["tracks"]) != 6:
-                raise ValueError(f"{backend.service}: malformed six-track result schema")
+            if snapshot.get('state') == 'GP_FINISHED' and not snapshot.get('frozen'):
+                raise ValueError(f'{backend.service}: terminal result is not frozen')
             online_response = backend.command("list uuids")
             return snapshot, online_response
     raise RuntimeError(f"{backend.service}: snapshot changed during all three reads")
 
 
 def result_rows(snapshot, exported_at):
-    if not snapshot.get("tracks"):
+    if not snapshot.get('results'):
         return [], []
-    common = {"event_id": snapshot["event_id"], "gp_round": snapshot["grand_prix_round"],
-              "attempt_id": snapshot["attempt_id"], "group": snapshot["group"], "server": snapshot["server"],
-              "identity_mode": snapshot["identity_mode"], "exported_at": exported_at}
-    track_rows = []
-    seen = set()
-    by_player = {}
-    for track in snapshot["tracks"]:
-        finishers = sorted((p for p in track["players"] if p.get("finished") and p.get("started")
-                            and type(p.get("finish_pos_raw")) is int and p["finish_pos_raw"] > 0),
-                           key=lambda p: p["finish_pos_raw"])
-        raw = [p["finish_pos_raw"] for p in finishers]
-        valid_ranks = len(raw) == len(set(raw)) and snapshot.get("ai_count") == 0 and not snapshot.get("ai_master_count") and snapshot.get("state") != "ERROR"
-        ranks = {p["uuid"]: i + 1 for i, p in enumerate(finishers)} if valid_ranks else {}
-        for player in track["players"]:
-            key = (track["track_index"], player["uuid"])
-            if key in seen:
-                raise ValueError("Duplicate logical result key")
-            seen.add(key)
-            by_player.setdefault(player["uuid"], []).append((track, player))
-            track_rows.append({**common, "track_index": track["track_index"], "track_id": track["track_id"],
-                               "uuid": player["uuid"], "name": player["name_at_start"],
-                               "started": bool(player.get("started")), "finished": bool(player.get("finished")),
-                               "status": player["status"], "finish_pos_raw": player.get("finish_pos_raw"),
-                               "human_rank": ranks.get(player["uuid"]), "award_raw": player.get("award"),
-                               "native_total_raw": player.get("native_total"),
-                               "native_commit_observed": bool(player.get("native_commit_observed")),
-                               "pending_adjudication": True})
-    gp_rows = []
-    for player_uuid, records in by_player.items():
-        if len(records) != 6:
-            raise ValueError("An entrant is missing a six-track record")
-        last = records[-1][1]
-        gp_rows.append({**common, "uuid": player_uuid, "name": records[0][1]["name_at_start"],
-                        "track_statuses": json.dumps([p["status"] for _, p in records]),
-                        "all_tracks_finished": all(p.get("finished") for _, p in records),
-                        "native_total_raw": last.get("native_total"), "native_rank_raw": None,
-                        "captured_awards_sum": sum(p.get("award", 0) for _, p in records),
-                        "human_gp_rank": None, "pending_adjudication": True,
-                        "source": "captured_gameplay; native totals only when observed; judge review required"})
-    return track_rows, gp_rows
+    rows = []
+    for player in snapshot['roster']:
+        result = snapshot['results'].get(player['uuid'])
+        if result is None:
+            raise ValueError('Missing native result for a registered entrant')
+        rows.append({'event_id': snapshot['event_id'], 'attempt_id': snapshot['attempt_id'],
+                     'group': snapshot['group'], 'qq': player['qq'], 'uuid': player['uuid'],
+                     'name': player['name'], 'native_total': result['total'], 'status': result['status'],
+                     'exported_at': exported_at})
+    return [], rows
 
 
 def write_csv(path, rows):
@@ -184,8 +154,8 @@ def verify_receipt(path: Path, states: dict):
             raise ValueError(f"{server}: receipt hash does not describe archived snapshot")
         if stored.get("attempt_id") != receipt["attempt_id"] or stored.get("revision") != receipt["revision"]:
             raise ValueError(f"{server}: archive identity/revision mismatch")
-        if stored.get("tracks") and not {"tracks.csv", "grand_prix.csv"}.issubset(manifest["files"]):
-            raise ValueError("Archive is missing required result CSVs")
+        if stored.get('results') and 'grand_prix.csv' not in manifest['files']:
+            raise ValueError('Archive is missing required result CSV')
         if state.get("state") == "IDLE" and state.get("reset_receipt_hash") == receipt["snapshot_hash"] and state.get("attempt_id") == receipt["attempt_id"]:
             continue
         if receipt["snapshot_hash"] != canonical_hash(state):

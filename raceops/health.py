@@ -20,9 +20,9 @@ def main():
                     raise ValueError("Unexpected lobby readiness response")
             else:
                 version = response_value(client.command("data get storage xdu_race:state current.adapter_version"))
-                settings = response_value(client.command("data get storage xdu_race:config settings"))
-                if version != "1.0.0" or not isinstance(settings, dict) or not settings:
-                    raise ValueError("Adapter or settings contract not ready")
+                state = response_value(client.command("data get storage xdu_race:state current.state"))
+                if version != "2.0.0" or state not in {"IDLE", "PREPARED", "RUNNING", "WAITING", "CEREMONY", "GP_FINISHED", "ERROR"}:
+                    raise ValueError("Manual adapter contract not ready")
         return 0
     except (OSError, ValueError, RconError) as error:
         print(str(error), file=sys.stderr)

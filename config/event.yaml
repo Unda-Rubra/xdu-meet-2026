@@ -1,14 +1,22 @@
 {
   "schema_version": 1,
   "event_id": "xdu-2026-fall",
-  "grand_prix_rounds": 7,
   "tracks_per_gp": 6,
   "ai_enabled": false,
   "identity_mode": "offline_trusted_private",
-  "admin_policy": "host_only",
   "impersonation_risk_accepted": true,
   "rules_status": "feishu_round_formula_scoring",
   "unresolved_results": "preserve_evidence_do_not_publish_ranking",
   "require_full_roster_at_start": true,
-  "groups": ["A", "B", "C"]
+  "groups": [
+    "A",
+    "B",
+    "C"
+  ],
+  "admin_policy": "console_granted_commentator_tags",
+  "initial_group_thresholds": {
+    "2-20": 2,
+    "21-51": 3
+  },
+  "lifecycle": "main_lobby -> random_groups -> synchronized_native_tracks -> per_group_awards -> main_lobby -> local_token; explicit_upload_only"
 }

@@ -12,6 +12,7 @@
 /exports/
 /downloads/
 
+/logs/
 # Local tooling
 .DS_Store
 __pycache__/

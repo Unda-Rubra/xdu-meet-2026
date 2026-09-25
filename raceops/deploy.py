@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shutil
 from pathlib import Path
 import subprocess
 
@@ -38,6 +39,10 @@ def initialize(accept_eula: bool):
             raise ValueError(f"Independent clone differs from template: {service}")
         from .instance import install
         install(clone, service, receipt)
+    plugin = ROOT / 'downloads/XduIdentity.jar'
+    if not plugin.is_file():
+        raise ValueError('Build the proxy gate first: python3 scripts/build-identity')
+    shutil.copyfile(plugin, ROOT / 'volumes/event/proxy/plugins/XduIdentity.jar')
     (ROOT / "volumes/event/initialized.json").write_text(json.dumps({
         "schema_version": 1, "template_hash": receipt["template_hash"],
         "adapter_tree_hash": receipt["adapter_tree_hash"], "services": ["proxy", "lobby", "race-a", "race-b", "race-c"]}, indent=2) + "\n")

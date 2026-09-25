@@ -1,4 +1,4 @@
-tag @a remove xdu_lobby_operator
+data modify storage xdu_race:config main_lobby set value 1b
 tag @a remove admin
 data remove storage xdu_lobby:state ready
 execute in minecraft:overworld run forceload add 1536 336 1695 479

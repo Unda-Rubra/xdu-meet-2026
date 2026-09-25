@@ -99,8 +99,8 @@ def prepare(accepted: bool, destination: Path = DATA, races: tuple[str, ...] = (
         proxy_configuration = {
             "online_mode": False, "ip_forward": False, "network_compression_threshold": 256,
             "player_limit": 60, "connection_throttle": 4000, "prevent_proxy_connections": False,
-            "log_commands": True, "log_pings": False,
-            "permissions": {"default": ["bungeecord.command.server"]}, "groups": {},
+            "log_commands": False, "log_pings": False,
+            "permissions": {"default": []}, "groups": {},
             "servers": {name: {"address": f"{name}:25565", "motd": name, "restricted": False}
                         for name in ("lobby", *races)},
             "listeners": [{"host": "0.0.0.0:25565", "query_enabled": False, "ping_passthrough": False,

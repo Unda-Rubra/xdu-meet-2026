@@ -1,0 +1,280 @@
+{
+  "tags": [
+    "BAIautocount",
+    "RAIautocount",
+    "absorpAlways",
+    "absorpNever",
+    "allowAIfinish",
+    "autobalance",
+    "banBattleBat",
+    "banEnchant1",
+    "banEnchant10",
+    "banEnchant11",
+    "banEnchant12",
+    "banEnchant13",
+    "banEnchant14",
+    "banEnchant15",
+    "banEnchant16",
+    "banEnchant17",
+    "banEnchant18",
+    "banEnchant19",
+    "banEnchant2",
+    "banEnchant20",
+    "banEnchant3",
+    "banEnchant4",
+    "banEnchant5",
+    "banEnchant6",
+    "banEnchant7",
+    "banEnchant8",
+    "banEnchant9",
+    "banEnchantBattleBat",
+    "banNo1",
+    "banNo10",
+    "banNo11",
+    "banNo12",
+    "banNo13",
+    "banNo14",
+    "banNo15",
+    "banNo16",
+    "banNo17",
+    "banNo18",
+    "banNo19",
+    "banNo2",
+    "banNo20",
+    "banNo3",
+    "banNo4",
+    "banNo5",
+    "banNo6",
+    "banNo7",
+    "banNo8",
+    "banNo9",
+    "banObliterator",
+    "classicHUD",
+    "endlessMode",
+    "grandprixloop",
+    "noAIrival",
+    "noCrowdSFX",
+    "noExtraChest",
+    "noMusicReset",
+    "noRubberBand",
+    "nospeedo",
+    "optBAIalways",
+    "optBAInever",
+    "optBAIsingle",
+    "optBalance",
+    "optBattle",
+    "optChoose",
+    "optCustomRounds",
+    "optInOrder",
+    "optItems",
+    "optItemsB",
+    "optItemsR",
+    "optMannequinAI",
+    "optNoItems",
+    "optNoLocatorBar",
+    "optRAIalways",
+    "optRAInever",
+    "optRAIsingle",
+    "optRace",
+    "optRandom",
+    "optRnB",
+    "optRoulette",
+    "optVote",
+    "randomPresetA",
+    "randomPresetB",
+    "teamplay",
+    "timeBalance"
+  ],
+  "scores": [
+    "allowInvis",
+    "customLapMult",
+    "customLapOffset",
+    "customLapType",
+    "defLobbyTime",
+    "difficultyRamp",
+    "forcePlayerTeam",
+    "gamemodePresetA",
+    "gamemodePresetB",
+    "gpNumber",
+    "gpTrackSelect",
+    "itemPresetA",
+    "itemPresetB",
+    "optAIdiff",
+    "optBAIcount",
+    "optBAIdiff",
+    "optRAIcount",
+    "optRAIdiff"
+  ],
+  "entities": [
+    {
+      "selector": "@e[tag=cheats,x=1548,y=148,z=422,distance=..1,limit=1,type=armor_stand]",
+      "tags": [
+        "01a",
+        "02a",
+        "03a",
+        "04a",
+        "05a",
+        "06a",
+        "07a",
+        "08a",
+        "09a",
+        "10a",
+        "11a",
+        "12a",
+        "13a",
+        "14a",
+        "15a",
+        "16a",
+        "17a",
+        "18a",
+        "19a",
+        "20a",
+        "21a",
+        "22a",
+        "23a",
+        "24a",
+        "25a",
+        "26a",
+        "27a",
+        "28a",
+        "29a",
+        "30a",
+        "31a",
+        "32a",
+        "33a",
+        "34a",
+        "35a",
+        "36a",
+        "37a",
+        "38a",
+        "39a",
+        "40a",
+        "41a",
+        "42a",
+        "43a",
+        "44a",
+        "45a",
+        "46a",
+        "47a",
+        "48a",
+        "49a",
+        "50a",
+        "51a",
+        "52a",
+        "53a",
+        "54a",
+        "55a",
+        "56a",
+        "57a",
+        "58a",
+        "59a",
+        "60a",
+        "61a",
+        "62a",
+        "63a",
+        "64a",
+        "65a",
+        "66a"
+      ],
+      "scores": [
+        "speedlevel"
+      ]
+    },
+    {
+      "selector": "@e[limit=1,type=armor_stand,tag=random,x=1548,y=155,z=406,distance=..1,scores={rNumber=1}]",
+      "tags": [],
+      "scores": [
+        "customAIdiff",
+        "customAIset",
+        "customAIteam",
+        "rNumber"
+      ]
+    },
+    {
+      "selector": "@e[limit=1,type=armor_stand,tag=random,x=1548,y=155,z=406,distance=..1,scores={rNumber=2}]",
+      "tags": [],
+      "scores": [
+        "customAIdiff",
+        "customAIset",
+        "customAIteam",
+        "rNumber"
+      ]
+    },
+    {
+      "selector": "@e[limit=1,type=armor_stand,tag=random,x=1548,y=155,z=406,distance=..1,scores={rNumber=3}]",
+      "tags": [],
+      "scores": [
+        "customAIdiff",
+        "customAIset",
+        "customAIteam",
+        "rNumber"
+      ]
+    },
+    {
+      "selector": "@e[limit=1,type=armor_stand,tag=random,x=1548,y=155,z=406,distance=..1,scores={rNumber=4}]",
+      "tags": [],
+      "scores": [
+        "customAIdiff",
+        "customAIset",
+        "customAIteam",
+        "rNumber"
+      ]
+    },
+    {
+      "selector": "@e[limit=1,type=armor_stand,tag=random,x=1548,y=155,z=406,distance=..1,scores={rNumber=5}]",
+      "tags": [],
+      "scores": [
+        "customAIdiff",
+        "customAIset",
+        "customAIteam",
+        "rNumber"
+      ]
+    },
+    {
+      "selector": "@e[limit=1,type=armor_stand,tag=random,x=1548,y=155,z=406,distance=..1,scores={rNumber=6}]",
+      "tags": [],
+      "scores": [
+        "customAIdiff",
+        "customAIset",
+        "customAIteam",
+        "rNumber"
+      ]
+    },
+    {
+      "selector": "@e[limit=1,type=armor_stand,tag=random,x=1548,y=155,z=406,distance=..1,scores={rNumber=7}]",
+      "tags": [],
+      "scores": [
+        "customAIdiff",
+        "customAIset",
+        "customAIteam",
+        "rNumber"
+      ]
+    },
+    {
+      "selector": "@e[limit=1,type=armor_stand,tag=random,x=1548,y=155,z=406,distance=..1,scores={rNumber=8}]",
+      "tags": [],
+      "scores": [
+        "customAIdiff",
+        "customAIset",
+        "customAIteam",
+        "rNumber"
+      ]
+    },
+    {
+      "selector": "@e[limit=1,type=armor_stand,tag=random,x=1548,y=155,z=406,distance=..1,scores={rNumber=9}]",
+      "tags": [],
+      "scores": [
+        "customAIdiff",
+        "customAIset",
+        "customAIteam",
+        "rNumber"
+      ]
+    }
+  ],
+  "holders": [
+    {
+      "name": "#cheatSlotLimit",
+      "objective": "value"
+    }
+  ]
+}

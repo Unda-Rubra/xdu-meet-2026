@@ -1,4 +1,4 @@
-"""Build a waiting-only copy of the verified native map, never a race world."""
+"""Build the single native settings lobby; gameplay remains in the race worlds."""
 from __future__ import annotations
 
 import json
@@ -19,35 +19,21 @@ def prepare_lobby(template: Path, destination: Path) -> None:
         raise ValueError("Lobby destination already exists; preserve it before replacement")
     shutil.copytree(template, destination)
     archive_path = destination / "datapacks/sr_code.zip"
-    manifest = json.loads((ROOT / "patches/manifest.json").read_text())
     prefix = "data/sprint_racer/function/"
     with zipfile.ZipFile(archive_path) as archive:
         contents = {item.filename: archive.read(item) for item in archive.infolist()}
-    # Reuse the event's audited denial boundaries; only settings become session-authorized.
-    for patch in manifest["files"]:
-        name = patch["path"]
-        if "/options_signs/" in name or name.endswith(("boq/trigger_option.mcfunction", "inventory_controls/admin_menu.mcfunction", "cheat_menu/ca_trigger.mcfunction", "cheat_menu/cl_trigger.mcfunction")):
-            text = contents[name].decode()
-            guard = "execute unless score #native xdu matches 1 run return 0\n"
-            if not text.startswith(guard):
-                raise ValueError(f"Expected protected settings entry: {name}")
-            # Access policy and AI admission cannot be changed from a waiting-room menu.
-            protected = name.endswith(("/admin_mode.mcfunction", "/ai_count_race.mcfunction", "/ai_count_battle.mcfunction", "/ai_add_type_race.mcfunction", "/ai_add_type_battle.mcfunction", "/ai_context_race.mcfunction", "/ai_context_battle.mcfunction", "/defaults.mcfunction", "/save_state_load.mcfunction", "/save_state_load_specific.mcfunction"))
-            replacement = "return 0\n" if protected else "execute unless entity @s[type=player,tag=xdu_lobby_operator] run return 0\n"
-            contents[name] = (replacement + text[len(guard):]).encode()
-    # No mode, editor, practice, ready-up or GP start may activate in this world.
     for name, content in list(contents.items()):
         relative = name.removeprefix(prefix)
         if not name.startswith(prefix) or not name.endswith(".mcfunction"):
             continue
         mode = relative.split("/")
-        if (len(mode) >= 3 and mode[0] == "game_logic" and mode[1].isdigit() and mode[1] != "0" and mode[-1].startswith("_initialize")) or relative in {
+        if (len(mode) >= 3 and mode[0] == "game_logic" and mode[1].isdigit() and mode[1] not in ("0", "11") and mode[-1].startswith("_initialize")) or relative in {
             "game_logic/0/set_mode_ready.mcfunction", "game_logic/0/grand_prix_round_start.mcfunction",
             "game_logic/11/start_grand_prix.mcfunction", "admin_enter_editor.mcfunction", "join_solo.mcfunction"
         }:
             contents[name] = b"return 0\n" + content
     join = prefix + "join.mcfunction"
-    contents[join] = b"tag @s remove xdu_lobby_operator\ntag @s remove admin\nscoreboard players set @s adminMode 0\n" + contents[join]
+    contents[join] = b"tag @s remove admin\nscoreboard players set @s adminMode 0\n" + contents[join]
     # Native props, item interactions, movement and boundary checks remain intact.
     main = prefix + "game_logic/0/gl0_main.mcfunction"
     text = contents[main].decode()
@@ -61,11 +47,6 @@ def prepare_lobby(template: Path, destination: Path) -> None:
         for name, content in contents.items():
             archive.writestr(name, content)
     temporary.replace(archive_path)
-    overlay = destination / "datapacks/xdu_race/data/xdu_race/function"
-    # Native join invokes these; waiting-room visitors are not tournament spectators.
-    (overlay / "access/join.mcfunction").write_text("tag @s remove admin\ntag @s remove tournament_admin\nscoreboard players set @s adminMode 0\n")
-    (overlay / "access/refresh.mcfunction").write_text("execute as @a[tag=!xdu_lobby_operator] run tag @s remove admin\n")
-    (destination / "datapacks/xdu_race/data/minecraft/tags/function/tick.json").write_text('{"values": []}\n')
     shutil.copytree(ROOT / "config/lobby-datapack", destination / "datapacks/xdu_lobby")
     (destination / "xdu-lobby.json").write_text(json.dumps({"schema_version": 1, "source_template": json.loads((template / "xdu-template.json").read_text())["template_hash"], "settings_policy": "host_granted_session_tag", "games_enabled": False}, indent=2) + "\n")
 

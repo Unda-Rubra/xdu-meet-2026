@@ -1,97 +1,62 @@
-# Event operation card
+# 现场操作
 
-## Before admitting players
+## 信任边界与唯一大厅
 
-1. Confirm the deployed world/adapter receipt matches the intended release and the active backend health checks pass. Run `./scripts/racectl status`; use `./scripts/racectl --groups 3 status` to inspect all three provisioned worlds.
-2. Confirm event-network firewall, offline-identity policy, empty OP/proxy administrator lists, organizer attendance roster and cached required resource pack.
-3. Validate round-N roster: no duplicate or case-ambiguous names; group membership and offline UUIDs agree. Keep the same players throughout all six tracks.
-4. Review the six real tracks in the selected preset. AI and automatic fill remain disabled. Do not use native Save State or global settings menus to configure an active event.
+这是私网、现场监督的离线模式，不验证微软账号或 QQ 所有权。只开放 BungeeCord；`lobby` 和 `race-a/b/c` 的游戏端口与 RCON 不对外开放。QQ 是签到关联键，不授予管理员权限。不要把 token、RCON 密码或代理控制接口发给参赛者。
 
-## Start one Grand Prix
+只有主大厅用于候场和管理员配置。三个比赛世界不提供日常大厅入口；每组仅在最终颁奖时进入自己的原版大厅。最后一图全部组结束后一起进入颁奖，各组颁奖结束后自动回主大厅。中途断开、后端重启或无法完成结果采集时不伪造完成状态。
+
+## 启动与管理员
 
 ```sh
-./scripts/racectl preset gp1 --round 1
-./scripts/route-roster --round 1
-./scripts/racectl start
+./scripts/meet-service serve
+./scripts/racectl admin CommentatorA A
+./scripts/racectl admin CommentatorB B
+```
+
+后两条必须在可信主机控制台执行，目标玩家须在线，且当前没有进行中的 GP。它们设置持久化的解说权限及实际游戏标签 `xdu_admin`、`xdu_commentary_A/B/C`。也可以由控制台在主大厅为玩家授予这些标签，服务会读取标签建立权限。每人只能设置一个默认解说组。
+
+管理员开赛时自动进入默认组并设为旁观者；不必登记参赛 QQ，不进入人数、名册或成绩。比赛中可用 `/watch A`、`/watch B`、`/watch C`、`/watch lobby` 切换；未启用的组不可进入。撤销权限使用 `./scripts/racectl admin Name revoke`，只在 GP 之间执行。管理员身份不能来自自报 QQ 或离线昵称。
+
+## 玩家登记、配置与开赛
+
+1. 玩家通过代理进入主大厅，私密输入 `/qq 签到QQ号`。只接受 5–12 位、不以 0 开头的数字；一个 QQ 只能绑定一个游戏账号。尚未登记的人不能进入比赛服。
+2. 报错或登记错号时联系现场管理员。玩家不能自行改绑；代理控制台可在该玩家离线且没有活动 GP 时执行 `xduidentity reset <uuid>`。
+3. 管理员在主大厅使用原版菜单设置大奖赛。没有固定 3/2/1 赛道规则，也不使用飞书赛程或预分组。地图池、序列、圈数、道具及其他原版配置来自主大厅。循环/无尽 GP 与“最终颁奖后回主大厅”的活动生命周期冲突，须在原版菜单中关闭；服务不会偷偷替管理员改配置。
+4. 管理员在主大厅输入 `/gpstart`，或在主机执行 `./scripts/racectl start`。服务读取此时在线且已登记的非管理员，随机均分：2–20 人为 A/B，21–51 人为 A/B/C，每组最多 17 人。每次重新抽签，之前的分组不影响下一次。
+5. 等待客户端资源包与后端实际入场完成，再启动原版 GP。先完成一图的组进入等待状态；所有启用组结束同一图后，统一倒计时继续。缺失或断开的后端不能被当作完成。
+
+仅加入或开赛不会访问飞书。后台仅处理本地开赛请求、跨服同步、解说权限、回城和归档，不自动更新飞书。
+
+## 成绩 token 与手动上传
+
+颁奖结束后的原始 GP 分数按 QQ、昵称、UUID、实际组别冻结，自动导出到 `exports/`。所有启用组完整归档后，主机日志和管理员游戏消息给出 token。无需猜测文件名：
+
+```sh
+./scripts/meet-service tokens
 ./scripts/racectl status
 ```
 
-Preset activation and start are acknowledged by each backend. Prepare requires every expected player present. Start is **not a distributed atomic transaction**: if one backend fails, inspect all actual states. Repeating start for an already-started attempt does not start it again. Mixed armed/running states are refused rather than automatically rewound.
+热身赛与正式赛使用同一游戏流程；不上传 token 就不进入飞书积分榜。
 
-Players may use `/server` to navigate, but joining the wrong race server does not grant that group's membership. A disconnected entrant remains in the result roster; mid-race rejoin does not create another finish opportunity. Unresolved results remain for the judge.
-
-## Natural completion, archive and regroup
-
-Wait for **all active groups** to report `GP_FINISHED`, track6. An omitted C world is not part of this GP. Native `gpRound=7` can be the ceremony sentinel; the adapter must remain at track6 and closed to further starts. This native sentinel is unrelated to the event's seventh GP.
+要上传时，先在飞书 `比赛控制／当前轮次` 选择目标轮次，然后执行：
 
 ```sh
-./scripts/racectl export --round 1 --attempt ATTEMPT_ID
-./scripts/route-roster --round 1 --lobby --archive exports/EXPORT_ID
-./scripts/racectl reset --archive exports/EXPORT_ID --reason 'Round 1 archived; regroup for round 2'
-./scripts/racectl preset gp2 --round 2
-./scripts/route-roster --round 2
-./scripts/racectl start
+./scripts/meet-service upload --token TOKEN
 ```
 
-Use actual attempt/archive identifiers from the CLI. `scripts/group-participants` preassigns seven rounds; rerunning only fills new users or missing rounds and never changes established memberships. Existing `racectl`/routing remain the game-control boundary. Set the Feishu `比赛控制／当前轮次` before upload; the source game's preset/round number does not choose the displayed score round. Do not change the Feishu round until the expected upload receipt is visible. Identity remains organizer-supervised.
+首次上传在任何云端写入前持久化 token → 飞书轮次绑定。改变下拉框不会改变同一 token 的后续重试归属。重复上传不重复计分；另一份完整 token 可以替换同轮的已发布批次，而不是累加重赛成绩。
 
-## Read-only snapshots
+上传按用户表的 QQ 主字段关联签到记录，并写入游戏昵称。只有此时飞书才得到实际参赛者、当轮组别和成绩。`本轮参赛` 区分“未上传”“已参赛”“未参赛”；未上传不能解释为缺席。未知或重复 QQ 会阻止上传，不按昵称猜人，也不自动新建签到用户。
 
-`racectl export` works during a race or after all players leave. It sends only storage reads and online-list queries, never save-all, function calls, ticking or “mark exported” writes. Captured start/finish facts are independent of the current online list. Exports contain:
+先写入并读回核对整批成绩，再切换该轮 `已发布批次`。数据异常不替换有效榜单。确认 `最近上传轮次`、token、`最近上传状态=完整` 后再对外发布排名。
 
-- One server JSON snapshot per backend, with separately sampled `online_now_by_uuid`.
-- `tracks.csv`: one row per roster participant per track, including unstarted/unfinished/disconnected states.
-- `grand_prix.csv`: one row per participant/GP attempt, all six track states, raw observed native totals and captured award sums. Native totals and captured sums are distinct evidence, not interchangeable official scores.
-- A manifest with server states, revisions, hashes, errors, warnings and completeness/coherence flags.
-
-`complete` means every selected backend was read; `coherent_attempt` means their attempt/preset agrees. Automatic upload additionally waits for every enabled group to be frozen `GP_FINISHED`. Exported raw evidence may retain legacy `pending_adjudication` provenance flags; these are not a manual-score entry path. The service sends raw totals/statuses and frozen group sizes only; Feishu formulas compute competition ranks and event points. `轮次上传记录` reports data exceptions; incomplete/invalid evidence cannot replace the last published ranking.
-
-Every export gets a new directory. Logical result identity excludes export ID, so repeated snapshots do not represent additional scores. Multiple attempts for one round require explicit `--attempt`; do not sum replays. Archive receipts must contain hashed snapshots and CSVs, and must match the current final revision before reset.
-
-The service exports completed attempts and binds each one durably to the Feishu current round before its first remote write. It verifies archive checksums and full uploaded payloads, then commits the round's published-batch pointer. Restart/retry never moves an old attempt into the new current round. Existing historical rehearsals remain in local archives and are not rebound automatically. Multiple unseen completed attempts after downtime require explicit `upload-attempt --attempt EVENT/ATTEMPT --round N`. No service-side point calculation or manual-score fallback exists. Inspect authenticated `/status` for transport failures and upload bindings.
-
-## Safe stop
-
-Normal stop refuses active racing:
+## 中断恢复
 
 ```sh
-./scripts/racectl stop --reason 'No active race; end session'
+./scripts/racectl abort --reason '现场取消本次GP'
 ```
 
-For a deliberate interruption:
+这是显式取消：先留存不完整归档，再让玩家回主大厅并重置当前运行状态，不签发可计分 token。不要在部分服务器已开始后盲目重新开赛，也不要手改 WAITING、轮次指针、注册文件或成绩归档。
 
-```sh
-./scripts/racectl stop --force --reason 'Document the operational reason'
-```
-
-The controller closes the start gate and establishes a native tick barrier, archives the current facts, then invokes the guarded native cancellation path. If any stage is unconfirmed, it reports failure and performs **no automatic rollback or container kill**. Interrupted results are not natural completions.
-
-An explicitly reviewed ERROR/partial preset can be recovered with:
-
-```sh
-./scripts/racectl stop --force --acknowledge-error --reason 'State examined; retain interrupted attempt for judge review'
-```
-
-This is not a command to guess away unknown state. Check all backends and inspect exported evidence first. If a server is unreachable, restore connectivity before coordinated destructive control. Repeat export after a stopped state is confirmed, then reset with that final receipt. Partial-reset retry accepts only the exact prior receipt recorded by already-reset servers.
-
-## Failure matrix
-
-| Failure | Required response |
-| --- | --- |
-| Host lock busy | Another CLI is active. Do not bypass the lock; wait for its result. |
-| Preset staging/activation failure | Read all states. Do not start. Retain the partial recovery snapshot; reviewed stop/reset before a new attempt. |
-| Some servers started, others did not | Do not repeat blanket start. Record real states, force-stop/retain the attempt if necessary, then create a new attempt. |
-| Export is partial or changing | No reset. Resolve unavailable backend or wait for stable captured revision; run another read-only export. |
-| World restarted during race | Backend enters ERROR for uncertain continuity. Preserve evidence and obtain judge/operator decision; never silently resume or fabricate lost final ticks. |
-| AI detected or settings differ | ERROR; next track must not start. Preserve evidence, identify the setting/spawn path, repair only after safe archival. |
-| Client resource-pack load is slow | Pre-cache in batches from the author; do not send players onward before entry finishes. A routing command reports only confirmed backend arrival. |
-| Native item-frame warnings | The release emits these in vanilla as well as Paper. Keep logs; do not suppress or label them repaired. Verify gameplay and podium presentation in rehearsal. |
-| Capacity question | Use measurements on the actual M4 Mac mini. Local six-client tests are not 50-player certification. |
-
-## Shutdown
-
-First finish/stop and export the GP. Then use `docker compose -p xdu-event stop --timeout 60`. This is process shutdown **after** tournament archival, not the implementation of `racectl stop`. Never use `docker compose down -v` to reset an event.
-
-## Acceptance status
-
-Current evidence and unpassed gates belong in `docs/verification/`. Controlled finish-event injection verifies capture, settlement and transitions but is not proof of human-driven lap completion. Formal participant rehearsal and target-host capacity must be reported separately; do not claim readiness from container health alone.
+后台重启不会自动重放云端上传。需要重试仍须显式执行 `upload --token`；已绑定的轮次和已写入记录会被复用。

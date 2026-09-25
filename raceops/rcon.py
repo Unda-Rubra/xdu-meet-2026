@@ -113,21 +113,25 @@ def main() -> int:
     parser.add_argument("--secret", type=Path, default=Path("/run/secrets/rcon"))
     parser.add_argument("--timeout", type=float, default=10)
     parser.add_argument("--json", action="store_true")
+    parser.add_argument('--batch', action='store_true', help='Read a JSON array of bounded commands')
     args = parser.parse_args()
     try:
         password = args.secret.read_text().strip()
         if not password:
             raise RconError("Empty RCON credential")
-        command = sys.stdin.read(32760)
-        if not command.strip() or len(command.encode("utf-8")) > 32758:
-            raise RconError("Provide one bounded command on stdin")
-        if "\n" in command.strip() or "\r" in command:
-            raise RconError("Only one command is accepted")
+        raw = sys.stdin.read(1024 * 1024 if args.batch else 32760)
+        commands = json.loads(raw) if args.batch else [raw.strip()]
+        if not isinstance(commands, list) or not 1 <= len(commands) <= 4096:
+            raise RconError('Provide 1–4096 commands')
+        if any(not isinstance(c, str) or not c.strip() or len(c.encode('utf-8')) > 32758
+               or '\n' in c or '\r' in c for c in commands):
+            raise RconError('Each command must be one bounded line')
         with Rcon(args.host, args.port, password, args.timeout) as client:
-            response = client.command(command.strip())
-        print(json.dumps({"response": response}, ensure_ascii=False) if args.json else response)
+            responses = [client.command(c) for c in commands]
+        print(json.dumps({'responses': responses} if args.batch else {'response': responses[0]}, ensure_ascii=False)
+              if args.json or args.batch else responses[0])
         return 0
-    except (OSError, UnicodeError, RconError) as error:
+    except (OSError, UnicodeError, ValueError, RconError) as error:
         print(f"rcon: {error}", file=sys.stderr)
         return 1
 

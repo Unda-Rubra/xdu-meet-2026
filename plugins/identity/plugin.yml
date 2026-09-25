@@ -1,0 +1,4 @@
+name: XduIdentity
+main: xdu.XduIdentity
+version: '2.0.0'
+author: XDUcraft
