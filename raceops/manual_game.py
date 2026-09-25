@@ -34,11 +34,13 @@ def saved_setting_bank(backend):
 
 def settings():
     lobby = Backend('lobby')
+    scores = scoreboard(lobby, W)
+    if scores.get('gameState') not in (0, 11):
+        raise ValueError('Return to the main lobby or Grand Prix setup before starting')
     lobby.command('function xdu_race:capture_settings')
     value = lobby.read('blocks', 'xdu_race:settings')
     if len(value) != 300:
         raise ValueError('Unrecognized GP sequence block; do not start with a partial configuration')
-    scores = scoreboard(lobby, W)
     count = scores.get('gpNumber', 0)
     if not 1 <= count <= 50:
         raise ValueError('Configure a Grand Prix sequence in the main lobby before starting')
@@ -104,21 +106,59 @@ def apply_settings(backend, value):
         raise ValueError('Native settings transfer failed')
 
 
+def authorized_admins(admission, people):
+    sessions = admission.get('admin_sessions', {})
+    return {uid: group for uid, group in admission['admins'].items()
+            if uid in people and people[uid].get('session')
+            and people[uid]['session'] == sessions.get(uid)}
+
+
+def sync_operator_privileges(admission, people):
+    """OP is a temporary online role, never derived from QQ or a guessed name."""
+    managed = admission.get('managed_ops', {})
+    authorized = authorized_admins(admission, people)
+    updated = {}
+    for server in ('lobby', *SERVERS):
+        backend = Backend(server)
+        desired = {p['name'] for uid, p in people.items()
+                   if uid in authorized and p['server'] == server
+                   and re.fullmatch(r'[A-Za-z0-9_]{1,16}', p['name'])}
+        previously = set(managed.get(server, []))
+        for name in sorted(previously - desired):
+            backend.command('deop ' + name)
+        ops_file = ROOT / 'volumes/event' / server / 'ops.json'
+        current = {row['name'] for row in json.loads(ops_file.read_text())} if ops_file.exists() else set()
+        for name in sorted(desired - current):
+            if 'Test passed' in backend.command(f'execute if entity @a[name={name},limit=1]'):
+                backend.command('op ' + name)
+        current = {row['name'] for row in json.loads(ops_file.read_text())} if ops_file.exists() else set()
+        if (previously - desired) & current:
+            raise ValueError('Could not revoke administrator OP on ' + server)
+        updated[server] = sorted(desired & current)
+    if managed != updated:
+        admission['managed_ops'] = updated
+        save_policy(admission)
+
+
 def sync_admins():
     admission = policy()
     lobby = Backend('lobby')
+    people = connected()
+    authorized = authorized_admins(admission, people)
     lobby.commands(['data modify storage xdu_race:scratch admins set value []',
                     'execute as @a[tag=xdu_admin] run function xdu_race:capture_admin'])
     if not admission.get('active'):
         for tagged in lobby.read('admins', 'xdu_race:scratch'):
             uid = str(uuid.UUID(int=sum((int(n) & 0xffffffff) << (96 - 32 * i) for i, n in enumerate(tagged['uuid']))))
+            if uid not in authorized:
+                continue
             groups = [g for g in 'ABC' if 'xdu_commentary_' + g in tagged['tags']]
             if len(groups) > 1:
                 raise ValueError('Administrator has multiple default commentary tags')
             admission['admins'][uid] = groups[0] if groups else admission['admins'].get(uid, 'A')
         save_policy(admission)
-    admins = admission['admins']
-    people = connected()
+    admins = authorized
+    registered = load_identities()
     for server in ['lobby', *SERVERS]:
         commands = []
         for uid, p in people.items():
@@ -126,6 +166,7 @@ def sync_admins():
                 continue
             target = '@a[name=' + p['name'] + ']'
             commands.append(f'tag {target} {"add" if uid in admins else "remove"} xdu_admin')
+            commands.append(f'tag {target} {"add" if uid in registered else "remove"} xdu_qq_registered')
             if uid in admins:
                 for group in 'ABC':
                     commands.append(f'tag {target} {"add" if admins[uid]==group else "remove"} xdu_commentary_{group}')
@@ -133,6 +174,7 @@ def sync_admins():
                     commands += [f'tag {target} add forcespectate', f'tag {target} remove playing', f'gamemode spectator {target}']
         if commands:
             Backend(server).commands(commands)
+    sync_operator_privileges(admission, people)
 
 
 def admin(name, group):
@@ -144,10 +186,16 @@ def admin(name, group):
     if value.get('active'):
         raise ValueError('Change administrator roles only between GPs')
     if group == 'revoke':
+        value.setdefault('admin_sessions', {}).pop(found[0], None)
         value['admins'].pop(found[0], None)
-        Backend(people[found[0]]['server']).command('tag @a[name=' + name + '] remove xdu_admin')
+        Backend(people[found[0]]['server']).commands([
+            'tag @a[name=' + name + '] remove xdu_admin',
+            *[f'tag @a[name={name}] remove xdu_commentary_{g}' for g in 'ABC']])
     else:
         value['admins'][found[0]] = group
+        if not people[found[0]].get('session'):
+            raise ValueError('Proxy has not published this administrator login session')
+        value.setdefault('admin_sessions', {})[found[0]] = people[found[0]]['session']
         target = '@a[name=' + name + ']'
         Backend(people[found[0]]['server']).commands([f'tag {target} add xdu_admin', *[
             f'tag {target} {"add" if g==group else "remove"} xdu_commentary_{g}' for g in 'ABC']])
@@ -166,9 +214,10 @@ def start():
         if any(s['state'] not in ('IDLE', 'GP_FINISHED') for s in states.values()):
             raise ValueError('A backend is not idle or has an unresolved interrupted GP')
         people, identities = connected(), load_identities()
+        authorized = authorized_admins(admission, people)
         entrants = []
         for uid, p in people.items():
-            if uid in admission['admins']:
+            if uid in authorized:
                 continue
             if p['server'] != 'lobby' or uid not in identities:
                 raise ValueError('All non-admin players must be registered and waiting in the main lobby')
@@ -203,7 +252,7 @@ def start():
         save_policy(admission)
         for uid, server in admission['members'].items():
             proxy_command('send ' + people[uid]['name'] + ' ' + server)
-        for uid, group in admission['admins'].items():
+        for uid, group in authorized.items():
             if uid in people:
                 target = 'race-' + group.lower()
                 if target not in admission['servers']:

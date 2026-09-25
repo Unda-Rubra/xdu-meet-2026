@@ -1,4 +1,4 @@
-"""Initialize the five-service event from one stopped, verified template."""
+"""Initialize native event worlds and the read-only LAN pack service."""
 from __future__ import annotations
 
 import argparse
@@ -10,6 +10,7 @@ import subprocess
 
 from .assets import ROOT, digest
 from .compat import environment, prepare
+from .pack_server import configure_worlds
 from .template import tree_hash
 
 
@@ -45,7 +46,7 @@ def initialize(accept_eula: bool):
     shutil.copyfile(plugin, ROOT / 'volumes/event/proxy/plugins/XduIdentity.jar')
     (ROOT / "volumes/event/initialized.json").write_text(json.dumps({
         "schema_version": 1, "template_hash": receipt["template_hash"],
-        "adapter_tree_hash": receipt["adapter_tree_hash"], "services": ["proxy", "lobby", "race-a", "race-b", "race-c"]}, indent=2) + "\n")
+        "adapter_tree_hash": receipt["adapter_tree_hash"], "services": ["proxy", "resource-pack", "lobby", "race-a", "race-b", "race-c"]}, indent=2) + "\n")
     print("A/B/C are independent verified copies; existing worlds were not overwritten")
 
 
@@ -63,8 +64,9 @@ def main():
             if not (ROOT / "volumes/event/acceptance.json").exists():
                 raise ValueError("Initialize with explicit EULA acceptance first")
             initialized = json.loads((ROOT / "volumes/event/initialized.json").read_text())
-            if initialized.get("schema_version") != 1 or initialized.get("services") != ["proxy", "lobby", "race-a", "race-b", "race-c"]:
+            if initialized.get("schema_version") != 1 or initialized.get("services") not in (["proxy", "lobby", "race-a", "race-b", "race-c"], ["proxy", "resource-pack", "lobby", "race-a", "race-b", "race-c"]):
                 raise ValueError("Deployment initialization is incomplete; refusing startup")
+            configure_worlds()
             command = ["docker", "compose", "-p", "xdu-event", "-f", str(ROOT / "compose.yaml"), "up", "--build", "--menu=false"]
             os.execvpe(command[0], command, environment())
     except (OSError, ValueError, KeyError, subprocess.SubprocessError) as error:

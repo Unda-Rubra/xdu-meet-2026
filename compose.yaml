@@ -53,6 +53,19 @@ services:
       interval: 20s
       timeout: 10s
       retries: 5
+  resource-pack:
+    <<: *server
+    entrypoint: [python3, -m, raceops.pack_server]
+    command: [--file, /pack.zip, --lock, /versions.lock.json]
+    ports: ["${EVENT_BIND:-127.0.0.1}:25566:25566"]
+    volumes:
+      - ./downloads/resources-1.6.13.zip:/pack.zip:ro
+      - ./config/versions.lock.json:/versions.lock.json:ro
+    healthcheck:
+      test: [CMD, python3, -c, "import urllib.request; urllib.request.urlopen(urllib.request.Request('http://127.0.0.1:25566/pack.zip', method='HEAD'), timeout=3).close()"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
   proxy:
     <<: *server
     command: [-Xms128M, "-Xmx${PROXY_HEAP:-256M}", -jar, /server.jar]
@@ -66,5 +79,6 @@ services:
       race-b: {condition: service_healthy}
       race-c: {condition: service_healthy}
       lobby: {condition: service_healthy}
+      resource-pack: {condition: service_healthy}
 networks:
   backend: {}

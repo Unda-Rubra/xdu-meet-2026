@@ -48,10 +48,13 @@ def process_start_request(store):
         return
     store.put('last_start_request', request['request_id'])
     uid = request['requested_by']
-    if not 0 <= time.time() * 1000 - request['at'] <= 30000 or uid not in policy()['admins']:
+    if not 0 <= time.time() * 1000 - request['at'] <= 30000:
         return
     player = connected().get(uid)
-    if not player or player['server'] != 'lobby':
+    current = policy()
+    if (not player or player['server'] != 'lobby' or uid not in current['admins']
+            or not request.get('session') or request['session'] != player.get('session')
+            or request['session'] != current.get('admin_sessions', {}).get(uid)):
         return
     try:
         result = start()

@@ -15,6 +15,7 @@ import tempfile
 import zipfile
 
 from .assets import ROOT, digest, load_lock
+from .pack_server import resource_pack_url
 
 COMPOSE = ROOT / "compat.compose.yaml"
 DATA = ROOT / "volumes/compatibility"
@@ -74,7 +75,7 @@ def prepare(accepted: bool, destination: Path = DATA, races: tuple[str, ...] = (
                 "broadcast-rcon-to-ops": "false", "server-port": "25565", "max-players": "60" if service == "lobby" else "20",
                 "difficulty": "2", "allow-flight": "true", "view-distance": "8",
                 "simulation-distance": "8", "spawn-protection": "0", "pause-when-empty-seconds": "0",
-                "resource-pack": lock["resource_pack"]["url"],
+                "resource-pack": resource_pack_url() if template is not None else lock["resource_pack"]["url"],
                 "resource-pack-sha1": lock["resource_pack"]["sha1"], "require-resource-pack": "true",
                 "resource-pack-id": "1575504c-90ec-4241-89ba-c44de61d0491",
                 "motd": f"XDU private event {service}",

@@ -11,6 +11,7 @@ from raceops.meet import Meet
 from raceops.meet_results import Results, read_archive
 from raceops.model import canonical_hash
 from raceops.meet_server import advance_barrier
+from raceops.manual_game import sync_operator_privileges
 from raceops.qq_identity import validate_qq
 
 
@@ -127,6 +128,47 @@ class BarrierTests(unittest.TestCase):
             states['race-b'].update(state='RUNNING', track_index=2)
             advance_barrier(admission, states)
             self.assertNotIn('release_track', admission)
+
+
+class AdminPrivilegesTests(unittest.TestCase):
+    def test_only_authorized_online_admin_is_op_and_switch_revokes_old_server(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            roles = {'admins': {'admin-uuid': 'A'}, 'admin_sessions': {'admin-uuid': 'approved-session'}}
+            class Backend:
+                def __init__(self, server): self.server = server
+                def command(self, command):
+                    path = root / 'volumes/event' / self.server / 'ops.json'
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    ops = json.loads(path.read_text()) if path.exists() else []
+                    if command.startswith('execute if entity '): return 'Test passed'
+                    verb, name = command.split(' ', 1)
+                    if verb == 'op' and not any(row['name'] == name for row in ops):
+                        ops.append({'name': name})
+                    if verb == 'deop': ops = [row for row in ops if row['name'] != name]
+                    path.write_text(json.dumps(ops))
+                    return 'Done'
+            with patch('raceops.manual_game.ROOT', root), patch('raceops.manual_game.Backend', Backend), \
+                 patch('raceops.manual_game.save_policy'):
+                people = {'admin-uuid': {'name': 'Commentator', 'server': 'lobby', 'session': 'spoof-session'},
+                          'guest-uuid': {'name': 'Guest', 'server': 'lobby', 'session': 'guest-session'}}
+                sync_operator_privileges(roles, people)
+                self.assertFalse((root / 'volumes/event/lobby/ops.json').exists())
+                people['admin-uuid']['session'] = 'approved-session'
+                sync_operator_privileges(roles, people)
+                self.assertEqual(json.loads((root / 'volumes/event/lobby/ops.json').read_text()),
+                                 [{'name': 'Commentator'}])
+                people['admin-uuid']['server'] = 'race-b'
+                sync_operator_privileges(roles, people)
+                self.assertEqual(json.loads((root / 'volumes/event/lobby/ops.json').read_text()), [])
+                self.assertEqual(json.loads((root / 'volumes/event/race-b/ops.json').read_text()),
+                                 [{'name': 'Commentator'}])
+                people['admin-uuid']['session'] = 'reconnected-session'
+                sync_operator_privileges(roles, people)
+                self.assertEqual(json.loads((root / 'volumes/event/race-b/ops.json').read_text()), [])
+                people.pop('admin-uuid')
+                sync_operator_privileges(roles, people)
+                self.assertEqual(json.loads((root / 'volumes/event/race-b/ops.json').read_text()), [])
 
 
 class FormatAndQQTests(unittest.TestCase):

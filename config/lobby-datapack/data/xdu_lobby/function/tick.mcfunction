@@ -3,6 +3,7 @@ tag @a[tag=!xdu_admin] remove admin
 tag @a[tag=xdu_admin] add admin
 scoreboard players set @a[tag=!xdu_admin] adminMode 0
 scoreboard players set @a[tag=xdu_admin] adminMode 1
+clear @a[tag=xdu_admin] minecraft:shulker_shell[custom_data~{invControl:1b,invAdmin:1b}]
 tag @a remove readyup
 scoreboard players set @e[type=armor_stand,tag=w,x=1560,y=150,z=406,distance=..1] readyState 0
 bossbar set minecraft:readyprogress players

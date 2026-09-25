@@ -444,6 +444,11 @@
       "path": "data/sprint_racer/function/carrot_on_stick.mcfunction",
       "sha256": "2644c700c11c4ad2f47a589c515f1e53405dc37c1ed0ef7d03a4df77e8837c0f",
       "prefix": "execute unless items entity @s weapon.offhand minecraft:carrot_on_a_stick run tag @s remove hasCarrot\n"
+    },
+    {
+      "path": "data/sprint_racer/function/_main.mcfunction",
+      "sha256": "70818c9340625dd1171c726b7cd06c5f6d918caaab8e647dec6ed194dccfbc2c",
+      "suffix": "\nfunction xdu_race:admin_actionbar\n"
     }
   ]
 }
