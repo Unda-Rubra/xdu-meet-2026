@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import tempfile
 import subprocess
+import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -72,6 +73,32 @@ def acquire(name: str, entry: dict, directory: Path) -> Path:
         Path(temporary).unlink(missing_ok=True)
 
 
+def acquire_resource_pack(lock: dict, directory: Path) -> Path:
+    entry = lock["resource_pack"]
+    source = directory / lock["artifacts"]["world"]["filename"]
+    target = directory / entry["filename"]
+    if target.exists():
+        if (target.is_symlink() or digest(target) != entry["sha256"]
+                or digest(target, "sha1") != entry["sha1"]):
+            raise ValueError("Existing version-matched resource pack differs from the lock")
+        return target
+    fd, temporary = tempfile.mkstemp(prefix=".resource-pack-", dir=directory)
+    try:
+        with zipfile.ZipFile(source) as world, os.fdopen(fd, "wb") as output:
+            with world.open(entry["archive_member"]) as content:
+                for block in iter(lambda: content.read(1024 * 1024), b""):
+                    output.write(block)
+            output.flush()
+            os.fsync(output.fileno())
+        item = Path(temporary)
+        if digest(item) != entry["sha256"] or digest(item, "sha1") != entry["sha1"]:
+            raise ValueError("Official embedded resource pack checksum mismatch")
+        os.link(item, target)
+        return target
+    finally:
+        Path(temporary).unlink(missing_ok=True)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--only", nargs="+", help="Locked artifact names; default: all")
@@ -85,6 +112,9 @@ def main() -> int:
         for name in names:
             path = acquire(name, lock["artifacts"][name], ROOT / "downloads")
             print(f"{name}: verified {path.relative_to(ROOT)}")
+        if args.only is None or "world" in names:
+            pack = acquire_resource_pack(lock, ROOT / "downloads")
+            print(f"resource_pack: verified {pack.relative_to(ROOT)}")
         return 0
     except (OSError, ValueError, subprocess.SubprocessError) as error:
         parser.exit(1, f"fetch-assets: {error}\n")

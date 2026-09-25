@@ -4,7 +4,7 @@ Current contract: **one main lobby, live QQ registration, random grouping at eac
 
 ## Safety
 
-- Keep the verified native Sprint Racer 1.6.13 world and vanilla Minecraft 26.2 servers; do not replace game physics or item handlers with a mock or another server implementation.
+- Keep the pinned author-tagged Sprint Racer 1.6.14 world, Mario Kart Track Pack and vanilla Minecraft 26.3 servers; do not replace game physics or item handlers with a mock or another server implementation.
 - QQ is not authentication. Only the private proxy receives players; native backend game and RCON ports remain inaccessible to them. Do not grant operator/commentator status from QQ, player name or offline UUID. Console role grants are separate.
 - The sole main lobby hosts the native GP settings editor. Do not allow racers into race-world lobbies except the built-in award phase. Administrator commentators are always spectators and never counted.
 - Each active A/B/C backend must finish a track before any active backend advances. The archived attempt and token are generated only after final ceremonies. Missing evidence blocks publication; never infer a valid result from a timer or UI banner.

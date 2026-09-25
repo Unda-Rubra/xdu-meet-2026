@@ -26,26 +26,26 @@ services:
     <<: *race
     volumes:
       - ./volumes/event/race-a:/data
-      - ./downloads/mojang_26.2.jar:/server.jar:ro
+      - ./downloads/mojang_26.3.jar:/server.jar:ro
       - ./volumes/event/secrets/race-a:/run/secrets/rcon:ro
   race-b:
     <<: *race
     volumes:
       - ./volumes/event/race-b:/data
-      - ./downloads/mojang_26.2.jar:/server.jar:ro
+      - ./downloads/mojang_26.3.jar:/server.jar:ro
       - ./volumes/event/secrets/race-b:/run/secrets/rcon:ro
   race-c:
     <<: *race
     volumes:
       - ./volumes/event/race-c:/data
-      - ./downloads/mojang_26.2.jar:/server.jar:ro
+      - ./downloads/mojang_26.3.jar:/server.jar:ro
       - ./volumes/event/secrets/race-c:/run/secrets/rcon:ro
   lobby:
     <<: *server
     command: [-Xms128M, "-Xmx${LOBBY_HEAP:-512M}", -jar, /server.jar, --nogui]
     volumes:
       - ./volumes/event/lobby:/data
-      - ./downloads/mojang_26.2.jar:/server.jar:ro
+      - ./downloads/mojang_26.3.jar:/server.jar:ro
       - ./volumes/event/secrets/lobby:/run/secrets/rcon:ro
     healthcheck:
       test: [CMD, python3, -m, raceops.health, --lobby]
@@ -59,7 +59,7 @@ services:
     command: [--file, /pack.zip, --lock, /versions.lock.json]
     ports: ["${EVENT_BIND:-127.0.0.1}:25566:25566"]
     volumes:
-      - ./downloads/resources-1.6.13.zip:/pack.zip:ro
+      - ./downloads/resources-1.6.14.zip:/pack.zip:ro
       - ./config/versions.lock.json:/versions.lock.json:ro
     healthcheck:
       test: [CMD, python3, -c, "import urllib.request; urllib.request.urlopen(urllib.request.Request('http://127.0.0.1:25566/pack.zip', method='HEAD'), timeout=3).close()"]

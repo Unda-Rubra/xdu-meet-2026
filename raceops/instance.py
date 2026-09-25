@@ -17,7 +17,7 @@ def install(world: Path, service: str, receipt: dict):
     function_dir.mkdir(parents=True)
     tags = root / "data/minecraft/tags/function"
     tags.mkdir(parents=True)
-    (root / "pack.mcmeta").write_text(json.dumps({"pack": {"min_format": 107, "max_format": 107, "description": "Private event instance provenance"}}))
+    (root / "pack.mcmeta").write_text(json.dumps({"pack": {"min_format": 121, "max_format": 121, "description": "Private event instance provenance"}}))
     (tags / "load.json").write_text('{"values":["xdu_instance:load"]}\n')
     metadata = {"server": service, "group": group, "template_hash": receipt["template_hash"],
                 "adapter_tree_hash": receipt["adapter_tree_hash"], "template_receipt": receipt,

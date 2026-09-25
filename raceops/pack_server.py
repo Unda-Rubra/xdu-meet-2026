@@ -6,6 +6,7 @@ import os
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 import shutil
+import uuid
 
 from .assets import ROOT, digest, load_lock
 
@@ -34,19 +35,25 @@ def resource_pack_url():
 
 def configure_worlds():
     """Refresh the four server properties whenever EVENT_BIND changes."""
-    expected = load_lock()['resource_pack']['sha1']
-    source = ROOT / 'downloads/resources-1.6.13.zip'
-    if not source.is_file() or source.is_symlink() or digest(source, 'sha1') != expected:
+    release = load_lock()['resource_pack']
+    expected = release['sha1']
+    source = ROOT / 'downloads' / release['filename']
+    if not source.is_file() or source.is_symlink() or digest(source, 'sha1') != expected or digest(source) != release['sha256']:
         raise ValueError('Locked resource pack missing or checksum mismatch')
     url = resource_pack_url().replace(':', '\\:')
+    pack_id = str(uuid.UUID(hex=expected[:32]))
     for name in SERVERS:
         path = ROOT / 'volumes/event' / name / 'server.properties'
         lines = path.read_text().splitlines()
         matches = [i for i, line in enumerate(lines) if line.startswith('resource-pack=')]
-        sha_matches = [line for line in lines if line.startswith('resource-pack-sha1=')]
-        if len(matches) != 1 or sha_matches != ['resource-pack-sha1=' + expected]:
+        sha_matches = [i for i, line in enumerate(lines) if line.startswith('resource-pack-sha1=')]
+        id_matches = [i for i, line in enumerate(lines) if line.startswith('resource-pack-id=')]
+        if (len(matches) != 1 or len(sha_matches) != 1 or len(id_matches) != 1
+                or lines[sha_matches[0]].partition('=')[2] not in (expected, '2ffb31a863ec8e403a2c660ec185b78fb9159871')):
             raise ValueError('Unexpected native resource pack settings in ' + name)
         lines[matches[0]] = 'resource-pack=' + url
+        lines[sha_matches[0]] = 'resource-pack-sha1=' + expected
+        lines[id_matches[0]] = 'resource-pack-id=' + pack_id
         path.write_text('\n'.join(lines) + '\n')
     return resource_pack_url()
 

@@ -1,6 +1,6 @@
 # Deployment and local service
 
-Use the pinned Sprint Racer 1.6.13 world, Minecraft 26.2 client/server, Java 25 and BungeeCord 2096 assets in `config/versions.lock.json`. Do not replace the native race worlds with Paper or approximate the game mechanics.
+Use the pinned author-tagged Sprint Racer 1.6.14 world, official creator-linked Mario Kart Track Pack (27 tracks), Minecraft 26.3 client/server, Java 25 and BungeeCord 2096 assets in `config/versions.lock.json`. The author's release explicitly requires Minecraft 26.3. Do not replace the native race worlds with Paper or approximate the game mechanics.
 
 ```sh
 ./scripts/fetch-assets
@@ -20,7 +20,9 @@ The proxy plugin is built reproducibly from `plugins/identity/src/XduIdentity.ja
 
 Grant commentator/OP for the **current connected session** from the trusted host using `./scripts/racectl admin Name A` (or B/C). A trusted native `xdu_commentary_A/B/C` tag may select the default group but cannot grant permission by itself. Roles and OP must be reapproved by the host after a reconnect; OP is revoked when the session leaves a server or disconnects. Commentators are spectators in race worlds and excluded from rosters and scoring. Player-supplied names or QQ values never grant permissions. Offline names can still be impersonated on a LAN: only trusted supervised users should receive OP; do not treat QQ as authentication. Registration repair is console-only, with the player disconnected and no active GP.
 
-The previous third-party short URL redirected through Mediafire and did not work reliably on other machines. The event now hosts the pinned `downloads/resources-1.6.13.zip` on `http://<EVENT_BIND>:25566/pack.zip`; startup verifies its SHA-1 and SHA-256 against `config/versions.lock.json` and serves only that path. Clients use the same URL and locked SHA-1 from all four worlds. If remote clients cannot download, confirm Mac firewall permits TCP 25566 on the private LAN; a working game port 25565 alone is insufficient.
+The event hosts the author-tagged `downloads/resources-1.6.14.zip` on `http://<EVENT_BIND>:25566/pack.zip`; startup verifies its SHA-1 and SHA-256 against `config/versions.lock.json` and serves only that path. All four worlds advertise the same locked SHA-1. If remote clients cannot download, confirm Mac firewall permits TCP 25566 on the private LAN; a working game port 25565 alone is insufficient.
+
+The world and Mario Kart files are pinned to the creator's [v1.6.14 release tag](https://github.com/jarrodmmoore/Sprint-Racer-Dev/releases/tag/v1.6.14) and [official track-pack listing](https://www.flamingosaurus.com/games/sprint-racer/custom-tracks/track-packs). The importer overlays the creator's drag-and-drop world files **only while creating a new stopped template**; it never overwrites a live world. It normalizes the add-on's old pack metadata for Minecraft 26.3 while preserving its authored functions and 27 track data files. Existing worlds are kept as a full ignored backup before a version swap. The 27 courses have already been imported into all four live worlds; a fresh deployment's add-on autoload also imports when a player first joins. Host-authorized admins can choose them in Random Track Pool.
 
 ## Feishu configuration
 

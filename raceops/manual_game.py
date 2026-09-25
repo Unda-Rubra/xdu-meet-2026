@@ -71,6 +71,17 @@ def settings():
 
 def apply_settings(backend, value):
     contract = json.loads((ROOT / 'config/native-settings.json').read_text())
+    custom_selectors = {}
+    for row in value['tracks']:
+        if 'customtrack' not in row['tags']:
+            continue
+        if not isinstance(row.get('uuid'), list) or len(row['uuid']) != 4:
+            raise ValueError('Imported track is missing its stable UUID')
+        identity = ','.join(str(part) for part in row['uuid'])
+        selector = f'@e[type=armor_stand,tag=customtrack,nbt={{UUID:[I;{identity}]}}]'
+        if backend.command('execute if entity ' + selector) != 'Test passed. Count: 1':
+            raise ValueError('Imported course UUID is missing or ambiguous on ' + backend.service)
+        custom_selectors[identity] = selector
     for layer in value['saved_bank']:
         backend.commands([f'setblock {b["x"]} {b["y"]} {b["z"]} {b["block"]}' for b in layer])
     if saved_setting_bank(backend) != value['saved_bank']:
@@ -92,8 +103,11 @@ def apply_settings(backend, value):
         commands += [f'scoreboard players set {selector} {k} {v}' for k, v in saved['scores'].items()]
     commands += [f'scoreboard players set {h["name"]} {h["objective"]} {h["value"]}' for h in value['holders']]
     for row in value['tracks']:
-        kind = 'trackStandR' if 'trackStandR' in row['tags'] else 'trackStandB'
-        selector = f'@e[type=armor_stand,tag={kind},scores={{rNumber={row["id"]}}}]'
+        if 'customtrack' in row['tags']:
+            selector = custom_selectors[','.join(str(part) for part in row['uuid'])]
+        else:
+            kind = 'trackStandR' if 'trackStandR' in row['tags'] else 'trackStandB'
+            selector = f'@e[type=armor_stand,tag={kind},scores={{rNumber={row["id"]}}}]'
         for tag in ['rtBlacklist', 'btBlacklist', *[f'gpNo{i}' for i in range(1, 51)]]:
             commands.append(f'tag {selector} {"add" if tag in row["tags"] else "remove"} {tag}')
     for offset in range(0, len(commands), 2000):
@@ -104,6 +118,15 @@ def apply_settings(backend, value):
     actual = scoreboard(backend, W)
     if any(actual.get(k) != v for k, v in value['scores'].items()):
         raise ValueError('Native settings transfer failed')
+    managed = {'rtBlacklist', 'btBlacklist', *[f'gpNo{i}' for i in range(1, 51)]}
+    def key(row):
+        if 'customtrack' in row['tags']:
+            return 'custom', tuple(row['uuid'])
+        return ('race' if 'trackStandR' in row['tags'] else 'battle'), row['id']
+    observed = {key(row): managed.intersection(row['tags']) for row in backend.read('tracks', 'xdu_race:settings')}
+    if (len(observed) != len(value['tracks']) or any(
+            observed.get(key(row)) != managed.intersection(row['tags']) for row in value['tracks'])):
+        raise ValueError('Track-pool readback differs; refusing to start this GP')
 
 
 def authorized_admins(admission, people):
@@ -231,6 +254,7 @@ def start():
         attempt = 'gp_' + uuid.uuid4().hex
         setting_hash = canonical_hash(settings_value)
         roster_hash = canonical_hash(groups)
+        template_hash = json.loads((ROOT / 'template-world/xdu-template.json').read_text())['template_hash']
         settings_path = ROOT / 'volumes/control/attempts' / (attempt + '.json')
         settings_path.parent.mkdir(parents=True, exist_ok=True)
         settings_path.write_text(json.dumps(settings_value, ensure_ascii=False, indent=2))
@@ -243,7 +267,7 @@ def start():
                     'track_count': settings_value['track_count'], 'revision': 1, 'boot_id': states[backend.service]['boot_id'],
                     'settings_hash': setting_hash, 'preset_hash': setting_hash, 'roster_hash': roster_hash,
                     'identity_mode': 'offline_trusted_private', 'roster': roster,
-                    'results': {}, 'template_hash': 'native-1.6.13-manual-v2'}
+                    'results': {}, 'template_hash': template_hash}
             backend.stage('plan', plan)
             backend.command('data modify storage xdu_race:state current set from storage xdu_race:request plan')
             backend.command('tag @a remove xdu_member')

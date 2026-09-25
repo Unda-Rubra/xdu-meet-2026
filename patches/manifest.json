@@ -1,346 +1,346 @@
 {
   "schema_version": 1,
-  "upstream": "Sprint Racer 1.6.13",
-  "archive_sha256": "2c3b11aca192d5f1ff02e6f703c1eb93c39af7ebf5434d541fabfb1ad0fd416a",
+  "upstream": "Sprint Racer 1.6.14 (Minecraft 26.3)",
+  "archive_sha256": "2114e2e22ff733363e3b25ee67070badaae274d746af2cb3c6c3ff421d560354",
   "files": [
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/speedometer.mcfunction",
-      "sha256": "6787749654299e4d0371221d82a0375ed288c1d0762286f9efd4ab72676410e7",
+      "sha256": "28c6a2275c1e2e606ca19e2533175001a50afd8f612f2daea3d82216f183dde9",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/item_balancing.mcfunction",
-      "sha256": "ac2a09cab975ade34496bd0942815ac0708947aa7ff21e21bf3078994f8e13c6",
+      "sha256": "47ecf1995e252e7b5abd917102bc697b57fceddb76afc6587e71527c49169f37",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/kart_yellow.mcfunction",
-      "sha256": "95e9ba88ab315bd5c95e811ba9a0256b071526d9ff986edbc8f63019d25dc7c0",
+      "sha256": "76a3cbe5e2519333f8386b5a7298df428695f4a0e395c43296038f475fa2d33a",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/defaults.mcfunction",
-      "sha256": "0dcd3d43d1371a3e014f778649d7ed0b776a34271108d64458afa246e9346313",
+      "sha256": "82be563b711f99bd001c8540587527434b8514c798cb3eea602097864039d92f",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/reset_timer.mcfunction",
-      "sha256": "c6c035159e2ad38e1621a5bf1ea934eef8dcac79ef9bfe76d806e879a722bdd4",
+      "sha256": "15bf81cc72ef24be7d98308cb8d9a82a15687de3746554b52deb93e11bd02f71",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_save.mcfunction",
-      "sha256": "5ccbac2700fdc7ac05e97c4cf732b1c1094dc2cf72c896753246b1200577c30e",
+      "sha256": "5d9ed09961ccb30c9244e7c343e4ef0e1fa5be3df7aeb5fcdf1b21a0c1d9a675",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_delete.mcfunction",
-      "sha256": "7a30722e792ac58271e38e8d3a98fce381d5d379b29584594d87f2d5578cccce",
+      "sha256": "31e17f3e2c9cefbb090ce910faa184204a82bdc4599eee8a3a7ff2175aef8348",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/nearby_boots.mcfunction",
-      "sha256": "1b12663ef73379aab71e119b24f860a7994ae451b720fe5e6a6d14b0444fbcd5",
+      "sha256": "4f514ab5757f1c58eca6682b1c502f8c138bb4e7b100a80b9603dda696ea431b",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/kart_green.mcfunction",
-      "sha256": "95fabfbe0fce015fdb7cd14fae37f03313bf2722f2e8f75e0fcad9108fd77df7",
+      "sha256": "6c50087da289f161b9549298bd148fc171fdbd845e8d4397025d7f23e89f4d3a",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_rubberbanding.mcfunction",
-      "sha256": "13ee9933f24493774214d59ada9f1f4d48cbaea977da83f918810f8eefc8e839",
+      "sha256": "1cee876502a86563b6462d9a0cdd03f4023ba6733bb6b76639b13530e6908600",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/default_item_presets.mcfunction",
-      "sha256": "cd2ccf156b71fab2378034abda84d7e48dc98191f545ab3f4f370c3abdf51eef",
+      "sha256": "fc119cb80daba9dc8a933c310c192503a36cef2a232013afab4dabd6c57f3f47",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_load_specific.mcfunction",
-      "sha256": "adfb24bb117d54a529129123516f69f3fb3d01903c6a2f61f6b8331be60a76ad",
+      "sha256": "7ab2c58fe2e3900e3347707f70db44f80f24cccf55b1221bddd45044088099f8",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/grand_prix_loop.mcfunction",
-      "sha256": "506fce4495742cba87a752da8e0c4dfecc7430019c6d02963f2f6b9acf7dbaab",
+      "sha256": "adb0ae19bffe86999267ee3f6ce84fc14efe01dc4b544b304b9601d1e9df01f7",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/items.mcfunction",
-      "sha256": "4e84739e61f223792e489588c37dcf97c609fc31d9ef6823b4269ab5ccdad71a",
+      "sha256": "2e1aa28a97c90570a7de8bac7d0e70fe3dd282da403d666503ac4c55631f1b13",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_finish.mcfunction",
-      "sha256": "0062b1df4f4de849b89918f552f54fe2fa5dc435a14cac9954953a96259b2c7d",
+      "sha256": "f039db56f12f064c42bbe133f399aec5ca2aeaa894d37374051ffaab833c63b7",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/def_time_add.mcfunction",
-      "sha256": "dae79238634717a1c22f470a2e567fef1ddf66f33868bea072d8d194ba42f8ba",
+      "sha256": "825bb98036875c99abcc113b738917d7275f2eb064e10bddccd70b9294d26970",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_save_specific.mcfunction",
-      "sha256": "500d9fd1744ef3c88287c287aac51ed88b41edfe0add3af9ebf55078d4c81058",
+      "sha256": "4359dd99a1550bd3a009afe32b1c763e87d4a000ffa2711b4a5f687996b506ad",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/teams.mcfunction",
-      "sha256": "80488af49c03da4fa316b94d0411e8e5a9b66c8924ed9cd06928e49544c6cf2b",
+      "sha256": "f4637ad1de6d6f185b5c90481e10810b7f8cda9734c7cf23b82374f7efae4aeb",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/add_20s.mcfunction",
-      "sha256": "2a319ee2e69f07f8b05a8f09486701c8c8e78d9d2af4a4904a08e89bbe607ebb",
+      "sha256": "17ab1a90c50e65ec1e966f81daf9c847c1321a502367ab3f641e8d3861892ee9",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/difficulty_ramp.mcfunction",
-      "sha256": "eeb3a538fa7a22b6c605e1f2e36413a573ec32b5030eedfd68f21aa437cd065e",
+      "sha256": "3a7b9b5b7b907e5b370dbbb194b27a02ced6ba79ab73e60b9d9ea67447d5d73d",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_mannequins.mcfunction",
-      "sha256": "d8e65f95b8b8b170c4abdc74198015d0a267e1547a483a91b73d978c07cb46fb",
+      "sha256": "805498e7ce6e02efd877d38cec0c5deca18610855855c3db9eb4996dc9d018b2",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/grand_prix_crowd_sfx.mcfunction",
-      "sha256": "e77bb0faf1b0a7db0e264bc1013a0d26434131bbd8f89dd20840cb2b126397c9",
+      "sha256": "0f970f564d27ca201c68fd93533d5f472f8c59620ff4248badd600043a2f8670",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/subtrack_20s.mcfunction",
-      "sha256": "57f217f0f59be50a1c5f5b7f3af137e1291f548d61f5b31791e9134520d95d0c",
+      "sha256": "bf9d3b40eb4e0c3c83c03da6ff79625191ee769f3dc2ffd861d923f77f1d7840",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/set_5s.mcfunction",
-      "sha256": "3a18a8669021a4aa74f62def5c2b0f1fa50e6f708c7a6d574f4c67b5e4a2e011",
+      "sha256": "ff377fd18a7c0c627c7b691474dd9083c5b700978231c36d318b7671d2848de3",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/game_type_battle.mcfunction",
-      "sha256": "787dd3d97129776ba79e834d6045cf7183ff381e3d33bf29a627b5791c63f110",
+      "sha256": "5546fabb69ff473b0eab535eda47facfb52c66090d66e603e2b33cddcfff227d",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/kart_purple.mcfunction",
-      "sha256": "d4e59cdff77158e89fae39adffa0fc979ac66cba0fde0b50a1cffb028e217e65",
+      "sha256": "c3ca7ed2f9fa2cd650177a410c5df6a7994d48894ea202b39b89cd5422705861",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_difficulty_battle.mcfunction",
-      "sha256": "bc076f2e504c5ba347eaa87e7036aef87fa23a30af8cbe9b189ba59f5a408080",
+      "sha256": "9087c35470cd931cd405b1b75dd8e0a94b305244505d207174e326d3e039c603",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/endless_mode.mcfunction",
-      "sha256": "fcff00e6a85f2362ffe6e5e5ab4d930739d2ca4c45885191bcfea85ae43f3a2c",
+      "sha256": "3f2d1e49e497ff303f93d0ac8186c0a764d6956c77cb3542ecfe2d1bf0aba9cb",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_count_battle.mcfunction",
-      "sha256": "020400b9d6029cacdaa9e19d7c80dabc5a26b71d83be5d92123355da5037d0d1",
+      "sha256": "28dabfa2e22a3d849ea18d4afea63b4c8ea6acbb656209216bbe05a02fe9e0ad",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/kart_blue.mcfunction",
-      "sha256": "c1481faa1f4723fa75a13f4d06e6af7b768e013c553e2285f479f6bb5fa8c6c9",
+      "sha256": "7ba364ffdaae44f0988c28eddb772282e84fc10050fdeee108a5049754c78901",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/game_type_race.mcfunction",
-      "sha256": "6e08eae33f410a0143243cbbde35b0dc914c25b36204a249b25a482edecf646e",
+      "sha256": "565015a701d08a036e969434f460a7f78496c850248cde5ef8d376da17de9857",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/auto_balance.mcfunction",
-      "sha256": "2e216ee6827635ee6d0608d42cd1d695b90425a9649359f18e20a3715ce1ac6a",
+      "sha256": "ea53703b63213d07e8e25d3ab7c6d31591a63032abe5fa2a502bad7dd29b0b18",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/custom_laps.mcfunction",
-      "sha256": "c469e4ebb9736d676298b397cd9f9426ea1489a97206b3c4130131f71cf48044",
+      "sha256": "af768325597daf34cdcdc2b87b53c767a0ac59e26666baeb5f63f92637d0deb1",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/absorption_race_start.mcfunction",
-      "sha256": "479ea139eb442bafd416285e07c91f69a0269b77f32e9db23331dd92109a46b0",
+      "sha256": "30c76db68f6696ed3e91255bdc3caa0ec78d5937282336abef713c22524f7576",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_difficulty_race.mcfunction",
-      "sha256": "d9fbe9ccafda6ed53f388f1ff8f46dc0f2ad99026b796d31e784a74cb8a3e879",
+      "sha256": "68833c8e7c39a70d2a3b4f6b4d51828f9f572b91deff1edee89c79524f9935d5",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/disable_all_cheats.mcfunction",
-      "sha256": "127e41fbb8e25984a3abcbf31685e859c28eaa57d7b7cde2ef1d24676fc7a8e0",
+      "sha256": "ab407d6c40e915bff9156f7f3b9f7aa0faaf9f4c15ed7e8ea249624c30f2dc28",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/reset_music.mcfunction",
-      "sha256": "b68c4771b353904a49ce66ca070c36e2e8be2192fd98875aaa897de101e92604",
+      "sha256": "9412d5c9c5a52a21149af92ae5f22005b533b3a10bb7f7bb883c4178b2f237e5",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_previous.mcfunction",
-      "sha256": "1d6440e52eab86b9bf67c70fb289f7efea412d48ce5a72f887cf273eaa9f132b",
+      "sha256": "750be676f2e96a687947b6849c373701c42ea65e8ef1b95518386646aa678bef",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/speedometer_enable.mcfunction",
-      "sha256": "e1c444679f69ea75542dad4c3095f07e8cb2574d903deec832a5b0fa97275473",
+      "sha256": "d64cd27f1a04a6da5cf09ce2e5497946e21c89caf116b99b5cac6039b78b6420",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/locator_bar.mcfunction",
-      "sha256": "d9ba75d31f7cdbfe7a6b54459f5a4296a8142060122602bfda88e2dd58993a22",
+      "sha256": "fff822ec922c7bbb7ad6e508d104dff870b67a3ea88a248a12075b29dd549b31",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_rival.mcfunction",
-      "sha256": "9d35871979d642faf845376edb7ea4bcbaad7a133867e4d975db62728619c9d5",
+      "sha256": "d3ff12b08deaf152f5b1016488bd4d9e8335e43c2b181fef43f0df88c8a6567c",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/in_game_hud.mcfunction",
-      "sha256": "83cc1f8b16003ebb43a91f6b767914795db691b794ad413005313e7a18a48894",
+      "sha256": "e75da23be23f6f651f1dfe7a8ff36ca56549087f0486f932e2e0a4354aed04eb",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/def_time.mcfunction",
-      "sha256": "530aea014d0227669683d542f9a398460444de4ca1453050e73f579ef5082300",
+      "sha256": "590c2e9bf7645d3e00965ad785c63c24eda2bd3bbab7d288de83e84dbc1cc144",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/performance.mcfunction",
-      "sha256": "e886471ea89958427676ebb2a871a9aae320c536a080c3402391c0c3ffaf16bf",
+      "sha256": "2ffe2414810e738fd14ba380f4d0ab8ed0eac44ea362f28fefe37d9fad471000",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_context_battle.mcfunction",
-      "sha256": "46bf273af79d65ab2511337cd260b4b1a8c086212d31cc75c4b103187ac26c98",
+      "sha256": "f7c4ed024add9e8bd743cf154fa53aa590f5ea2c71ab2cf5a4ec6daa39f4330b",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/extra_chests.mcfunction",
-      "sha256": "f6e436186fa0e1d0ca53ee2d81f17be9ab4cf06bf4f3f31f402dae178a8431cc",
+      "sha256": "76dd65f3f3e258f2d97625d4d852a023aa51fe09968fc267d502dc625644d1b4",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/custom_slot_limit.mcfunction",
-      "sha256": "9e0391afede3ca8f72715b40452144415c58c45687cab4cbb625a931ed272f0d",
+      "sha256": "a81c271b7f3ac4f199c28a614f8cfeaadbf3c3afb6dbe95f70d64e3979a063a5",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/reset_all_ta_data.mcfunction",
-      "sha256": "dfa438582a8585208ce01511a264165e751717923ab0fcf71d6b6759b8c23b8d",
+      "sha256": "0c082733f2e765b79b7f585f8ab49fa9fb3ad077f355eac33cd65f97dcbda63a",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/kart_red.mcfunction",
-      "sha256": "0b00322303f39bf9934b213735b7ed7eff3b6e1fd77e27a2dbfc7e83809c97f5",
+      "sha256": "40948788b390c05083f392f6195ae5fdbb682006158f8942621fb1834255467b",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/gamemodes.mcfunction",
-      "sha256": "d22853d92bd1db8e04c69791371cb99290c69e2290112a184188ad07cf2bc485",
+      "sha256": "93c971d100c22c73f9b98013ef45f80c8d480381e0b29f4f520b9d172084d022",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/admin_mode.mcfunction",
-      "sha256": "11e471a169efece2508bf4626be295d8d6f35cb6488f521fd04e33009d35d929",
+      "sha256": "255720031419b61bb6ec12b42de76694ab76cc8b6b9d37c4ca11279543ed8096",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_load.mcfunction",
-      "sha256": "38f6f17378304eb8d774a392007d883ea231975f1c1d8ef16e7f580f6d58b8c0",
+      "sha256": "1f0523bb0c8f3e9da927de8dd01e984b09bf8070a39472f022dcee1f04813be3",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/tracks.mcfunction",
-      "sha256": "4979b30794c76a99474a56efb76a59b84a240fcff78cf9e2f0211e14ba59b56d",
+      "sha256": "30045732a66dbc789057f1bdd5316177751979d82210fce55e43eb57907d49f0",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_count_race.mcfunction",
-      "sha256": "11b18ab7f1c466385bca7de125ae1a6a61b498f235aad89c29bd5e666162ce03",
+      "sha256": "85c30f4e1544a9c7a5dfb947e3659d32fca8091cbaa778cfa02d45ebffd15b74",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_loading.mcfunction",
-      "sha256": "0b585d6990f75d5ef21512e4bd2e611374ba796cba80b403d9059d5eda53173e",
+      "sha256": "68c34cb376eabf08dcdeb12e31a3a0af24cb9199470c0dc1cd632cd219f89378",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_next.mcfunction",
-      "sha256": "07a6aa68ea9ae047a271b76b43d4dd26c92d2ba8fbb81d32e77ed9891b31f43b",
+      "sha256": "a31b68e9512eaa51938b2e88c8f7de259c7b1ac515809ef5562cc5b6bc1bf1a2",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_defaults.mcfunction",
-      "sha256": "c61cbd3abec0efa07bc992b292ac21b2d6b84e9eae4d1af27ec8210bb7f651e9",
+      "sha256": "25357094a82a594df21ac74022e154843918f98193ccd4e94f416074f7ee6e64",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/def_time_remove.mcfunction",
-      "sha256": "1f88a93c3d6a327eabb9a65cd2bd76f6fb441113360776433a05cc0213819973",
+      "sha256": "a50ae20b40d052c4a034bfb64785e6426eca461cda2019cb8433ca870b01236b",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_add_type_battle.mcfunction",
-      "sha256": "43385a6de1d6da392b836d3cb214578d33ba6cd812013d4b406574f2811785a8",
+      "sha256": "92dab30048c39d68f29bb401f8deb9d1de609ba0d52db3c5c09734f434c050cc",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/save_state_icon.mcfunction",
-      "sha256": "1af773f446080abe193f1cdc6775c121323e210ef396095eafeb5025412f8fa2",
+      "sha256": "ee8cb90801ad563ad19c1d99b8b26e3450965bb124b96718caefe5607b9a0161",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/custom_ai.mcfunction",
-      "sha256": "5087d73a7d7559b86f878b76d9c78bd989f1f34fac0ba7ba6f2353b0e20d8374",
+      "sha256": "8b26cb2b24c6da2e7076ed6552b9ddbf5ede41ae0ded37489b2c66e1c3df7f23",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_add_type_race.mcfunction",
-      "sha256": "dd983b9ffc17b4c3e638f380131b2e3113a01176c59265777a192c9d68fb50c7",
+      "sha256": "4189110eea3e0f67ba9ba9d5a9e75a21c802c116f7b916be7ccadccaf1c1e331",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/options_signs/ai_context_race.mcfunction",
-      "sha256": "6dfaa1a50a7a883933a7727c32274fcd89dc4aaf91d74ac1b38f28c5b1f2b7e2",
+      "sha256": "705fcfbc265d428766f7e9bcf9d9c81c9cebf80fb2239d5de692ff17c18d1616",
       "prefix": "execute if entity @s[type=player] unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute if entity @s[type=player] unless entity @s[tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/boq/trigger_option.mcfunction",
-      "sha256": "b40d4df0342f1e6e095872675d568053848ca84e903631b081f801f3cf352abf",
+      "sha256": "b6763af7a08058fa3091483279a249e6280a4d524757a8e948f3b68393741491",
       "prefix": "execute unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute unless entity @s[type=player,tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/misc_lobby_happenings/cheat_menu/ca_trigger.mcfunction",
-      "sha256": "8b4942eea6743eef8000f23007afe45bce7cf9bf53b6dfbc9da5ee66abec045a",
+      "sha256": "19bc6fc15ca255fcfa71e1e19e78684bf22a4155c6960fb4e960a15117ffc1d9",
       "prefix": "execute unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute unless entity @s[type=player,tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/misc_lobby_happenings/cheat_menu/cl_trigger.mcfunction",
-      "sha256": "357715478fd09d338d03e3f0e0f901018d1b6a507f679c5e20eb60c8fff1e907",
+      "sha256": "ef4525e37e0126eb2866e62679c04f31ac4020c434af14ae13ececd70ba47f90",
       "prefix": "execute unless data storage xdu_race:config {main_lobby:1b} run return 0\nexecute unless entity @s[type=player,tag=xdu_admin] run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/11/start_grand_prix.mcfunction",
-      "sha256": "e0961a839a6df08a6249bc3631ece367dbef3979f7292d5aa1e46465ddcad6fe",
+      "sha256": "206271021cc9ac77b8cbe26f55f09fbdf0e80d3f2aeb1e1a72106d8a6108ea83",
       "prefix": "execute unless score #start xdu matches 1 run return 0\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/4/_initialize.mcfunction",
-      "sha256": "99d0ae2031ec64708c59c83822137d370526cdf2869461fa0fe33a245d9aa3c0",
+      "sha256": "d954d1052d3f77a49f11aad4f78308c48a69c8e72294f1f78258635952d917f4",
       "prefix": "function xdu_race:ceremony\n",
       "changes": [
         {
@@ -355,28 +355,28 @@
     },
     {
       "path": "data/sprint_racer/function/game_logic/4/end.mcfunction",
-      "sha256": "17d6e9832a97af5bfae9f30072350af544f346dd70ff90c982f5cfc74bdac733",
+      "sha256": "f92db0dda0e9d09370972558b2bdc7f5856749d572ea3f289884dcb811659c96",
       "prefix": "function xdu_race:finish\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/grand_prix_decide_if_skip.mcfunction",
-      "sha256": "86ddd333804275f250f0f515f1aef7b13f1ef29250956c439ed0c6ca7400c50e",
+      "sha256": "b8eae01be030797f2e9f89e70354802d5d96a6337641acc50b59fb95e5e79319",
       "suffix": "\nexecute if data storage xdu_race:state current{state:\"RUNNING\"} run tag @s add gp_skip2next\n"
     },
     {
       "path": "data/sprint_racer/function/join.mcfunction",
-      "sha256": "e218acbeac624a6b1d7f78d47ee143864cf022bbfcbd2184b21c7d7c8d6c7a3f",
+      "sha256": "b8b782e718bc7c6fd1fb20ae69c90b41d46100268f2a3bc6e674004361b80da0",
       "suffix": "\nfunction xdu_race:access\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/0/grand_prix_round_start.mcfunction",
-      "sha256": "03e64357abd4fca97edee205607746b6d64b45ea59b5aeccca9c55daddb5870d",
+      "sha256": "9c8025c57747ad8df2a706b2fbed9826a07ffd5e1f537d6973b3eecf3af76c61",
       "prefix": "execute unless data storage xdu_race:state current{state:\"RUNNING\"} run return 0\n",
       "suffix": "\nfunction xdu_race:track_started\n"
     },
     {
       "path": "data/sprint_racer/function/game_logic/1/end_sequence.mcfunction",
-      "sha256": "e119f782f13e1c737c3cbbbb1e822cf813b9b6f3ead09f47abb72995e564958e",
+      "sha256": "2d7284823c4e36f6638b34ab1e6c7206fcf006a12d40311ed221f1453699bcb9",
       "prefix": "execute if data storage xdu_race:state current{state:\"WAITING\"} run return 0\n",
       "changes": [
         {
@@ -387,7 +387,7 @@
     },
     {
       "path": "data/sprint_racer/function/game_logic/1/elimination/end_sequence.mcfunction",
-      "sha256": "a73364ce0e1ceacbccc4caec75de7fa11e3ae1c84cd93f71669d4d167d4310bb",
+      "sha256": "13e1946440daa1d5eb0272c424413374cc20e13e07555c2eeb6b75f2b06fb6ce",
       "prefix": "execute if data storage xdu_race:state current{state:\"WAITING\"} run return 0\n",
       "changes": [
         {
@@ -398,7 +398,7 @@
     },
     {
       "path": "data/sprint_racer/function/game_logic/3/end_sequence.mcfunction",
-      "sha256": "93a9e23481939f905af924e90790bf92031a24efa733cb401f5c5c947fa27512",
+      "sha256": "d2abbacbe276aff5830128afe0fd34427a82e9f4991aa8e66662fb4f40d81f35",
       "prefix": "execute if data storage xdu_race:state current{state:\"WAITING\"} run return 0\n",
       "changes": [
         {
@@ -409,7 +409,7 @@
     },
     {
       "path": "data/sprint_racer/function/game_logic/3/elimination/end_sequence.mcfunction",
-      "sha256": "4367f392b6ab879a3a677f8ee3268663435dcd0ad451776f9b9e5dd228b84f15",
+      "sha256": "a09cff28224aa69eafcd0a3b01fc7e9923bb7a4957d94785dba6a249d9a9507e",
       "prefix": "execute if data storage xdu_race:state current{state:\"WAITING\"} run return 0\n",
       "changes": [
         {
@@ -420,7 +420,7 @@
     },
     {
       "path": "data/sprint_racer/function/game_logic/7/end_sequence.mcfunction",
-      "sha256": "7157bee48c45d5d937899cb3257c7e0e824cedb38c0c92292b02c05a6cb8da36",
+      "sha256": "f74a665d44e5e9da50413ad194f1daacd97993342dff4e104acbc09b59a4e300",
       "prefix": "execute if data storage xdu_race:state current{state:\"WAITING\"} run return 0\n",
       "changes": [
         {
@@ -431,7 +431,7 @@
     },
     {
       "path": "data/sprint_racer/function/game_logic/8/end_sequence.mcfunction",
-      "sha256": "215421a5b8c4b1b16b48bc8aa8417d56440c129239949fdef14a0be76b55fb4b",
+      "sha256": "017ceac322a572129a33d282b16ca4eb1b99aedec7c26992ec26a93662aac682",
       "prefix": "execute if data storage xdu_race:state current{state:\"WAITING\"} run return 0\n",
       "changes": [
         {
@@ -442,12 +442,12 @@
     },
     {
       "path": "data/sprint_racer/function/carrot_on_stick.mcfunction",
-      "sha256": "2644c700c11c4ad2f47a589c515f1e53405dc37c1ed0ef7d03a4df77e8837c0f",
+      "sha256": "9f6737f8d11959145962f9ef58fc4c1da547314ccf22381994f9fe27c70e5b12",
       "prefix": "execute unless items entity @s weapon.offhand minecraft:carrot_on_a_stick run tag @s remove hasCarrot\n"
     },
     {
       "path": "data/sprint_racer/function/_main.mcfunction",
-      "sha256": "70818c9340625dd1171c726b7cd06c5f6d918caaab8e647dec6ed194dccfbc2c",
+      "sha256": "0cc8bcd975de9222d3e0cac6acf21f12952e92998f7ff808aea334f26a620a34",
       "suffix": "\nfunction xdu_race:admin_actionbar\n"
     }
   ]

@@ -1,6 +1,6 @@
 # XDU Sprint Racer event service
 
-One native Sprint Racer 1.6.13 main lobby with three private A/B/C race backends and BungeeCord 2096. Native Minecraft 26.2 gameplay is preserved; the local coordinator handles QQ admission, random per-GP grouping, synchronized track changes, awards, archiving, and **explicit token-based Feishu publication**.
+One native Sprint Racer 1.6.14 main lobby, the creator-linked Mario Kart Track Pack (27 imported tracks), three private A/B/C race backends and BungeeCord 2096. Native Minecraft 26.3 gameplay is preserved; the local coordinator handles QQ admission, random per-GP grouping, synchronized track changes, awards, archiving, and **explicit token-based Feishu publication**.
 
 Quick operator path:
 
