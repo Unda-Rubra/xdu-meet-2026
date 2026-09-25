@@ -65,7 +65,7 @@ def migrate(meet):
     formula('users', '最低轮得分', own + col('scores', '本轮最终得分') + '.MIN()')
     formula('users', '参与轮次', own + col('scores', '轮次') + '.UNIQUE()')
     formula('users', '参与轮次（计数）', own + col('scores', '轮次') + '.UNIQUE().COUNTA()')
-    formula('users', '最终总得分', f'IF({u("参与轮次（计数）")}=0,"",{u("累计总得分")}-{u("最低轮得分")})')
+    formula('users', '最终总得分', f'IF({u("参与轮次（计数）")}=0,"",IF({u("参与轮次（计数）")}<5,{u("累计总得分")},{u("累计总得分")}-{u("最低轮得分")}))')
     for rank, score in [('总排名', '累计总得分'), ('最终排名', '最终总得分')]:
         formula('users', rank, f'IF({u("参与轮次（计数）")}=0,"",1+{table("users")}.COUNTIF(AND({cv("users", "参与轮次（计数）")}>0,{cv("users", score)}>{u(score)})))')
     current = table('control') + col('control', '当前轮次') + '.FIRST()'

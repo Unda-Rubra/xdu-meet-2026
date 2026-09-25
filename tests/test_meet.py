@@ -1,5 +1,6 @@
 import copy
 import json
+from contextlib import nullcontext
 from pathlib import Path
 import tempfile
 import unittest
@@ -104,6 +105,70 @@ class ManualUploadTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             Results(self.meet).upload(self.token)
         self.assertEqual(self.remote.rows['scores'], [])
+
+    def test_other_bad_signups_do_not_block_a_known_racer(self):
+        self.remote.rows['users'].extend([
+            {'record_id': 'bad', 'fields': {'QQ号': 'not-a-qq'}},
+            {'record_id': 'other-a', 'fields': {'QQ号': '900000003'}},
+            {'record_id': 'other-b', 'fields': {'QQ号': '900000003'}},
+        ])
+        result = Results(self.meet).upload(self.token)
+        self.assertEqual(result['status'], '完整')
+        self.assertEqual(self.remote.rows['scores'][0]['fields']['关联用户'], ['u1'])
+
+
+
+class AdmissionTests(unittest.TestCase):
+    def test_first_pack_load_after_ninety_seconds_starts_all_groups(self):
+        from raceops.manual_game import start
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'template-world').mkdir()
+            (root / 'template-world/xdu-template.json').write_text('{"template_hash":"test"}')
+            people = {'a': {'name': 'Alice', 'server': 'lobby'},
+                      'b': {'name': 'Bob', 'server': 'lobby'}}
+            identities = {'a': {'qq': '900000001'}, 'b': {'qq': '900000002'}}
+            admission = {'active': False, 'admins': {}, 'admin_sessions': {}}
+            states = {name: {'state': 'IDLE', 'boot_id': 1} for name in ('race-a', 'race-b', 'race-c')}
+            clock = [0.0]
+
+            class Backend:
+                def __init__(self, name): self.service = name
+                def read(self): return states[self.service].copy()
+                def stage(self, *_): pass
+                def command(self, command):
+                    if command.startswith('data modify storage xdu_race:state current set '):
+                        states[self.service]['state'] = 'PREPARED'
+                    elif command == 'function xdu_race:start':
+                        states[self.service]['state'] = 'RUNNING'
+                    return 'Done'
+                def commands(self, commands):
+                    if commands[0].startswith('execute if entity '):
+                        return ['Test passed' if clock[0] >= 120 else 'Test failed' for _ in commands]
+                    return ['Done' for _ in commands]
+
+            def route(command):
+                _, name, server = command.split()
+                next(p for p in people.values() if p['name'] == name)['server'] = server
+
+            with patch('raceops.manual_game.ROOT', root), \
+                 patch('raceops.manual_game.exclusive', return_value=nullcontext()), \
+                 patch('raceops.manual_game.sync_admins'), \
+                 patch('raceops.manual_game.policy', return_value=admission), \
+                 patch('raceops.manual_game.save_policy'), \
+                 patch('raceops.manual_game.connected', return_value=people), \
+                 patch('raceops.manual_game.load_identities', return_value=identities), \
+                 patch('raceops.manual_game.settings', return_value={'track_count': 1}), \
+                 patch('raceops.manual_game.apply_settings'), \
+                 patch('raceops.manual_game.Backend', Backend), \
+                 patch('raceops.manual_game.scoreboard', return_value={'gameState': 1}), \
+                 patch('raceops.manual_game.proxy_command', side_effect=route), \
+                 patch('raceops.manual_game.time.monotonic', side_effect=lambda: clock[0]), \
+                 patch('raceops.manual_game.time.sleep', side_effect=lambda seconds: clock.__setitem__(0, clock[0] + seconds)):
+                result = start()
+            self.assertEqual(result['groups'], {'A': 1, 'B': 1})
+            self.assertGreaterEqual(clock[0], 120)
+            self.assertEqual([states[name]['state'] for name in ('race-a', 'race-b')], ['RUNNING', 'RUNNING'])
 
 
 class BarrierTests(unittest.TestCase):

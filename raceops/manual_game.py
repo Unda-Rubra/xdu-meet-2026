@@ -287,12 +287,14 @@ def start():
             if time.monotonic() > deadline:
                 raise ValueError('Routing incomplete; no start sent. Inspect the prepared attempt before retry')
             time.sleep(.5)
+        # Proxy routing can finish before a client accepts and applies the 49 MB pack.
+        deadline = time.monotonic() + 300
         for group, roster in groups.items():
             backend = Backend('race-' + group.lower())
             while any('Test passed' not in result for result in backend.commands([
                     'execute if entity @a[name=' + p['name'] + ']' for p in roster])):
                 if time.monotonic() > deadline:
-                    raise ValueError('Backend admission/resource-pack loading incomplete; no start sent. Abort before retrying')
+                    raise ValueError('Backend admission/resource-pack loading incomplete after 5 minutes; no start sent. Use racectl abort before retrying')
                 time.sleep(.5)
         sync_admins()
         for group, roster in groups.items():

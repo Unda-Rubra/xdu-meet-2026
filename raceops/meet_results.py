@@ -56,7 +56,7 @@ class Results:
         if selected not in {f'第{n}轮' for n in range(1, 8)}:
             raise ValueError('Select a valid Feishu round before uploading')
         number = int(selected[1:-1])
-        users = self.meet.users_by_qq()
+        users = self.meet.users_by_qq({validate_qq(p['qq']) for s in snapshots for p in s['roster']})
         seen, scores, nicknames, issues = set(), [], [], []
         for s in snapshots:
             roster = s['roster']

@@ -7,12 +7,11 @@ Use the pinned author-tagged Sprint Racer 1.6.14 world, official creator-linked 
 ./scripts/prepare-template
 ./scripts/build-identity
 ./scripts/init-worlds --accept-eula
-export LOCAL_UID=$(id -u) LOCAL_GID=$(id -g)
-docker compose -p xdu-event up --build -d
 .venv/bin/python -m pip install -r requirements.txt
+./scripts/up
 ```
 
-`init-worlds` creates one native main lobby and private race-a/b/c backends; it refuses to overwrite any existing event. The native GP option signs remain available in the main lobby; the unrelated SprintRacer `ADMIN MENU` (restart/force-ready controls) is removed there. The race worlds are not additional waiting lobbies. Set `EVENT_BIND` in the ignored local `.env` to the host's current **private LAN IPv4** for remote players, never a public address. This exposes only proxy TCP 25565 and the read-only locked resource pack on TCP 25566; never expose backend game/RCON ports. `scripts/up` refreshes all four world URLs when the LAN address changes. Restart worlds after changing the URL.
+`init-worlds` creates one native main lobby and private race-a/b/c backends; it refuses to overwrite any existing event. The native GP option signs remain available in the main lobby; the unrelated SprintRacer `ADMIN MENU` (restart/force-ready controls) is removed there. The race worlds are not additional waiting lobbies. Set `EVENT_BIND` in the ignored local `.env` to the host's current **private LAN IPv4** for remote players, never a public address. This exposes only proxy TCP 25565 and the read-only locked resource pack on TCP 25566; never expose backend game/RCON ports. `scripts/up` validates that the address is assigned to this host and refreshes all four world URLs before starting containers; it is a foreground process to run in a terminal/supervisor. Restart after changing the LAN address rather than bypassing the preflight with a bare `docker compose up`.
 
 ## QQ identity and administrator roles
 

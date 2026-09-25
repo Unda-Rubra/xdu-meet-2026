@@ -3,6 +3,7 @@ import argparse
 import ipaddress
 import json
 import os
+import socket
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 import shutil
@@ -26,6 +27,11 @@ def bind_address():
     address = ipaddress.IPv4Address(value or '127.0.0.1')
     if not (address.is_private or address.is_loopback) or address.is_unspecified:
         raise ValueError('The event resource pack may only bind to a private LAN address')
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as probe:
+            probe.bind((str(address), 0))
+    except OSError as error:
+        raise ValueError(f'EVENT_BIND={address} is not assigned to this host; update the private LAN IP in .env before starting') from error
     return str(address)
 
 

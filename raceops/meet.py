@@ -4,7 +4,7 @@ from pathlib import Path
 from .assets import ROOT
 from .feishu import Feishu
 from .meet_store import Store
-from .qq_identity import validate_qq
+from .qq_identity import validate_qq, load_identities
 
 
 def load_config(path=None):
@@ -41,7 +41,8 @@ class Meet:
             raise ValueError('Exactly one upload-control record is required')
         return rows[0]
 
-    def users_by_qq(self):
+    def users_by_qq(self, required=None):
+        required = set(required) if required is not None else None
         result = {}
         for row in self.read('users', ['QQ号']):
             value = row['fields'].get('QQ号')
@@ -51,14 +52,26 @@ class Meet:
                 value = ''.join(v.get('text', '') for v in value)
             if isinstance(value, float) and value.is_integer():
                 value = int(value)
-            qq = validate_qq(value)
+            try:
+                qq = validate_qq(value)
+            except ValueError:
+                if required is None:
+                    raise
+                continue
+            if required is not None and qq not in required:
+                continue
             if qq in result:
                 raise ValueError('Duplicate signup QQ; resolve signup records before upload')
             result[qq] = row
         return result
 
     def doctor(self):
-        return {'tables': len(self.tables), 'signup_users': len(self.users_by_qq()),
+        signups = self.users_by_qq()
+        registrations = load_identities()
+        unmatched = sorted({row['qq'] for row in registrations.values()} - signups.keys())
+        return {'tables': len(self.tables), 'signup_users': len(signups),
+                'registered_game_accounts': len(registrations),
+                'registered_qq_without_signup': unmatched,
                 'pending_uploads': len(self.store.uploads('pending')), 'mode': 'manual-token-upload'}
 
     def ensure_schema(self):
