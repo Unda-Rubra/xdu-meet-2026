@@ -10,4 +10,4 @@ Quick operator path:
 4. After every active group completes each track, the coordinator releases the next one together. After final awards the players return to the main lobby and the local service issues a result token.
 5. Set `比赛控制／当前轮次` in Feishu and **explicitly** run `./scripts/meet-service upload --token TOKEN` to count that race. Do not upload warmups.
 
-See [event rules](docs/RULES.md), [field/command operations](docs/OPERATIONS.md) and [architecture](docs/IMPLEMENTATION_GRAPH.md). QQ is still a supervised signup key, not login authentication; the proxy's verified UUID and vanilla backend UUID are different and recorded separately. Only the proxy may be reachable by participants; never expose backend or RCON ports.
+现场指令、主机脚本、飞书查看及抽奖见[一页速查](docs/QUICK_REFERENCE.md)；完整流程见[活动规则](docs/RULES.md)、[详细操作](docs/OPERATIONS.md)和[架构](docs/IMPLEMENTATION_GRAPH.md)。QQ 仍是签到键，不是登录认证；代理认证 UUID 和原版世界 UUID 不同。比赛后端与 RCON 不对玩家开放。
