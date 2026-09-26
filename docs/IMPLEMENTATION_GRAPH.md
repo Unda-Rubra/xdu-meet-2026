@@ -4,7 +4,7 @@ This document describes the current **manual token** design, not the retired sev
 
 ```mermaid
 flowchart TD
-    Login[Proxy: offline player enters the only main lobby] --> QQ[Private QQ registration]
+    Login[Proxy: Yggdrasil-authenticated player enters the only main lobby] --> QQ[Private QQ registration]
     QQ --> Config[Console-authorized admin configures native GP]
     Config --> Start[Explicit /gpstart or host racectl start]
     Start --> Groups[Random A/B or A/B/C from present non-admins]

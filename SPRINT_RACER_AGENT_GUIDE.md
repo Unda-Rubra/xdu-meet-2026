@@ -5,7 +5,7 @@ Current contract: **one main lobby, live QQ registration, random grouping at eac
 ## Safety
 
 - Keep the pinned author-tagged Sprint Racer 1.6.14 world, Mario Kart Track Pack and vanilla Minecraft 26.3 servers; do not replace game physics or item handlers with a mock or another server implementation.
-- QQ is not authentication. Only the private proxy receives players; native backend game and RCON ports remain inaccessible to them. Do not grant operator/commentator status from QQ, player name or offline UUID. Console role grants are separate.
+- Login is verified by the online-mode BungeeCord proxy using pinned authlib-injector and the configured Yggdrasil service. The native vanilla backends must remain offline-mode and private; they compute name-based UUIDs internally. Keep the authenticated proxy UUID distinct in the immutable roster and QQ registry. QQ is not login authentication. Console roles are bound to the current authenticated proxy session, never a QQ or backend UUID.
 - The sole main lobby hosts the native GP settings editor. Do not allow racers into race-world lobbies except the built-in award phase. Administrator commentators are always spectators and never counted.
 - Each active A/B/C backend must finish a track before any active backend advances. The archived attempt and token are generated only after final ceremonies. Missing evidence blocks publication; never infer a valid result from a timer or UI banner.
 - Background service work is local only. Feishu receives actual QQ attendance, nickname, group and results **only** when `./scripts/meet-service upload --token ...` is invoked. First upload binds that token to the Feishu selected round; retries cannot rebind it. An unuploaded token is a warmup.

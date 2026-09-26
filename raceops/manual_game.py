@@ -5,6 +5,7 @@ import secrets
 import time
 import uuid
 from .assets import ROOT
+from .identity import offline_uuid
 from .cli import exclusive
 from .model import canonical_hash
 from .qq_identity import load_identities, connected, policy, save_policy
@@ -172,7 +173,10 @@ def sync_admins():
                     'execute as @a[tag=xdu_admin] run function xdu_race:capture_admin'])
     if not admission.get('active'):
         for tagged in lobby.read('admins', 'xdu_race:scratch'):
-            uid = str(uuid.UUID(int=sum((int(n) & 0xffffffff) << (96 - 32 * i) for i, n in enumerate(tagged['uuid']))))
+            uid = next((auth_uid for auth_uid, player in people.items()
+                        if offline_uuid(player['name']) == str(uuid.UUID(int=sum(
+                            (int(n) & 0xffffffff) << (96 - 32 * i)
+                            for i, n in enumerate(tagged['uuid']))))), None)
             if uid not in authorized:
                 continue
             groups = [g for g in 'ABC' if 'xdu_commentary_' + g in tagged['tags']]
@@ -244,7 +248,8 @@ def start():
                 continue
             if p['server'] != 'lobby' or uid not in identities:
                 raise ValueError('All non-admin players must be registered and waiting in the main lobby')
-            entrants.append({'uuid': uid, 'name': p['name'], 'qq': identities[uid]['qq']})
+            entrants.append({'uuid': offline_uuid(p['name']), 'authenticated_uuid': uid,
+                             'name': p['name'], 'qq': identities[uid]['qq']})
         if not 2 <= len(entrants) <= 51:
             raise ValueError('A GP requires 2–51 registered non-admin players')
         settings_value = settings()
@@ -266,13 +271,14 @@ def start():
                     'grand_prix_round': 0, 'state': 'PREPARED', 'frozen': False, 'track_index': 0,
                     'track_count': settings_value['track_count'], 'revision': 1, 'boot_id': states[backend.service]['boot_id'],
                     'settings_hash': setting_hash, 'preset_hash': setting_hash, 'roster_hash': roster_hash,
-                    'identity_mode': 'offline_trusted_private', 'roster': roster,
+                    'identity_mode': 'yggdrasil_authenticated_proxy', 'roster': roster,
                     'results': {}, 'template_hash': template_hash}
             backend.stage('plan', plan)
             backend.command('data modify storage xdu_race:state current set from storage xdu_race:request plan')
             backend.command('tag @a remove xdu_member')
         admission.update(active=True, attempt=attempt, servers=['race-' + g.lower() for g in groups],
-                         members={p['uuid']: 'race-' + g.lower() for g, roster in groups.items() for p in roster})
+                         members={p['authenticated_uuid']: 'race-' + g.lower()
+                                  for g, roster in groups.items() for p in roster})
         save_policy(admission)
         for uid, server in admission['members'].items():
             proxy_command('send ' + people[uid]['name'] + ' ' + server)

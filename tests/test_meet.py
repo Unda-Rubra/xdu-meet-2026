@@ -130,12 +130,13 @@ class AdmissionTests(unittest.TestCase):
             identities = {'a': {'qq': '900000001'}, 'b': {'qq': '900000002'}}
             admission = {'active': False, 'admins': {}, 'admin_sessions': {}}
             states = {name: {'state': 'IDLE', 'boot_id': 1} for name in ('race-a', 'race-b', 'race-c')}
+            plans = {}
             clock = [0.0]
 
             class Backend:
                 def __init__(self, name): self.service = name
                 def read(self): return states[self.service].copy()
-                def stage(self, *_): pass
+                def stage(self, path, value): plans[self.service] = value
                 def command(self, command):
                     if command.startswith('data modify storage xdu_race:state current set '):
                         states[self.service]['state'] = 'PREPARED'
@@ -169,6 +170,12 @@ class AdmissionTests(unittest.TestCase):
             self.assertEqual(result['groups'], {'A': 1, 'B': 1})
             self.assertGreaterEqual(clock[0], 120)
             self.assertEqual([states[name]['state'] for name in ('race-a', 'race-b')], ['RUNNING', 'RUNNING'])
+            from raceops.identity import offline_uuid
+            self.assertEqual(set(admission['members']), {'a', 'b'})
+            self.assertEqual({p['authenticated_uuid'] for plan in plans.values() for p in plan['roster']}, {'a', 'b'})
+            self.assertEqual({p['uuid'] for plan in plans.values() for p in plan['roster']},
+                             {offline_uuid('Alice'), offline_uuid('Bob')})
+            self.assertTrue(all(plan['identity_mode'] == 'yggdrasil_authenticated_proxy' for plan in plans.values()))
 
 
 class BarrierTests(unittest.TestCase):

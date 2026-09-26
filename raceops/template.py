@@ -103,7 +103,7 @@ def prepare() -> Path:
         receipt = {"schema_version": 1, "world_sha256": lock["artifacts"]["world"]["sha256"],
                    "patch_manifest_sha256": digest(ROOT / "patches/manifest.json"),
                    "adapter_tree_hash": tree_hash(ROOT / "patches/xdu_race"),
-                   "adapter_version": "2.0.0", "identity_mode": "offline_trusted_private",
+                   "adapter_version": "2.0.0", "identity_mode": "yggdrasil_authenticated_proxy",
                    "mario_tracks_sha256": lock["artifacts"]["mario_tracks"]["sha256"],
                    "template_hash": tree_hash(temporary)}
         (temporary / "xdu-template.json").write_text(json.dumps(receipt, indent=2) + "\n")

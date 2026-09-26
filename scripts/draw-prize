@@ -1,0 +1,7 @@
+#!/usr/bin/env python3
+"""Draw one onsite attendee and mark the winner in the same Base record patch."""
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from raceops.lottery import main
+main()

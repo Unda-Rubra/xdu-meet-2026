@@ -50,6 +50,7 @@ def result_rows(snapshot, exported_at):
             raise ValueError('Missing native result for a registered entrant')
         rows.append({'event_id': snapshot['event_id'], 'attempt_id': snapshot['attempt_id'],
                      'group': snapshot['group'], 'qq': player['qq'], 'uuid': player['uuid'],
+                     'authenticated_uuid': player.get('authenticated_uuid', ''),
                      'name': player['name'], 'native_total': result['total'], 'status': result['status'],
                      'exported_at': exported_at})
     return [], rows
@@ -73,8 +74,8 @@ def export(backends, round_number=None, attempt_id=None, directory: Path | None 
     export_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S") + "-" + uuid.uuid4().hex
     temporary = Path(tempfile.mkdtemp(prefix=".export-", dir=directory))
     manifest = {"schema_version": 1, "export_id": export_id, "exported_at": exported_at,
-                "complete": False, "identity_mode": "offline_trusted_private", "pending_adjudication": True,
-                "servers": {}, "files": {}, "errors": [], "warnings": ["Offline identities are organizer-supervised, not authenticated", "No external event points computed"]}
+                "complete": False, "identity_mode": "yggdrasil_authenticated_proxy", "pending_adjudication": True,
+                "servers": {}, "files": {}, "errors": [], "warnings": ["Native vanilla backends use offline UUIDs internally; the proxy-verified UUID is recorded separately", "No external event points computed"]}
     track_rows, gp_rows = [], []
     try:
         for backend in backends:

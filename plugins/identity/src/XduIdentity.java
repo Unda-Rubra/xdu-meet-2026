@@ -89,6 +89,8 @@ public final class XduIdentity extends Plugin implements Listener {
     }
     @Override public void onEnable() {
         try {
+            if (!getProxy().getConfig().isOnlineMode() || getProxy().getConfig().isIpForward())
+                throw new IllegalStateException("Authenticated Yggdrasil proxy required; vanilla backends must not use Bungee IP forwarding");
             getDataFolder().mkdirs(); identities = getDataFolder().toPath().resolve("identities.json");
             admissions = getDataFolder().toPath().resolve("admissions.json"); online = getDataFolder().toPath().resolve("online.json");
             JsonObject root = read(identities); if (root.has("players")) players = root.getAsJsonObject("players");
@@ -216,6 +218,10 @@ public final class XduIdentity extends Plugin implements Listener {
     }
     @EventHandler public synchronized void connected(PostLoginEvent event) {
         ProxiedPlayer p = event.getPlayer(); JsonObject row = entry(p);
+        if (!p.getName().matches("[A-Za-z0-9_]{1,16}")) {
+            p.disconnect(TextComponent.fromLegacyText("当前比赛原版赛道仅支持 1-16 位英数字/下划线游戏名"));
+            return;
+        }
         sessions.put(p.getUniqueId(), UUID.randomUUID().toString());
         pending.remove(p.getUniqueId());
         if (row != null && !p.getName().equals(row.get("name").getAsString())) {

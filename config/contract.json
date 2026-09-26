@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "adapter_version": "2.0.0",
-  "identity_mode": "offline_trusted_private",
+  "identity_mode": "yggdrasil_authenticated_proxy",
   "administration": "console_granted_commentator_tags",
   "namespace": "xdu_race",
   "state_storage": "xdu_race:state",

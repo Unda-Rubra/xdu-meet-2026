@@ -14,7 +14,7 @@ x-server: &server
   restart: "no"
 x-race: &race
   <<: *server
-  command: [-Xms256M, "-Xmx${RACE_HEAP:-1024M}", -jar, /server.jar, --nogui]
+  command: [-Xms256M, "-Xmx${RACE_HEAP:-1024M}", -Dauthlibinjector.noLogFile, -Dauthlibinjector.mojangNamespace=disabled, -Dauthlibinjector.usernameCheck=enabled, "-javaagent:/authlib-injector.jar=https://skin.mualliance.ltd/api/yggdrasil", -jar, /server.jar, --nogui]
   healthcheck:
     test: [CMD, python3, -m, raceops.health]
     start_period: 60s
@@ -27,25 +27,29 @@ services:
     volumes:
       - ./volumes/event/race-a:/data
       - ./downloads/mojang_26.3.jar:/server.jar:ro
+      - ./downloads/authlib-injector-1.2.8.jar:/authlib-injector.jar:ro
       - ./volumes/event/secrets/race-a:/run/secrets/rcon:ro
   race-b:
     <<: *race
     volumes:
       - ./volumes/event/race-b:/data
       - ./downloads/mojang_26.3.jar:/server.jar:ro
+      - ./downloads/authlib-injector-1.2.8.jar:/authlib-injector.jar:ro
       - ./volumes/event/secrets/race-b:/run/secrets/rcon:ro
   race-c:
     <<: *race
     volumes:
       - ./volumes/event/race-c:/data
       - ./downloads/mojang_26.3.jar:/server.jar:ro
+      - ./downloads/authlib-injector-1.2.8.jar:/authlib-injector.jar:ro
       - ./volumes/event/secrets/race-c:/run/secrets/rcon:ro
   lobby:
     <<: *server
-    command: [-Xms128M, "-Xmx${LOBBY_HEAP:-512M}", -jar, /server.jar, --nogui]
+    command: [-Xms128M, "-Xmx${LOBBY_HEAP:-512M}", -Dauthlibinjector.noLogFile, -Dauthlibinjector.mojangNamespace=disabled, -Dauthlibinjector.usernameCheck=enabled, "-javaagent:/authlib-injector.jar=https://skin.mualliance.ltd/api/yggdrasil", -jar, /server.jar, --nogui]
     volumes:
       - ./volumes/event/lobby:/data
       - ./downloads/mojang_26.3.jar:/server.jar:ro
+      - ./downloads/authlib-injector-1.2.8.jar:/authlib-injector.jar:ro
       - ./volumes/event/secrets/lobby:/run/secrets/rcon:ro
     healthcheck:
       test: [CMD, python3, -m, raceops.health, --lobby]
@@ -68,12 +72,13 @@ services:
       retries: 3
   proxy:
     <<: *server
-    command: [-Xms128M, "-Xmx${PROXY_HEAP:-256M}", -jar, /server.jar]
+    command: [-Xms128M, "-Xmx${PROXY_HEAP:-256M}", -Dauthlibinjector.noLogFile, -Dauthlibinjector.mojangNamespace=disabled, -Dauthlibinjector.usernameCheck=enabled, "-javaagent:/authlib-injector.jar=https://skin.mualliance.ltd/api/yggdrasil", -jar, /server.jar]
     stdin_open: true
     ports: ["${EVENT_BIND:-127.0.0.1}:25565:25565"]
     volumes:
       - ./volumes/event/proxy:/data
       - ./downloads/BungeeCord-2096.jar:/server.jar:ro
+      - ./downloads/authlib-injector-1.2.8.jar:/authlib-injector.jar:ro
     depends_on:
       race-a: {condition: service_healthy}
       race-b: {condition: service_healthy}

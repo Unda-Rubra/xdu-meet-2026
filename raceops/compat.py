@@ -71,7 +71,7 @@ def prepare(accepted: bool, destination: Path = DATA, races: tuple[str, ...] = (
             directory = temporary / service
             (directory / "eula.txt").write_text("# Explicitly accepted by deployment owner\neula=true\n")
             properties = {
-                "level-name": "world", "online-mode": "false", "enforce-secure-profile": "false",
+                "level-name": "world", "online-mode": "false", "enforce-secure-profile": "true" if template is not None else "false",
                 "enable-rcon": "true", "rcon.port": "25575", "rcon.password": password,
                 "broadcast-rcon-to-ops": "false", "server-port": "25565", "max-players": "60" if service == "lobby" else "20",
                 "difficulty": "2", "allow-flight": "true", "view-distance": "8",
@@ -99,7 +99,8 @@ def prepare(accepted: bool, destination: Path = DATA, races: tuple[str, ...] = (
         for module in ("cmd_server", "cmd_send"):
             shutil.copyfile(ROOT / "downloads" / lock["artifacts"][module]["filename"], proxy / "plugins" / f"{module}.jar")
         proxy_configuration = {
-            "online_mode": False, "ip_forward": False, "network_compression_threshold": 256,
+            "online_mode": template is not None, "ip_forward": False, "enforce_secure_profile": template is not None,
+            "network_compression_threshold": 256,
             "player_limit": 60, "connection_throttle": 4000, "prevent_proxy_connections": False,
             "log_commands": False, "log_pings": False,
             "permissions": {"default": []}, "groups": {},
@@ -110,7 +111,7 @@ def prepare(accepted: bool, destination: Path = DATA, races: tuple[str, ...] = (
                            "max_players": 60, "tab_list": "GLOBAL_PING", "motd": "XDU private event"}],
         }
         (proxy / "config.yml").write_text(json.dumps(proxy_configuration, indent=2) + "\n")
-        (temporary / "acceptance.json").write_text(json.dumps({"eula": "explicitly_accepted", "identity_mode": "offline_trusted_private", "admin_policy": "host_only", "impersonation_risk": "accepted_by_owner", "at_utc": datetime.now(timezone.utc).isoformat(), "scope": "local compatibility harness"}, indent=2) + "\n")
+        (temporary / "acceptance.json").write_text(json.dumps({"eula": "explicitly_accepted", "identity_mode": "yggdrasil_authenticated_proxy" if template else "offline_compatibility_harness", "admin_policy": "host_only", "at_utc": datetime.now(timezone.utc).isoformat(), "scope": "private event" if template else "local compatibility harness"}, indent=2) + "\n")
         os.rename(temporary, destination)
     except BaseException:
         shutil.rmtree(temporary)

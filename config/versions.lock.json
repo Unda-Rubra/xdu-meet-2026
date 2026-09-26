@@ -21,6 +21,12 @@
       "url": "https://drive.usercontent.google.com/download?id=19NIBWetvXX1sYWvLpBOWCZjkn-sLDX8t&export=download&confirm=t",
       "sha256": "1a1ad964b313a7d5586af35e075cc0ac9d8250ab642a99bc467d9b846cfae5bd"
     },
+    "authlib_injector": {
+      "filename": "authlib-injector-1.2.8.jar",
+      "version": "1.2.8",
+      "url": "https://authlib-injector.yushi.moe/artifact/56/authlib-injector-1.2.8.jar",
+      "sha256": "9c7f4343e6c82034958ffb48c14a2cb0c85928be7283103ce17da00c6d5a7b10"
+    },
     "bungeecord": {
       "filename": "BungeeCord-2096.jar",
       "version": "2096",

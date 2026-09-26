@@ -1,4 +1,4 @@
-"""Offline UUIDs identify a connection, not a person or an administrator."""
+"""Vanilla backend UUID for a name; the proxy's authenticated UUID is separate."""
 import hashlib
 import re
 import uuid
